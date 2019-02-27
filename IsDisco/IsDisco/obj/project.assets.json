@@ -5238,10 +5238,9 @@
       ]
     },
     "Microsoft.AspNetCore.Razor.Design/2.1.2": {
-      "sha512": "fe1+dpy+eM4IX1zodsvkihO1Spuj0NecfStWzvkYoMo7/ziOsqSv4vFK36ZpBfHa4gpdCEwaU46EPzdq+ZDYhQ==",
+      "sha512": "ab4+TZw3Sxqrr5TwrwVyABeQkhSxYMJXgG6yZw7T+r6Vz+hcOt+pK79o15ESG7kZvWAK9wRG7emnTIia5O6R1Q==",
       "type": "package",
       "path": "microsoft.aspnetcore.razor.design/2.1.2",
-      "hasTools": true,
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -11793,30 +11792,28 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\pmads\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "/Users/thomasmattsson/.nuget/packages/": {},
+    "/usr/local/share/dotnet/sdk/NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\pmads\\OneDrive\\Documents\\GitHub\\Backend_website_Isdisco\\IsDisco\\IsDisco\\IsDisco.csproj",
+      "projectUniqueName": "/Users/thomasmattsson/Documents/GitHub/Backend_website_Isdisco/IsDisco/IsDisco/IsDisco.csproj",
       "projectName": "IsDisco",
-      "projectPath": "C:\\Users\\pmads\\OneDrive\\Documents\\GitHub\\Backend_website_Isdisco\\IsDisco\\IsDisco\\IsDisco.csproj",
-      "packagesPath": "C:\\Users\\pmads\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\pmads\\OneDrive\\Documents\\GitHub\\Backend_website_Isdisco\\IsDisco\\IsDisco\\obj\\",
+      "projectPath": "/Users/thomasmattsson/Documents/GitHub/Backend_website_Isdisco/IsDisco/IsDisco/IsDisco.csproj",
+      "packagesPath": "/Users/thomasmattsson/.nuget/packages/",
+      "outputPath": "/Users/thomasmattsson/Documents/GitHub/Backend_website_Isdisco/IsDisco/IsDisco/obj/",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\pmads\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "/Users/thomasmattsson/.config/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.1"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
