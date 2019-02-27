@@ -2,10 +2,16 @@
     ViewData["Title"] = "Home Page";
 }
 <style>
+body {
+    background-color: #e9ebee;
+}
+
 table {
   font-family: arial, sans-serif;
   border-collapse: collapse;
-  width: 35%;
+  width: 95%;
+  background-color: white;
+  border-radius: 10px;
 }
 
 td, th {
@@ -15,10 +21,14 @@ td, th {
 }
 
 tr:nth-child(even) {
-  background-color: #dddddd;
+  background-color: #f4f5f4;
 }
+
 </style>
 
+<div class="row">
+<div class="col-sm-6">
+<h1>Vagter</h1>
 <table>
     <tr>
         <th>Navn</th>
@@ -43,9 +53,66 @@ tr:nth-child(even) {
     </tr>
 </table>
 
+<br>
+<h2> Live Feed</h2>
+<table>
+    <tr>
+        <th>Navn</th>
+        <th>Sang</th>
+        <th>Kunstner</th>
+        <th>Tid siden</th>
+        <th>Muligheder</th>
+    </tr>
+    <tr>
+        <td>Mark</td>
+        <td>Job</td>
+        <td>Otto</td>
+        <td>10 s</td>
+        <td>mdo</td>
+    </tr>
+    <tr>
+        <td>Job</td>
+        <td>Thomton</td>
+        <td>Thomton</td>
+        <td>30 s</td>
+        <td>fat</td>
+    </tr>
+</table>
+</div>
 
+
+<div class="col-sm-6">
+    <h1>Musik ønsker</h1>
+<table  >
+    <tr>
+        <th>Navn</th>
+        <th>Sang</th>
+        <th>Kunstner</th>
+        <th>Tid siden</th>
+        <th>Muligheder</th>
+    </tr>
+    <tr>
+        <td>Mark</td>
+        <td>Job</td>
+        <td>Otto</td>
+        <td>10 s</td>
+        <td>mdo</td>
+    </tr>
+    <tr>
+        <td>Job</td>
+        <td>Thomton</td>
+        <td>Thomton</td>
+        <td>30 s</td>
+        <td>fat</td>
+    </tr>
+</table>
+</div>
+</div>
+
+
+<!-- 
 <div class="row">
-    <div class="col-md-3">
+    <div class="col-xl-2">
         <h2>Application uses</h2>
         <ul>
             <li>Sample pages using ASP.NET Core MVC</li>
@@ -82,4 +149,4 @@ tr:nth-child(even) {
             <li><a href="https://go.microsoft.com/fwlink/?LinkID=398609">Publish to Microsoft Azure Web Apps</a></li>
         </ul>
     </div>
-</div>
+</div> -->
