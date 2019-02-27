@@ -1,8 +1,5 @@
 ﻿<Properties StartupConfiguration="{87518F96-DC2A-46DF-988D-A225A6D8DFFD}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="IsDisco/Views/Home/Contact.cshtml">
-    <Files>
-      <File FileName="IsDisco/Views/Home/Contact.cshtml" Line="8" Column="14" />
-    </Files>
+  <MonoDevelop.Ide.Workbench>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
@@ -17,7 +14,9 @@
                   <Node name="Contact.cshtml" selected="True" />
                 </Node>
               </Node>
-              <Node name="wwwroot" expanded="True" />
+              <Node name="wwwroot" expanded="True">
+                <Node name="css" expanded="True" />
+              </Node>
             </Node>
           </Node>
         </State>
