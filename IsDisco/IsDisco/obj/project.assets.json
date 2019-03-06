@@ -5686,17 +5686,18 @@
       ]
     },
     "Microsoft.CodeAnalysis.Analyzers/1.1.0": {
-      "sha512": "G+5/MBoudTIo83j/60qI1RsyCxc9ulElhPzhGOriDh3TeXrfnI2PwVDPYID8E98zD8DBYnvJO9qTFmZiz7VW8Q==",
+      "sha512": "HS3iRWZKcUw/8eZ/08GXKY2Bn7xNzQPzf8gRPHGSowX7u7XXu9i9YEaBeBNKUXWfI7qjvT2zXtLUvbN0hds8vg==",
       "type": "package",
       "path": "microsoft.codeanalysis.analyzers/1.1.0",
       "files": [
-        "Microsoft.CodeAnalysis.Analyzers.1.1.0.nupkg.sha512",
-        "Microsoft.CodeAnalysis.Analyzers.nuspec",
+        ".nupkg.metadata",
         "ThirdPartyNotices.rtf",
         "analyzers/dotnet/cs/Microsoft.CodeAnalysis.Analyzers.dll",
         "analyzers/dotnet/cs/Microsoft.CodeAnalysis.CSharp.Analyzers.dll",
         "analyzers/dotnet/vb/Microsoft.CodeAnalysis.Analyzers.dll",
         "analyzers/dotnet/vb/Microsoft.CodeAnalysis.VisualBasic.Analyzers.dll",
+        "microsoft.codeanalysis.analyzers.1.1.0.nupkg.sha512",
+        "microsoft.codeanalysis.analyzers.nuspec",
         "tools/install.ps1",
         "tools/uninstall.ps1"
       ]
@@ -9065,12 +9066,11 @@
       ]
     },
     "System.Linq.Queryable/4.0.1": {
-      "sha512": "QqAzT8HcASf7pNj3mj1Gv1vgzaVwwPGwOGWkZd76YNhZroGCF7xdE0g9e78hviE2owqZGDsoQmXwgbCv2KnFLQ==",
+      "sha512": "Yn/WfYe9RoRfmSLvUt2JerP0BTGGykCZkQPgojaxgzF2N0oPo+/AhB8TXOpdCcNlrG3VRtsamtK2uzsp3cqRVw==",
       "type": "package",
       "path": "system.linq.queryable/4.0.1",
       "files": [
-        "System.Linq.Queryable.4.0.1.nupkg.sha512",
-        "System.Linq.Queryable.nuspec",
+        ".nupkg.metadata",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/monoandroid10/_._",
@@ -9118,7 +9118,9 @@
         "ref/xamarinios10/_._",
         "ref/xamarinmac20/_._",
         "ref/xamarintvos10/_._",
-        "ref/xamarinwatchos10/_._"
+        "ref/xamarinwatchos10/_._",
+        "system.linq.queryable.4.0.1.nupkg.sha512",
+        "system.linq.queryable.nuspec"
       ]
     },
     "System.Memory/4.5.1": {
@@ -11912,23 +11914,23 @@
     ]
   },
   "packageFolders": {
-    "/Users/rasmusG/.nuget/packages/": {},
+    "/Users/thomasmattsson/.nuget/packages/": {},
     "/usr/local/share/dotnet/sdk/NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/rasmusG/Backend_website_Isdisco/IsDisco/IsDisco/IsDisco.csproj",
+      "projectUniqueName": "/Users/thomasmattsson/Documents/GitHub/Backend_website_Isdisco/IsDisco/IsDisco/IsDisco.csproj",
       "projectName": "IsDisco",
-      "projectPath": "/Users/rasmusG/Backend_website_Isdisco/IsDisco/IsDisco/IsDisco.csproj",
-      "packagesPath": "/Users/rasmusG/.nuget/packages/",
-      "outputPath": "/Users/rasmusG/Backend_website_Isdisco/IsDisco/IsDisco/obj/",
+      "projectPath": "/Users/thomasmattsson/Documents/GitHub/Backend_website_Isdisco/IsDisco/IsDisco/IsDisco.csproj",
+      "packagesPath": "/Users/thomasmattsson/.nuget/packages/",
+      "outputPath": "/Users/thomasmattsson/Documents/GitHub/Backend_website_Isdisco/IsDisco/IsDisco/obj/",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "/Users/rasmusG/.config/NuGet/NuGet.Config"
+        "/Users/thomasmattsson/.config/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.1"
