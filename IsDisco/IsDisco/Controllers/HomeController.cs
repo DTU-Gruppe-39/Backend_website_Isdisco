@@ -15,7 +15,7 @@ namespace IsDisco.Controllers
             return View();
         }
 
-        public IActionResult About()
+        public IActionResult Blacklist()
         {
             ViewData["Message"] = "Your application description page.";
 
@@ -30,6 +30,11 @@ namespace IsDisco.Controllers
         }
 
         public IActionResult Privacy()
+        {
+            return View();
+        }
+
+        public IActionResult Settings()
         {
             return View();
         }
