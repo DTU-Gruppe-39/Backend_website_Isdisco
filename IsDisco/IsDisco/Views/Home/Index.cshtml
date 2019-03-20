@@ -1,116 +1,151 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+
+    List<User> users = new List<User>();
+    users.Add(new IsDisco.Models.User("Mark", 0));
+    users.Add(new IsDisco.Models.User("Thomas", 1));
+    users.Add(new IsDisco.Models.User("Rasmus", 2));
+    users.Add(new IsDisco.Models.User("Søren", 3));
+    users.Add(new IsDisco.Models.User("Magnus", 4));
+    users.Add(new IsDisco.Models.User("Patrick", 5));
+    users.Add(new IsDisco.Models.User("Marcus", 6));
+    users.Add(new IsDisco.Models.User("Mark2", 7));
+    users.Add(new IsDisco.Models.User("Thomas2", 8));
+    users.Add(new IsDisco.Models.User("Rasmus2", 9));
+    users.Add(new IsDisco.Models.User("Søren2", 10));
+    users.Add(new IsDisco.Models.User("Magnus2", 11));
+    users.Add(new IsDisco.Models.User("Patrick2", 12));
+    users.Add(new IsDisco.Models.User("Marcus2", 13));
+
+    users[0].VIP = true;
+    users[1].VIP = true;
+    users[2].VIP=true;
+    users[3].VIP = true;
+    users[4].VIP = true;
+    users[5].VIP = true;
+    users[6].VIP = true;
+    users[7].VIP = true;
+    users[8].VIP = true;
+    users[9].VIP = true;
+    users[10].VIP = true;
+    users[11].VIP = true;
+    users[12].VIP = true;
+    users[13].VIP = true;
+
 }
 <style>
-body {
-    background-color: #e9ebee;
-}
+    body {
+        background-color: #e9ebee;
+    }
 
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 95%;
-  background-color: white;
-  border-radius: 10px;
-}
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 95%;
+        background-color: white;
+        border-radius: 10px;
+    }
 
-td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
 
-tr:nth-child(even) {
-  background-color: #f4f5f4;
-}
-
+    tr:nth-child(even) {
+        background-color: #f4f5f4;
+    }
 </style>
 
 <div class="row">
-<div class="col-sm-6">
-<h1>Vagter</h1>
-<table>
-    <tr>
-        <th>Navn</th>
-        <th>Sang</th>
-        <th>Kunstner</th>
-        <th>Tid siden</th>
-        <th>Muligheder</th>
-    </tr>
-    <tr>
-        <td>Mark</td>
-        <td>Job</td>
-        <td>Otto</td>
-        <td>10 s</td>
-        <td>mdo</td>
-    </tr>
-    <tr>
-        <td>Job</td>
-        <td>Thomton</td>
-        <td>Thomton</td>
-        <td>30 s</td>
-        <td>fat</td>
-    </tr>
-</table>
+    <div class="col-sm-6">
+        <h1>Vagter</h1>
+        <div style="height:400px;overflow-y:scroll">
 
-<br>
-<h2> Live Feed</h2>
-<table>
-    <tr>
-        <th>Navn</th>
-        <th>Sang</th>
-        <th>Kunstner</th>
-        <th>Tid siden</th>
-        <th>Muligheder</th>
-    </tr>
-    <tr>
-        <td>Mark</td>
-        <td>Job</td>
-        <td>Otto</td>
-        <td>10 s</td>
-        <td>mdo</td>
-    </tr>
-    <tr>
-        <td>Job</td>
-        <td>Thomton</td>
-        <td>Thomton</td>
-        <td>30 s</td>
-        <td>fat</td>
-    </tr>
-</table>
+            <table>
+
+                <tr>
+                    <th>Navn</th>
+                    <th>Sang</th>
+                    <th>Kunstner</th>
+                    <th>Tid siden</th>
+                    <th>Muligheder</th>
+                </tr>
+                @foreach (var User in users)
+                {
+                    if (User.VIP == true)
+                    {
+                        <tr>
+                            <td>@User.name </td>
+                            <td>Job @User.ID </td>
+                            <td>Otto </td>
+                            <td>10 s </td>
+                            <td>mdo @User.VIP</td>
+                        </tr>
+                    }
+                }
+
+            </table>
+        </div>
+
+        <br>
+        <h2> Live Feed</h2>
+        <table>
+            <tr>
+                <th>Navn</th>
+                <th>Sang</th>
+                <th>Kunstner</th>
+                <th>Tid siden</th>
+                <th>Muligheder</th>
+            </tr>
+            <tr>
+                <td>Mark</td>
+                <td>Job</td>
+                <td>Otto</td>
+                <td>10 s</td>
+                <td>mdo</td>
+            </tr>
+            <tr>
+                <td>Job</td>
+                <td>Thomton</td>
+                <td>Thomton</td>
+                <td>30 s</td>
+                <td>fat</td>
+            </tr>
+        </table>
+    </div>
+
+
+    <div class="col-sm-6">
+        <h1>Musik ønsker</h1>
+        <table>
+            <tr>
+                <th>Navn</th>
+                <th>Sang</th>
+                <th>Kunstner</th>
+                <th>Tid siden</th>
+                <th>Muligheder</th>
+            </tr>
+            <tr>
+                <td>Mark</td>
+                <td>Job</td>
+                <td>Otto</td>
+                <td>10 s</td>
+                <td>mdo</td>
+            </tr>
+            <tr>
+                <td>Job</td>
+                <td>Thomton</td>
+                <td>Thomton</td>
+                <td>30 s</td>
+                <td>fat</td>
+            </tr>
+        </table>
+    </div>
 </div>
 
 
-<div class="col-sm-6">
-    <h1>Musik ønsker</h1>
-<table  >
-    <tr>
-        <th>Navn</th>
-        <th>Sang</th>
-        <th>Kunstner</th>
-        <th>Tid siden</th>
-        <th>Muligheder</th>
-    </tr>
-    <tr>
-        <td>Mark</td>
-        <td>Job</td>
-        <td>Otto</td>
-        <td>10 s</td>
-        <td>mdo</td>
-    </tr>
-    <tr>
-        <td>Job</td>
-        <td>Thomton</td>
-        <td>Thomton</td>
-        <td>30 s</td>
-        <td>fat</td>
-    </tr>
-</table>
-</div>
-</div>
-
-
-<!-- 
+<!--
 <div class="row">
     <div class="col-xl-2">
         <h2>Application uses</h2>
@@ -149,4 +184,25 @@ tr:nth-child(even) {
             <li><a href="https://go.microsoft.com/fwlink/?LinkID=398609">Publish to Microsoft Azure Web Apps</a></li>
         </ul>
     </div>
-</div> -->
+</div>
+
+
+
+    dummy table info.
+     <tr>
+        <td>Mark</td>
+        <td>Job</td>
+        <td>Otto</td>
+        <td>10 s</td>
+        <td>mdo</td>
+    </tr>
+    <tr>
+        <td>Job</td>
+        <td>Thomton</td>
+        <td>Thomton</td>
+        <td>30 s</td>
+        <td>fat</td>
+    </tr>
+
+
+    -->
