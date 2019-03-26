@@ -1,7 +1,22 @@
 ﻿@{
     ViewData["Title"] = "Blacklist";
+
+    List<User> users = new List<User>();
+    users.Add(new IsDisco.Models.User("Mark", 0));
+    users.Add(new IsDisco.Models.User("Thomas", 1));
+    users.Add(new IsDisco.Models.User("Mark", 2));
+    users.Add(new IsDisco.Models.User("Thomas", 3));
+
+    List<Track> track = new List<Track>();
+    track.Add(new IsDisco.Models.Track("Test", users, "Baby", "Justin", DateTime.Now, 0, false, 5, false));
+    track.Add(new IsDisco.Models.Track("Test", users, "Despacito", "Bob", DateTime.Now, 0, false, 5, false));
+    track.Add(new IsDisco.Models.Track("Test", users, "Gangnam Style", "PSY", DateTime.Now, 0, false, 5, false));
+    track.Add(new IsDisco.Models.Track("Test", users, "오빤 강남스타일 ", "강남스타일 ", DateTime.Now, 0, false, 5, false));
+
 }
 
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <style>
     body {
         background-color: #e9ebee;
@@ -10,7 +25,9 @@
     table {
         font-family: arial, sans-serif;
         border-collapse: collapse;
-        width: 95%;
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
         background-color: white;
         border-radius: 10px;
     }
@@ -24,9 +41,51 @@
     tr:nth-child(even) {
         background-color: #f4f5f4;
     }
+
+    .material-icons {
+        align: auto;
+        border: none;
+        background-color: transparent;      
+    }
+    .material-icons:hover{
+        color: red;
+        transition: 0.2s;
+    }
+
 </style>
 
-<h2>@ViewData["Title"]</h2>
-<h3>@ViewData["Message"]</h3>
+
+<div class="row">
+ <div class="col-md-12">
+ <center>
+ <h1> <b> 
+     @ViewData["Title"] 
+ </b> </h1>
+ </center>
+<table>
+     <tr>
+         <th>Sang</th>
+         <th>Kunstner</th>
+         <th>Ønsket i aften</th>
+         <th></th>
+     </tr>
+     
+     @foreach (var Track in track)
+    {
+        <tr>
+            <td>@Track.song </td>
+            <td>@Track.author</td>
+            <td>@Track.since </td>
+            <td><button class="material-icons">delete</button></td>
+        </tr>
+    }
+</table>
+</div>
+</div>
+
+
+<!-- <h2>@ViewData["Title"]</h2>
+<h3>@ViewData["Message"]</h3> 
 
 <p>Use this area to provide additional information.</p>
+-->
