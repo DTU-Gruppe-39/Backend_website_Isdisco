@@ -9,9 +9,9 @@
 
     List<Track> track = new List<Track>();
     track.Add(new IsDisco.Models.Track("Test", users, "Baby", "Justin", DateTime.Now, 0, false, 5, false));
-    track.Add(new IsDisco.Models.Track("Test", users, "Despacito", "Bob", DateTime.Now, 0, false, 5, false));
+    track.Add(new IsDisco.Models.Track("Test", users, "Despacito", "Bob", DateTime.Now, 0, false, 5, true));
     track.Add(new IsDisco.Models.Track("Test", users, "Gangnam Style", "PSY", DateTime.Now, 0, false, 5, false));
-    track.Add(new IsDisco.Models.Track("Test", users, "오빤 강남스타일 ", "강남스타일 ", DateTime.Now, 0, false, 5, false));
+    track.Add(new IsDisco.Models.Track("Test", users, "오빤 강남스타일 ", "강남스타일 ", DateTime.Now, 0, false, 5, true));
 
 }
 
@@ -72,12 +72,14 @@
      
      @foreach (var Track in track)
     {
-        <tr>
+        if(@Track.blacklist == true){
+          <tr>
             <td>@Track.song </td>
             <td>@Track.author</td>
             <td>@Track.since </td>
             <td><button class="material-icons">delete</button></td>
-        </tr>
+            </tr>
+        }
     }
 </table>
 </div>

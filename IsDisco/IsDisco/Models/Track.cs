@@ -1,23 +1,24 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace IsDisco.Models
 {
     public class Track
     {
+        public List<User> users { get; set; }
+        public string song { get; set; }
+        public string author { get; set; }
+        public string id_link { get; set; }
+        public DateTime since { get; set; }
+        public int votes { get; set; }
+        public int cd_timer { get; set; }
+        public Boolean cooldown { get; set; }
+        public Boolean blacklist { get; set; }
 
-        private List<User> users { get; set; }
-        private String song { get; set; }
-        private String author { get; set; }
-        private String id_link { get; set; }
-        private DateTime since { get; set; }
-        private int votes { get; set; }
-        private int cd_timer { get; set; }
-        private Boolean cooldown { get; set; }
-        private Boolean blacklist { get; set; }
-
-        public Track(String id_link, List<User> users, String song, String author,
+        public Track(string id_link, List<User> users, string song, string author,
         DateTime since, int votes, Boolean cooldown, int cd_timer, Boolean blacklist)
         {
             this.id_link = id_link;
