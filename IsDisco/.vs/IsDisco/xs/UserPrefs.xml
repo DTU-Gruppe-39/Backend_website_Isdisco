@@ -1,16 +1,15 @@
 ﻿<Properties StartupConfiguration="{87518F96-DC2A-46DF-988D-A225A6D8DFFD}|Default">
   <MonoDevelop.Ide.Workbench ActiveDocument="IsDisco/Models/Track.cs">
     <Files>
-      <File FileName="IsDisco/Views/Home/Index.cshtml" Line="27" Column="9" />
-      <File FileName="IsDisco/Views/Shared/_Layout.cshtml" Line="1" Column="1" />
-      <File FileName="IsDisco/Controllers/HomeController.cs" Line="1" Column="1" />
-      <File FileName="IsDisco/Views/Home/Blacklist.cshtml" Line="5" Column="8" />
-      <File FileName="IsDisco/Views/Home/Privacy.cshtml" Line="1" Column="1" />
-      <File FileName="IsDisco/Views/Home/Contact.cshtml" Line="1" Column="1" />
-      <File FileName="IsDisco/Views/Home/Settings.cshtml" Line="1" Column="1" />
-      <File FileName="IsDisco/Views/Home/Admin.cshtml" Line="6" Column="11" />
+      <File FileName="IsDisco/Controllers/HomeController.cs" Line="26" Column="10" />
+      <File FileName="IsDisco/Views/Home/Index.cshtml" Line="35" Column="2" />
+      <File FileName="IsDisco/Views/Shared/_Layout.cshtml" Line="40" Column="19" />
+      <File FileName="IsDisco/Controllers/LiveFeedController.cs" Line="18" Column="10" />
+      <File FileName="IsDisco/Views/Home/Livefeed.cshtml" Line="19" Column="42" />
+      <File FileName="IsDisco/Views/Home/Blacklist.cshtml" Line="30" Column="23" />
+      <File FileName="IsDisco/Models/Track.cs" Line="7" Column="20" />
+      <File FileName="IsDisco/Program.cs" Line="17" Column="1" />
       <File FileName="IsDisco/Models/User.cs" Line="1" Column="1" />
-      <File FileName="IsDisco/Models/Track.cs" Line="28" Column="2" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -19,6 +18,7 @@
             <Node name="IsDisco" expanded="True">
               <Node name="Dependencies" expanded="True">
                 <Node name="PackageDependencies" expanded="True" />
+                <Node name="SdkDependencies" expanded="True" />
               </Node>
               <Node name="Controllers" expanded="True" />
               <Node name="Models" expanded="True">
@@ -29,12 +29,13 @@
                 <Node name="Home" expanded="True" />
                 <Node name="Shared" expanded="True" />
               </Node>
-              <Node name="wwwroot" expanded="True">
-                <Node name="js" expanded="True" />
-              </Node>
+              <Node name="wwwroot" expanded="True" />
             </Node>
           </Node>
         </State>
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
