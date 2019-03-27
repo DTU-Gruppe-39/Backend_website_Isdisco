@@ -54,6 +54,18 @@
 
 </style>
 
+<script>
+   function ImageButton_Click(button) 
+      {
+   //     var blist = Track.blacklist;
+        var obj = $(button);
+        alert('Vil du fjerne sangen fra blacklist? ' + obj.blacklist);
+
+      }
+
+
+</script>
+
 
 <div class="row">
  <div class="col-md-12">
@@ -77,7 +89,7 @@
             <td>@Track.song </td>
             <td>@Track.author</td>
             <td>@Track.since </td>
-            <td><button class="material-icons">delete</button></td>
+            <td><button class="material-icons" onclick="ImageButton_Click(this)">delete</button></td>
             </tr>
         }
     }
