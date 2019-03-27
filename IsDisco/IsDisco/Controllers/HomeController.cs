@@ -22,10 +22,8 @@ namespace IsDisco.Controllers
             return View();
         }
 
-        public IActionResult Contact()
+        public IActionResult Livefeed()
         {
-            ViewData["Message"] = "Your contact page.";
-
             return View();
         }
 
