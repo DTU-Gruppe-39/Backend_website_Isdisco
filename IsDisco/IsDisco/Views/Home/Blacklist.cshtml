@@ -2,8 +2,8 @@
     ViewData["Title"] = "Blacklist";
 
     Singleton instance = Singleton.getInstance();
-    instance.initUsers();
-    instance.initTracks();
+    instance.InitUsers();
+    instance.InitTracks();
     List<Track> tracks = new List<Track>();
     List<User> users = new List<User>();
     users = instance.GetUsers();
@@ -40,61 +40,60 @@
     .material-icons {
         align: auto;
         border: none;
-        background-color: transparent;      
-    }
-    .material-icons:hover{
-        color: red;
-        transition: 0.2s;
+        background-color: transparent;
     }
 
+        .material-icons:hover {
+            color: red;
+            transition: 0.2s;
+        }
 </style>
 
-<script>
-   function ImageButton_Click(button) 
+<script>function ImageButton_Click(button)
       {
    //     var blist = Track.blacklist;
         var obj = $(button);
         alert('Vil du fjerne sangen fra blacklist? ' + obj.blacklist);
 
-      }
-
-
-</script>
+      }</script>
 
 
 <div class="row">
- <div class="col-md-12">
- <center>
- <h1> <b> 
-     @ViewData["Title"] 
- </b> </h1>
- </center>
-<table>
-     <tr>
-         <th>Sang</th>
-         <th>Kunstner</th>
-         <th>Ønsket i aften</th>
-         <th></th>
-     </tr>
-     
-     @foreach (var Track in tracks)
-    {
-        if(@Track.blacklist == true){
-          <tr>
-            <td>@Track.song </td>
-            <td>@Track.author</td>
-            <td>@Track.since </td>
-            <td><button class="material-icons" onclick="ImageButton_Click(this)">delete</button></td>
+    <div class="col-md-12">
+        <center>
+            <h1>
+                <b>
+                    @ViewData["Title"]
+                </b>
+            </h1>
+        </center>
+        <table>
+            <tr>
+                <th>Sang</th>
+                <th>Kunstner</th>
+                <th>Ønsket i aften</th>
+                <th></th>
             </tr>
-        }
-    }
-</table>
-</div>
+
+            @foreach (var Track in tracks)
+            {
+                if (@Track.Blacklist == true)
+                {
+                    <tr>
+                        <td>@Track.Song </td>
+                        <td>@Track.Author</td>
+                        <td>@Track.Since </td>
+                        <td><button class="material-icons" onclick="ImageButton_Click(this)">delete</button></td>
+                    </tr>
+                }
+            }
+        </table>
+    </div>
 </div>
 
 
 <!-- <h2>@ViewData["Title"]</h2>
-<h3>@ViewData["Message"]</h3> 
+<h3>@ViewData["Message"]</h3>
 
-<p>Use this area to provide additional information.</p>
+<p>Use this area to provide additionBl information.</p>
 -->
