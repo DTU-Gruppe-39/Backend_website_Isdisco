@@ -77,7 +77,7 @@
                         <tr>
                             <td>@request.Track.Title</td>
                             <td>@request.Track.Artist</td>
-                            <td>@request.User.name</td>
+                            <td>@request.User.Name</td>
                             @if (DateTime.Now.Subtract(request.Since).Seconds < 60 && DateTime.Now.Subtract(request.Since).Minutes < 1 && DateTime.Now.Subtract(request.Since).Hours < 1)
                             {
                                 TimeSpan time = DateTime.Now.Subtract(request.Since);
