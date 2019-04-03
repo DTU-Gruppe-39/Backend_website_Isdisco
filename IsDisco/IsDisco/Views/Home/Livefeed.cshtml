@@ -1,6 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Livefeed";
-
+    
     Singleton instance = Singleton.getInstance();
 
     List<Request> requests = new List<Request>();
@@ -87,8 +87,8 @@
                             else if (DateTime.Now.Subtract(request.Since).Minutes >= 1 && DateTime.Now.Subtract(request.Since).Hours < 1)
                             {
                                 TimeSpan time = DateTime.Now.Subtract(request.Since);
-                                var s = time.Minutes;
-                                <td>@s m siden</td>
+
+                                <td>@time.Minutes m siden</td>
                             }
                             else if (DateTime.Now.Subtract(request.Since).Hours >= 1)
                             {
