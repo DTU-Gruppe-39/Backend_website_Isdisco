@@ -22,5 +22,14 @@ namespace IsDisco.Models
             this.Cooldown = cooldown;
             this.Blacklist = blacklist;
         }
+
+        public Boolean Compare(Track1 track)
+        {
+            if (string.Compare(track.Id_link, Id_link) == 0 )
+            {
+                return true;
+            }
+            else { return false; }
+        }
     }
 }

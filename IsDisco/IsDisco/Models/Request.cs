@@ -10,13 +10,22 @@ namespace IsDisco.Models
         public int Votes { get; set; }
 
 
-        public Request(string reqId, Track1 track, User user, DateTime since, int votes)
+        public Request(string reqId, Track1 track, User user, DateTime since)
         {
             this.ReqId = reqId;
             this.Track = track;
             this.User = user;
             this.Since = since;
-            this.Votes = votes;
+            this.Votes = 1;
+        }
+
+        public Boolean CompareReq(Request Req)
+        {
+            if (Track.Compare(Req.Track))
+            {
+                return true;
+            }
+            else { return true; }
         }
     }
 }
