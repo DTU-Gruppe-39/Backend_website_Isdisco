@@ -80,16 +80,20 @@
                             <td>@request.Track.Title</td>
                             <td>@request.Track.Artist</td>
                             <td>@request.User.name</td>
-                            @if (DateTime.Now.Subtract(request.Since).Seconds < 60 && DateTime.Now.Subtract(request.Since).Minutes < 1)
+                            @if (DateTime.Now.Subtract(request.Since).Seconds < 60 && DateTime.Now.Subtract(request.Since).Minutes < 1 && DateTime.Now.Subtract(request.Since).Hours < 1)
                             {
                                 TimeSpan time = DateTime.Now.Subtract(request.Since);
                                 <td>@time.Seconds s siden</td>
 
                             }
-                            else if (DateTime.Now.Subtract(request.Since).Minutes >= 1)
+                            else if (DateTime.Now.Subtract(request.Since).Minutes >= 1 && DateTime.Now.Subtract(request.Since).Hours < 1)
                             {
                                 TimeSpan time = DateTime.Now.Subtract(request.Since);
                                 <td>@time.Minutes m siden</td>
+                            }
+                            else if (DateTime.Now.Subtract(request.Since).Hours >= 1)
+                            {
+                                <td>@request.Since.TimeOfDay</td>
                             }
                             <td>Åben i Spotify</td>
                         </tr>

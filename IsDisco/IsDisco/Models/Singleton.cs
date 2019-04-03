@@ -83,7 +83,7 @@ namespace IsDisco.Models
         public void InitRequests()
         {
             Random random = new Random();
-            requests.Add(new Request("0", tracks1.Find(x => x.Title.Contains("Baby")), users.Find(y => y.ID.Equals(0)), DateTime.Now.AddSeconds(-random.Next(1000)), 1));
+            requests.Add(new Request("0", tracks1.Find(x => x.Title.Contains("Baby")), users.Find(y => y.ID.Equals(0)), DateTime.Now.AddSeconds(-10000), 1));
             requests.Add(new Request("1", tracks1.Find(x => x.Title.Contains("Despacito")), users.Find(y => y.ID.Equals(1)), DateTime.Now.AddSeconds(-random.Next(1000)), 1));
             requests.Add(new Request("2", tracks1.Find(x => x.Title.Contains("American Idiot")), users.Find(y => y.ID.Equals(2)), DateTime.Now.AddSeconds(-random.Next(1000)), 1));
             requests.Add(new Request("3", tracks1.Find(x => x.Title.Contains("Sucker")), users.Find(y => y.ID.Equals(3)), DateTime.Now.AddSeconds(-random.Next(1000)), 1));
