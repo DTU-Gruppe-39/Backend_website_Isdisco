@@ -1,8 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Livefeed";
 
-    //DateTime StartTime = DateTime.Now;
-
     Singleton instance = Singleton.getInstance();
 
     List<Request> requests = new List<Request>();
@@ -26,7 +24,7 @@
         requests = instance.GetRequests();
     }
 
-
+    //Sorts the list so that the newest item is at the top
     requests.Sort((x, y) => -x.Since.CompareTo(y.Since));
 
 }
@@ -64,7 +62,7 @@
                     </b>
                 </h1>
             </center>
-            <div style="height:auto;overflow-y:scroll; width: 95%">
+            <div style="height:80vh;overflow-y:scroll; width: 95%">
 
                 <table>
                     <tr>
@@ -89,11 +87,14 @@
                             else if (DateTime.Now.Subtract(request.Since).Minutes >= 1 && DateTime.Now.Subtract(request.Since).Hours < 1)
                             {
                                 TimeSpan time = DateTime.Now.Subtract(request.Since);
-                                <td>@time.Minutes m siden</td>
+                                var s = time.Minutes;
+                                <td>@s m siden</td>
                             }
                             else if (DateTime.Now.Subtract(request.Since).Hours >= 1)
                             {
-                                <td>@request.Since.TimeOfDay</td>
+                                TimeSpan time = DateTime.Now.Subtract(request.Since);
+
+                                <td>Mere end @time.Hours timer siden</td>
                             }
                             <td>Åben i Spotify</td>
                         </tr>
@@ -102,6 +103,7 @@
                 </table>
             </div>
         </div>
+    </div>
 </center>
 
 <h3>@ViewData["Message"]</h3>
