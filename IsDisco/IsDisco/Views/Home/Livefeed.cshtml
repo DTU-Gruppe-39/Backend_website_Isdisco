@@ -1,96 +1,103 @@
 ﻿@{
     ViewData["Title"] = "Livefeed";
-List<User>
-    users = new List<User>
-        ();
-        users.Add(new IsDisco.Models.User("Mark", 0));
-        users.Add(new IsDisco.Models.User("Thomas", 1));
-        users.Add(new IsDisco.Models.User("Rasmus", 2));
-        users.Add(new IsDisco.Models.User("Søren", 3));
-        users.Add(new IsDisco.Models.User("Magnus", 4));
-        users.Add(new IsDisco.Models.User("Patrick", 5));
-        users.Add(new IsDisco.Models.User("Marcus", 6));
-        users.Add(new IsDisco.Models.User("Mark2", 7));
-        users.Add(new IsDisco.Models.User("Thomas2", 8));
-        users.Add(new IsDisco.Models.User("Rasmus2", 9));
-        users.Add(new IsDisco.Models.User("Søren2", 10));
-        users.Add(new IsDisco.Models.User("Magnus2", 11));
-        users.Add(new IsDisco.Models.User("Patrick2", 12));
-        users.Add(new IsDisco.Models.User("Marcus2", 13));
 
-        users[0].VIP = true;
-        users[1].VIP = true;
-        users[2].VIP=true;
-        users[3].VIP = true;
-        users[4].VIP = true;
-        users[5].VIP = true;
-        users[6].VIP = true;
-        users[7].VIP = true;
-        users[8].VIP = true;
-        users[9].VIP = true;
-        users[10].VIP = true;
-        users[11].VIP = true;
-        users[12].VIP = true;
-        users[13].VIP = true;
+    //DateTime StartTime = DateTime.Now;
 
-        }
+    Singleton instance = Singleton.getInstance();
 
-        <style>
-            body {
-                background-color: #e9ebee;
-            }
+    List<Request> requests = new List<Request>();
 
-            table {
-                font-family: arial, sans-serif;
-                border-collapse: collapse;
-                width: 95%;
-                background-color: white;
-                border-radius: 10px;
-            }
+    //Init lists if they are empty
+    if (!instance.GetTrack1s().Any<Track1>())
+    {
+        instance.InitTracks1();
+        Console.WriteLine("InitTracks1");
 
-            td, th {
-                border: 1px solid #dddddd;
-                text-align: left;
-                padding: 8px;
-            }
+    }
 
-            tr:nth-child(even) {
-                background-color: #f4f5f4;
-            }
-        </style>
-        <center>
-            <div class="row">
-                <div class="col-sm-12">
-                    <br>
-                    <h2>Livefeed</h2>
-                    <table>
+    if (!instance.GetRequests().Any<Request>())
+    {
+        instance.InitRequests();
+        requests = instance.GetRequests();
+        Console.WriteLine("InitRequests");
+    }
+    else
+    {
+        requests = instance.GetRequests();
+    }
+
+
+    requests.Sort((x, y) => -x.Since.CompareTo(y.Since));
+
+}
+
+<style>
+    body {
+        background-color: #e9ebee;
+    }
+
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 95%;
+        background-color: white;
+        border-radius: 10px;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f4f5f4;
+    }
+</style>
+<center>
+    <div class="row">
+        <div class="col-sm-12">
+            <center>
+                <h1>
+                    <b>
+                        @ViewData["Title"]
+                    </b>
+                </h1>
+            </center>
+            <div style="height:auto;overflow-y:scroll; width: 95%">
+
+                <table>
+                    <tr>
+                        <th>Sang</th>
+                        <th>Kunstner</th>
+                        <th>Ønsket af</th>
+                        <th>Hvornår</th>
+                        <th>Muligheder</th>
+                    </tr>
+                    @foreach (Request request in requests)
+                    {
                         <tr>
-                            <th>Navn</th>
-                            <th>Sang</th>
-                            <th>Kunstner</th>
-                            <th>Tid siden</th>
-                            <th>Antal stemmer</th>
-                            <th>Muligheder</th>
+                            <td>@request.Track.Title</td>
+                            <td>@request.Track.Artist</td>
+                            <td>@request.User.name</td>
+                            @if (DateTime.Now.Subtract(request.Since).Seconds < 60 && DateTime.Now.Subtract(request.Since).Minutes < 1)
+                            {
+                                TimeSpan time = DateTime.Now.Subtract(request.Since);
+                                <td>@time.Seconds s siden</td>
+
+                            }
+                            else if (DateTime.Now.Subtract(request.Since).Minutes >= 1)
+                            {
+                                TimeSpan time = DateTime.Now.Subtract(request.Since);
+                                <td>@time.Minutes m siden</td>
+                            }
+                            <td>Åben i Spotify</td>
                         </tr>
-                        <tr>
-                            <td>Mark</td>
-                            <td>Job</td>
-                            <td>Otto</td>
-                            <td>10 s</td>
-                            <td>12</td>
-                            <td>mdo</td>
-                        </tr>
-                        <tr>
-                            <td>Job</td>
-                            <td>Thomton</td>
-                            <td>Thomton</td>
-                            <td>30 s</td>
-                            <td>5</td>
-                            <td>fat</td>
-                        </tr>
-                    </table>
-                </div>
+                    }
+
+                </table>
             </div>
-        </center>
-        
-        <h3>@ViewData["Message"]</h3>
+        </div>
+</center>
+
+<h3>@ViewData["Message"]</h3>

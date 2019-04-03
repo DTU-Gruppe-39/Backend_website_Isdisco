@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Threading;
 
 namespace IsDisco.Models
 {
@@ -9,17 +8,24 @@ namespace IsDisco.Models
     {
         private static Singleton instance;
         private static List<User> users = new List<User>();
+        private static List<Track> tracks = new List<Track>();
+        private static List<Request> requests = new List<Request>();
+
+        //Not sure if we will be using tracks or tracks1
+        private List<Track1> tracks1 = new List<Track1>();
+
+
 
         public static Singleton getInstance()
         {
-            if(instance == null)
+            if (instance == null)
             {
                 instance = new Singleton();
             }
             return instance;
         }
 
-        public void initUsers()
+        public void InitUsers()
         {
             users.Add(new User("Mark", 0));
             users.Add(new User("Thomas", 1));
@@ -51,11 +57,71 @@ namespace IsDisco.Models
             users[13].VIP = true;
         }
 
+        public void InitTracks()
+        {
+            tracks.Add(new Track("Test", users, "Baby", "Justin", DateTime.Now, 0, false, 5, false));
+            tracks.Add(new Track("Test", users, "Despacito", "Bob", DateTime.Now, 0, false, 5, true));
+            tracks.Add(new Track("Test", users, "Gangnam Style", "PSY", DateTime.Now, 0, false, 5, false));
+            tracks.Add(new Track("Test", users, "오빤 강남스타일 ", "강남스타일 ", DateTime.Now, 0, false, 5, true));
+        }
+
+        public void InitTracks1()
+        {
+            tracks1.Add(new Track1("Baby", "Justin Bieber", "Test", 0, false, false));
+            tracks1.Add(new Track1("Despacito", "Luis Fonsi", "Test", 0, false, false));
+            tracks1.Add(new Track1("American Idiot", "Green Day", "Test", 0, false, false));
+            tracks1.Add(new Track1("7 Rings", "Ariana Grande", "Test", 0, false, false));
+            tracks1.Add(new Track1("Sucker", "Jonas Brothers", "Test", 0, false, false));
+            tracks1.Add(new Track1("Sunflower", "Post Malone", "Test", 0, false, false));
+            tracks1.Add(new Track1("Shallow", "Lady Gaga", "Test", 0, false, false));
+            tracks1.Add(new Track1("Sweet but Psycho", "Ava Max", "Test", 0, false, false));
+            tracks1.Add(new Track1("Gangnam Style", "Psy", "Test", 0, false, false));
+            tracks1.Add(new Track1("Nede Mette", "Blak", "Test", 0, false, false));
+            tracks1.Add(new Track1("Model", "Gulddreng", "Test", 0, false, false));
+        }
+
+        public void InitRequests()
+        {
+            Random random = new Random();
+            requests.Add(new Request("0", tracks1.Find(x => x.Title.Contains("Baby")), users.Find(y => y.ID.Equals(0)), DateTime.Now.AddSeconds(-random.Next(1000)), 1));
+            requests.Add(new Request("1", tracks1.Find(x => x.Title.Contains("Despacito")), users.Find(y => y.ID.Equals(1)), DateTime.Now.AddSeconds(-random.Next(1000)), 1));
+            requests.Add(new Request("2", tracks1.Find(x => x.Title.Contains("American Idiot")), users.Find(y => y.ID.Equals(2)), DateTime.Now.AddSeconds(-random.Next(1000)), 1));
+            requests.Add(new Request("3", tracks1.Find(x => x.Title.Contains("Sucker")), users.Find(y => y.ID.Equals(3)), DateTime.Now.AddSeconds(-random.Next(1000)), 1));
+            requests.Add(new Request("4", tracks1.Find(x => x.Title.Contains("Sweet but Psycho")), users.Find(y => y.ID.Equals(4)), DateTime.Now.AddSeconds(-random.Next(1000)), 1));
+            requests.Add(new Request("5", tracks1.Find(x => x.Title.Contains("Model")), users.Find(y => y.ID.Equals(5)), DateTime.Now.AddSeconds(-random.Next(1000)), 1));
+            requests.Add(new Request("6", tracks1.Find(x => x.Title.Contains("Nede Mette")), users.Find(y => y.ID.Equals(6)), DateTime.Now.AddSeconds(-random.Next(1000)), 1));
+            requests.Add(new Request("7", tracks1.Find(x => x.Title.Contains("Despacito")), users.Find(y => y.ID.Equals(7)), DateTime.Now.AddSeconds(-random.Next(1000)), 1));
+            requests.Add(new Request("8", tracks1.Find(x => x.Title.Contains("Baby")), users.Find(y => y.ID.Equals(8)), DateTime.Now.AddSeconds(-random.Next(1000)), 1));
+            requests.Add(new Request("9", tracks1.Find(x => x.Title.Contains("Gangnam Style")), users.Find(y => y.ID.Equals(9)), DateTime.Now.AddSeconds(-random.Next(1000)), 1));
+            requests.Add(new Request("10", tracks1.Find(x => x.Title.Contains("Sunflower")), users.Find(y => y.ID.Equals(10)), DateTime.Now.AddSeconds(-random.Next(1000)), 1));
+            requests.Add(new Request("11", tracks1.Find(x => x.Title.Contains("Despacito")), users.Find(y => y.ID.Equals(11)), DateTime.Now.AddSeconds(-random.Next(1000)), 1));
+            requests.Add(new Request("12", tracks1.Find(x => x.Title.Contains("Baby")), users.Find(y => y.ID.Equals(0)), DateTime.Now.AddSeconds(-random.Next(1000)), 1));
+            requests.Add(new Request("13", tracks1.Find(x => x.Title.Contains("7 Rings")), users.Find(y => y.ID.Equals(2)), DateTime.Now.AddSeconds(-random.Next(1000)), 1));
+            requests.Add(new Request("14", tracks1.Find(x => x.Title.Contains("Despacito")), users.Find(y => y.ID.Equals(6)), DateTime.Now.AddSeconds(-random.Next(1000)), 1));
+            requests.Add(new Request("15", tracks1.Find(x => x.Title.Contains("Despacito")), users.Find(y => y.ID.Equals(8)), DateTime.Now.AddSeconds(-random.Next(1000)), 1));
+
+     
+        }
+
+
         public List<User> GetUsers()
         {
             return users;
         }
 
+        public List<Track> GetTracks()
+        {
+            return tracks;
+        }
 
+        public List<Track1> GetTrack1s()
+        {
+            return tracks1;
+        }
+
+        public List<Request> GetRequests()
+        {
+            return requests;
+        }
     }
 }
