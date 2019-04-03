@@ -6,6 +6,29 @@
     users = instance.GetUsers();
 
 
+    List<Request> requests = new List<Request>();
+    List<Request> something = new List<Request>();
+    //Init lists if they are empty
+    if (!instance.GetTrack1s().Any<Track1>())
+    {
+        instance.InitTracks1();
+        Console.WriteLine("InitTracks1");
+
+    }
+
+    if (!instance.GetRequests().Any<Request>())
+    {
+        instance.InitRequests();
+        requests = instance.GetRequests();
+        Console.WriteLine("InitRequests");
+    }
+    else
+    {
+        requests = instance.GetRequests();
+    }
+
+    requests.Sort((x, y) => x.Since.CompareTo(y.Since));
+
 }
 <style>
     body {
@@ -43,20 +66,50 @@
                     <th>Sang</th>
                     <th>Kunstner</th>
                     <th>Tid siden</th>
+                    <th>Upvotes</th>
                     <th>Muligheder</th>
                 </tr>
-                @foreach (var User in users)
+
+                @foreach (var Req in requests)
                 {
-                    if (User.VIP == true)
+                    if (something.Find(x => x.Track.Id_link.Contains(Req.Track.Id_link)) == null)
                     {
-                        <tr>
-                            <td>@User.name </td>
-                            <td>Job @User.ID </td>
-                            <td>Otto </td>
-                            <td>10 s </td>
-                            <td>mdo @User.VIP</td>
-                        </tr>
+                        var query = from Request req in requests
+                                    where req.Track.Id_link.Contains(Req.Track.Id_link)
+                                    select req;
+                        foreach (Request r in query)
+                        {
+                            Req.Votes++;
+                        }
+                        something.Add(Req);
                     }
+
+                }
+
+                @{
+                    something.Sort((x, y) => -x.Votes.CompareTo(y.Votes));
+                }
+                @foreach (var Request in something)
+                {
+                    <tr>
+                        <td>@Request.Track.Title </td>
+                        <td>@Request.Track.Artist</td>
+                        <td>@Request.User.Name</td>
+                        @if (DateTime.Now.Subtract(Request.Since).Seconds < 60 && DateTime.Now.Subtract(Request.Since).Minutes < 1)
+                        {
+                            TimeSpan time = DateTime.Now.Subtract(Request.Since);
+                            <td>@time.Seconds s siden</td>
+
+                        }
+                        else if (DateTime.Now.Subtract(Request.Since).Minutes >= 1)
+                        {
+                            TimeSpan time = DateTime.Now.Subtract(Request.Since);
+                            <td>@time.Minutes m siden</td>
+                        }
+                        <td> @(Request.Votes-1) </td>
+                        <td>Åben i Spotify</td>
+                    </tr>
+
                 }
 
             </table>
