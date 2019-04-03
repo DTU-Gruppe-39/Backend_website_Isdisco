@@ -7,7 +7,7 @@ namespace IsDisco.Models
 {
     public class User
     {
-       public string name
+       public string Name
         {
             get;
         }
@@ -20,12 +20,19 @@ namespace IsDisco.Models
             get;
             set;
         }
-  
-        public User(string name, int ID)
+
+    /*    public Boolean Requester
         {
-            this.name = name;
+            get;
+            set;
+        }
+  */
+        public User(string Name, int ID)
+        {
+            this.Name = Name;
             this.ID = ID;
             VIP = false;
+            // Requester = false;
         }
 
      /*  private void SetVIP()
