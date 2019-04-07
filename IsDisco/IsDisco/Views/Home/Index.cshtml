@@ -92,9 +92,9 @@
                 @foreach (var Request in something)
                 {
                     <tr>
-                        <td>@Request.Track.Title </td>
+                        <td>@Request.User.Name </td>
+                        <td>@Request.Track.Title</td>
                         <td>@Request.Track.Artist</td>
-                        <td>@Request.User.Name</td>
                         @if (DateTime.Now.Subtract(Request.Since).Seconds < 60 && DateTime.Now.Subtract(Request.Since).Minutes < 1)
                         {
                             TimeSpan time = DateTime.Now.Subtract(Request.Since);
