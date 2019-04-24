@@ -9,10 +9,10 @@
     List<Request> requests = new List<Request>();
     List<Request> something = new List<Request>();
     //Init lists if they are empty
-    if (!instance.GetTrack1s().Any<Track1>())
+    if (!instance.GetTracks().Any<Track>())
     {
-        instance.InitTracks1();
-        Console.WriteLine("InitTracks1");
+        instance.InitTracks();
+        Console.WriteLine("InitTracks");
 
     }
 
@@ -71,46 +71,46 @@
                 </tr>
 
                 @foreach (var Req in requests)
-                {
-                    if (something.Find(x => x.Track.Id_link.Contains(Req.Track.Id_link)) == null)
-                    {
-                        var query = from Request req in requests
-                                    where req.Track.Id_link.Contains(Req.Track.Id_link)
-                                    select req;
-                        foreach (Request r in query)
-                        {
-                            Req.Votes++;
-                        }
-                        something.Add(Req);
-                    }
+    {
+        if (something.Find(x => x.Track.Track_id.Contains(Req.Track.Track_id)) == null)
+        {
+            var query = from Request req in requests
+                        where req.Track.Track_id.Contains(Req.Track.Track_id)
+                        select req;
+            foreach (Request r in query)
+            {
+                Req.Votes++;
+            }
+            something.Add(Req);
+        }
 
-                }
+    }
 
                 @{
-                    something.Sort((x, y) => -x.Votes.CompareTo(y.Votes));
+        something.Sort((x, y) => -x.Votes.CompareTo(y.Votes));
                 }
                 @foreach (var Request in something)
-                {
-                    <tr>
-                        <td>@Request.User.Name </td>
-                        <td>@Request.Track.Title</td>
-                        <td>@Request.Track.Artist</td>
-                        @if (DateTime.Now.Subtract(Request.Since).Seconds < 60 && DateTime.Now.Subtract(Request.Since).Minutes < 1)
-                        {
-                            TimeSpan time = DateTime.Now.Subtract(Request.Since);
-                            <td>@time.Seconds s siden</td>
+    {
+            <tr>
+                <td>@Request.User.Name </td>
+                <td>@Request.Track.Title</td>
+                <td>@Request.Track.Artist</td>
+                @if (DateTime.Now.Subtract(Request.Since).Seconds < 60 && DateTime.Now.Subtract(Request.Since).Minutes < 1)
+    {
+        TimeSpan time = DateTime.Now.Subtract(Request.Since);
+            <td>@time.Seconds s siden</td>
 
-                        }
-                        else if (DateTime.Now.Subtract(Request.Since).Minutes >= 1)
-                        {
-                            TimeSpan time = DateTime.Now.Subtract(Request.Since);
-                            <td>@time.Minutes m siden</td>
-                        }
-                        <td> @(Request.Votes-1) </td>
-                        <td>Åben i Spotify</td>
-                    </tr>
+}
+else if (DateTime.Now.Subtract(Request.Since).Minutes >= 1)
+{
+TimeSpan time = DateTime.Now.Subtract(Request.Since);
+            <td>@time.Minutes m siden</td>
+}
+                <td> @(Request.Votes - 1) </td>
+                <td>Åben i Spotify</td>
+            </tr>
 
-                }
+}
 
             </table>
         </div>

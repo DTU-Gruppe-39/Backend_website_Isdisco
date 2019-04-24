@@ -74,15 +74,13 @@
                 <th>Ønsket i aften</th>
                 <th></th>
             </tr>
-
+            
             @foreach (var Track in tracks)
             {
-                if (@Track.Blacklist == true)
                 {
                     <tr>
-                        <td>@Track.Song </td>
-                        <td>@Track.Author</td>
-                        <td>@Track.Since </td>
+                        <td>@Track.Title </td>
+                        <td>@Track.Artist</td>
                         <td><button class="material-icons" onclick="ImageButton_Click(this)">delete</button></td>
                     </tr>
                 }
