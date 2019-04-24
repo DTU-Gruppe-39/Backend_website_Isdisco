@@ -6,10 +6,10 @@
     List<Request> requests = new List<Request>();
 
     //Init lists if they are empty
-    if (!instance.GetTrack1s().Any<Track1>())
+    if (!instance.GetTracks().Any<Track>())
     {
-        instance.InitTracks1();
-        Console.WriteLine("InitTracks1");
+        instance.InitTracks();
+        Console.WriteLine("InitTracks");
 
     }
 
