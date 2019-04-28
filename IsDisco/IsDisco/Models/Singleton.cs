@@ -56,17 +56,17 @@ namespace IsDisco.Models
 
         public void InitTracks()
         {
-            tracks.Add(new Track("Baby", "Justin Bieber", "Test1", "test"));
-            tracks.Add(new Track("Despacito", "Luis Fonsi", "Test2", "test"));
-            tracks.Add(new Track("American Idiot", "Green Day", "Test3", "test"));
-            tracks.Add(new Track("7 Rings", "Ariana Grande", "Test4", "test"));
-            tracks.Add(new Track("Sucker", "Jonas Brothers", "Test5", "test"));
-            tracks.Add(new Track("Sunflower", "Post Malone", "Test6", "test"));
-            tracks.Add(new Track("Shallow", "Lady Gaga", "Test7", "test"));
-            tracks.Add(new Track("Sweet but Psycho", "Ava Max", "Test8", "test"));
-            tracks.Add(new Track("Gangnam Style", "Psy", "Test9", "test"));
-            tracks.Add(new Track("Nede Mette", "Blak", "1Test", "test"));
-            tracks.Add(new Track("Model", "Gulddreng", "2Test", "test"));
+            tracks.Add(new Track("Baby", "Justin Bieber", "Test1", "https://open.spotify.com/track/6epn3r7S14KUqlReYr77hA?si=lz0CGPlZTtiG1ODMTupE-g"));
+            tracks.Add(new Track("Despacito", "Luis Fonsi", "Test2", "https://open.spotify.com/track/6rPO02ozF3bM7NnOV4h6s2?si=tUXS9VezQFWEU4vysVo8Qw"));
+            tracks.Add(new Track("American Idiot", "Green Day", "Test3", "https://open.spotify.com/track/6nTiIhLmQ3FWhvrGafw2zj?si=nk4kX7nCT3-_3tMFET5dMg"));
+            tracks.Add(new Track("7 Rings", "Ariana Grande", "Test4", "https://open.spotify.com/track/14msK75pk3pA33pzPVNtBF?si=7dZBYiWgR0aSuHWu8Uo-mw"));
+            tracks.Add(new Track("Sucker", "Jonas Brothers", "Test5", "https://open.spotify.com/track/4y3OI86AEP6PQoDE6olYhO?si=Iei8W88NRj-wO9XcyHTBbQ"));
+            tracks.Add(new Track("Sunflower", "Post Malone", "Test6", "https://open.spotify.com/track/3KkXRkHbMCARz0aVfEt68P?si=YweS1cqlS0C_BJ_H14-TUw"));
+            tracks.Add(new Track("Shallow", "Lady Gaga", "Test7", "https://open.spotify.com/track/2VxeLyX666F8uXCJ0dZF8B?si=XU18v7syTUuHhx8h115x4w"));
+            tracks.Add(new Track("Sweet but Psycho", "Ava Max", "Test8", "https://open.spotify.com/track/25sgk305KZfyuqVBQIahim?si=YIPBt3VESRaqIyzm60w_kw"));
+            tracks.Add(new Track("Gangnam Style", "Psy", "Test9", "https://open.spotify.com/track/03UrZgTINDqvnUMbbIMhql?si=gtaXMnlsSIm0Klhyvo_yAQ"));
+            tracks.Add(new Track("Nede Mette", "Blak", "1Test", "https://open.spotify.com/track/2gFaHRqjAE5ZNNnGr9eYG4?si=Oo4fJD0ZSsq45tFeVvApLw"));
+            tracks.Add(new Track("Model", "Gulddreng", "2Test", "https://open.spotify.com/track/7Gf2vkf59IaWPu3Kb5Tdmx?si=dNnR67GKRzeWYyxK7JnqxQ"));
         }
 
         public void InitRequests()
