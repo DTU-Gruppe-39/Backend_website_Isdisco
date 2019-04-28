@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Musik Ønsker";
     Singleton instance = Singleton.getInstance();
     instance.InitUsers();
     List<User> users = new List<User>();
@@ -69,10 +69,12 @@ function blacklist(){
 
 </script>
 
+<center>
 <div class="row">
-    <div class="col-sm-6">
-        <h1>Musik ønsker</h1>
-        <div style="height:400px;overflow-y:scroll; width: 95%">
+    <div class="col-sm-12">
+
+        <h1>@ViewData["Title"]</h1>
+        <div style="height:72vh;overflow-y:scroll; width: 100%">
 
             <table>
 
@@ -131,6 +133,7 @@ TimeSpan time = DateTime.Now.Subtract(Request.Since);
 
             </table>
         </div>
+   </center>
 
 
 <!--
