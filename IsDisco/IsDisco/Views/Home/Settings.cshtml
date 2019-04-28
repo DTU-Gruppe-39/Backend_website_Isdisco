@@ -1,9 +1,9 @@
 ﻿@model IsDisco.Models.Track
 
 @{
-    ViewData["Title"] = "Indstillinger";
-    Boolean Cooldown = false;
-    decimal time = 15;
+ViewData["Title"] = "Indstillinger";
+Boolean Cooldown = false;
+decimal time = 15;
 }
 
 
@@ -198,7 +198,7 @@ function reset(){
 </script>
 
 <head runat="server">
-    <script type="text/javascript">
+	<script type="text/javascript">
            window.onload = function() {
                 onOffCheck();
            }
@@ -209,121 +209,121 @@ function reset(){
 
 
 <body>
- <center>
-<div class="row ">
- <div class="col-lg-12">
+	<center>
+		<div class="row">
+			<div class="col-lg-12">
+				<h1> <b>
+						@ViewData["Title"]
+				</b> </h1>
 
- <h1> <b> 
-     @ViewData["Title"] 
- </b> </h1>
+				<table>
+					<tr>
+						<th>Spotify</th>
+					</tr>
+					<tr>
+						<td>Spotify bruger
+							<br>
+							<div class="subText"> Indstillinger til/fra</div>
+						</td>
+					</tr>
+				</table>
 
+				<br><br>
+				<table>
+					<tr>
+						<th>Cooldown</th>
+					</tr>
+					<tr button class="collapsible" onclick="onOff(1)">
+						<td>
+							<div class="line">
+								Sang Cooldown
+								<label class="switch">
+									<input type="checkbox" id="check">
+									<span class="slider round"></span>
+								</div>
+								<div class="subText" id="active">
+								</div>
+							</label>
+						</td>
 
-<table>
-    <tr>
-        <th>Spotify</th>
-    </tr>
-    <tr>
-        <td>Spotify bruger 
-            <br>
-           <div class="subText"> Indstillinger til/fra</div>
-        </td>
-    </tr>
-</table>
+						<tr button class="collapsible">
+							<td>
+								<button class="collapsible" id= author1 runat="server">Sang
+									Cooldown
+									<div class="subText">@time minutter</div>
+								</button>
+								<div class="content">
 
-<br><br>
-<table>
-    <tr>
-        <th>Cooldown</th>
-    </tr>
-    <tr button class="collapsible" onclick="onOff(1)">
-        <td>
-            <div class="line">
-            Sang Cooldown
-                   <label class="switch">
-  <input type="checkbox" id="check">
-  <span class="slider round"></span>
-  </div>
-    <div class="subText" id="active">
-    </div>       
-</label>
-        </td>
+									<br>
+									<div class="subText">Tidsinterval i minutter</div>
+									<div class="line">
 
-  <tr button class="collapsible">
-       <td>
-<button class="collapsible" id = author1 runat="server">Sang Cooldown
-  <div class="subText">@time minutter</div>
-</button>
-<div class="content">
-  
-  <br>
-  <div class="subText">Tidsinterval i minutter</div>
-  <div class="line">
+										<form method="post" action="Settings">
+											<input type="number" name="time" min="0" step="1"
+												id="time">
+											<input type="submit" value="Gem">
+										</form>
 
-    <form method="post" action="Settings">
-  <input type="number" name="time" min="0" step="1" id="time">
-  <input type="submit" value ="Gem">
-  </form>
+									</div>
+								</div>
+							</td>
+						</tr>
 
-  </div>
-</div>
-        </td>
-    </tr>
+					</tr>
 
-    </tr>
-    
-    <tr button class="collapsible" onclick="onOff(2)">
-      <td>
-        <div class="line">
-        Kunstner Cooldown
-  <label class="switch">
-  <input type="checkbox" id="check2">
-  <span class="slider round"></span>
-  </div>
-    <div class="subText" id="active2">
-    </div>       
-</label>
-      </td>
-    </tr>
+					<tr button class="collapsible" onclick="onOff(2)">
+						<td>
+							<div class="line">
+								Kunstner Cooldown
+								<label class="switch">
+									<input type="checkbox" id="check2">
+									<span class="slider round"></span>
+								</div>
+								<div class="subText" id="active2">
+								</div>
+							</label>
+						</td>
+					</tr>
 
-  <tr>
-       <td>
-<button class="collapsible" id = author1>Kunstner Cooldown
-  <div class="subText">@time minutter</div>
-</button>
-<div class="content">
-  
-  <br>
-  <div class="subText">Tidsinterval i minutter</div>
-  <div class="line">
-    <form method="post" action="Settings" runat=server>
-  <input type="number" runat="server" name="time1" min="0" step="1" id="time">
-  <input type="submit" runat="server" value ="Gem">
-  </form>
-  </div>
-</div>
-        </td>
-    </tr>
-    <tr button class="collapsible" onclick="expand()">
-        <td>
-          Administrer brugerdefineret cooldown-liste
-          </td>
-    </tr>   
-</table>
-<br>
+					<tr>
+						<td>
+							<button class="collapsible" id= author1>Kunstner Cooldown
+								<div class="subText">@time minutter</div>
+							</button>
+							<div class="content">
 
-<table>
-    <tr>
-        <th>Reset</th>
-    </tr>
-    <tr button class="collapsible" onclick="reset()">
-        <td>
-          <div class="line">
-            Ryd alle sange
-            <div class="subText" id= reseter></div>
-            </div>
-</label>
-<br>
-</center>
+								<br>
+								<div class="subText">Tidsinterval i minutter</div>
+								<div class="line">
+									<form method="post" action="Settings" runat=server>
+										<input type="number" runat="server" name="time1" min="0"
+											step="1" id="time">
+										<input type="submit" runat="server" value="Gem">
+									</form>
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr button class="collapsible" onclick="expand()">
+						<td>
+							Administrer brugerdefineret cooldown-liste
+						</td>
+					</tr>
+				</table>
+				<br>
+
+				<table>
+					<tr>
+						<th>Reset</th>
+					</tr>
+					<tr button class="collapsible" onclick="reset()">
+						<td>
+							<div class="line">
+								Ryd alle sange
+								<div class="subText" id= reseter></div>
+							</div>
+						</table>
+					</center>
 
 <script>
 var coll = document.getElementsByClassName("collapsible");
@@ -343,6 +343,4 @@ for (i = 0; i < coll.length; i++) {
 
 </script>
 
-
 </body>
-
