@@ -183,6 +183,18 @@ function onOffCheck(){
     }
 }
 
+function reset(){
+  var txt;
+  if(confirm("Vil du slette alle sang anmodninger?")){
+  // Reset all song requests
+  txt = "Sange blev slettet"
+  }  else {
+  // Do nothing
+  txt = null;
+  }
+  document.getElementById("reseter").innerHTML = txt;
+}
+
 </script>
 
 <head runat="server">
@@ -283,7 +295,6 @@ function onOffCheck(){
   <br>
   <div class="subText">Tidsinterval i minutter</div>
   <div class="line">
-
     <form method="post" action="Settings" runat=server>
   <input type="number" runat="server" name="time1" min="0" step="1" id="time">
   <input type="submit" runat="server" value ="Gem">
@@ -296,13 +307,23 @@ function onOffCheck(){
         <td>
           Administrer brugerdefineret cooldown-liste
           </td>
-          
     </tr>   
-    
 </table>
-</div>
-</div>
- </center>
+<br>
+
+<table>
+    <tr>
+        <th>Reset</th>
+    </tr>
+    <tr button class="collapsible" onclick="reset()">
+        <td>
+          <div class="line">
+            Ryd alle sange
+            <div class="subText" id= reseter></div>
+            </div>
+</label>
+<br>
+</center>
 
 <script>
 var coll = document.getElementsByClassName("collapsible");
