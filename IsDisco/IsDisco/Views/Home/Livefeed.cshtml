@@ -5,6 +5,7 @@
 
     List<Request> requests = new List<Request>();
 
+
     //Init lists if they are empty
     if (!instance.GetTracks().Any<Track>())
     {
@@ -26,6 +27,9 @@
 
     //Sorts the list so that the newest item is at the top
     requests.Sort((x, y) => -x.Since.CompareTo(y.Since));
+
+    Html.Hidden("MyId", 0);
+
 
 }
 
@@ -54,16 +58,25 @@
 </style>
 
 <script>
+
+
 function blacklist(){
   var txt;
+  var i;
+  var x = document.getElementsByTagName("tr");
   if(confirm("Vil du blackliste denne sang?")){
-  // Reset all song requests
-  txt = "Sange blev slettet"
   }  else {
   // Do nothing
   txt = null;
   }
   document.getElementById("reseter").innerHTML = txt;
+}
+
+function tester(x){
+    var i;
+    i = x.rowIndex;
+    $('#MyId').val(i); 
+    alert("Sletter sang på index " + i);
 }
 
 </script>
@@ -90,7 +103,7 @@ function blacklist(){
                     </tr>
                     @foreach (Request request in requests)
                     {
-                        <tr>
+                        <tr onclick="tester(this)">
                             <td>@request.Track.Title</td>
                             <td>@request.Track.Artist</td>
                             <td>@request.User.Name</td>
@@ -113,8 +126,9 @@ function blacklist(){
                                 <td>Mere end @time.Hours timer siden</td>
                             }
                             <td><a href=@request.Track.Spotify_webplayer_link target="_blank"> Åben i Spotify</a>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" onclick="blacklist()"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8 0-1.85.63-3.55 1.69-4.9L16.9 18.31C15.55 19.37 13.85 20 12 20zm6.31-3.1L7.1 5.69C8.45 4.63 10.15 4 12 4c4.42 0 8 3.58 8 8 0 1.85-.63 3.55-1.69 4.9z"/></svg>
-                            </td>
+                           <a href="#" title= "blacklist song">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" ><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8 0-1.85.63-3.55 1.69-4.9L16.9 18.31C15.55 19.37 13.85 20 12 20zm6.31-3.1L7.1 5.69C8.45 4.63 10.15 4 12 4c4.42 0 8 3.58 8 8 0 1.85-.63 3.55-1.69 4.9z"/></svg>
+                           </a> </td>
                         </tr>
                     }
 
