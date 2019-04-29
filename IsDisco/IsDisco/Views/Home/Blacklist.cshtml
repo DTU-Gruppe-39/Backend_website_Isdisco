@@ -55,8 +55,35 @@
         var obj = $(button);
         alert('Vil du fjerne sangen fra blacklist? ' + obj.blacklist);
 
-      }</script>
+    }
 
+ 
+    $("#Search_form").submit(function (event) {
+        event.preventDefault();
+        var url = $(this).attr("action");
+        var request_mth = $(this).attr("method");
+        var form_data = $(this).serialize
+
+        $.ajax({
+            url: url,
+            data: form_data,
+            type: request_mth,
+        }).done(function (response) {
+            $("#Song_Json").html(response);
+        })
+    });
+   
+</script>
+
+
+<div>
+    <form action="http://isdisco-web-api.azurewebsites.net/api/spotify-track/search" method="get" id="Search_form">
+        <label>Sang navn</label>
+        <input type="text" name="songname" />
+        <input type="submit"  value="Søg" />
+        <div id="Song_Json"></div>
+    </form>
+</div>
 
 <div class="row">
     <div class="col-md-12">
@@ -88,7 +115,6 @@
         </table>
     </div>
 </div>
-
 
 <!-- <h2>@ViewData["Title"]</h2>
 <h3>@ViewData["Message"]</h3>
