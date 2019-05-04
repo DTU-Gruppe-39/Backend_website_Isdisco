@@ -63,6 +63,7 @@
         // 'https://isdisco-web-api.azurewebsites.net/api/spotify-track/search'
         $.ajax('https://localhost:44342/api/spotify-track/search' , {
             crossDomain: 'true',
+            headers:{'Access-Control-Allow-Origin':'*'},
             method: 'get',
             data: song,
             dataType: 'text',
@@ -70,10 +71,12 @@
             contentType: 'application/json',
             success: function (response) {
                 alert(response);
+                $("#Song_Json").html(response);
             },
             error: function (xhr, status, error) {
                 alert(status);
-                alert(xhr.responseText + " "+ song);
+                alert(xhr.responseText + " " + song);
+               
             }
         });
         
