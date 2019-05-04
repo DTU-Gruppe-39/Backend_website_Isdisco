@@ -210,115 +210,163 @@ function reset(){
 
 <body>
 	<center>
-		<div class="row">
-			<div class="col-lg-12">
-				<h1> <b>
-						@ViewData["Title"]
-				</b> </h1>
+        <div class="row">
+            <div class="col-lg-12">
+                <h1>
+                    <b>
+                        @ViewData["Title"]
+                    </b>
+                </h1>
 
-				<table>
-					<tr>
-						<th>Spotify</th>
-					</tr>
-					<tr>
-						<td>Spotify bruger
-							<br>
-							<div class="subText"> Indstillinger til/fra</div>
-						</td>
-					</tr>
-				</table>
+                <table>
+                    <tr>
+                        <th>Spotify</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            Spotify bruger
+                            <br>
+                            <div class="subText"> Indstillinger til/fra</div>
+                        </td>
+                    </tr>
+                </table>
 
-				<br><br>
-				<table>
-					<tr>
-						<th>Cooldown</th>
-					</tr>
-					<tr button class="collapsible" onclick="onOff(1)">
-						<td>
-							<div class="line">
-								Sang Cooldown
-								<label class="switch">
-									<input type="checkbox" id="check">
-									<span class="slider round"></span>
-								</div>
-								<div class="subText" id="active">
-								</div>
-							</label>
-						</td>
+                <br><br>
+                <table>
+                    <tr>
+                        <th>Cooldown</th>
+                    </tr>
+                    <tr button class="collapsible" onclick="onOff(1)">
+                        <td>
+                            <div class="line">
+                                Sang Cooldown
+                                <label class="switch">
+                                    <input type="checkbox" id="check">
+                                    <span class="slider round"></span>
+                            </div>
+                            <div class="subText" id="active">
+                            </div>
+                            </label>
+                        </td>
 
-						<tr button class="collapsible">
-							<td>
-								<button class="collapsible" id= author1 runat="server">Sang
-									Cooldown
-									<div class="subText">@time minutter</div>
-								</button>
-								<div class="content">
+                    <tr button class="collapsible">
+                        <td>
+                            <button class="collapsible" id=author1 runat="server">
+                                Sang
+                                Cooldown
+                                <div class="subText">@time minutter</div>
+                            </button>
+                            <div class="content">
 
-									<br>
-									<div class="subText">Tidsinterval i minutter</div>
-									<div class="line">
+                                <br>
+                                <div class="subText">Tidsinterval i minutter</div>
+                                <div class="line">
 
-										<form method="post" action="Settings">
-											<input type="number" name="time" min="0" step="1"
-												id="time">
-											<input type="submit" value="Gem">
-										</form>
+                                    <form method="post" action="Settings">
+                                        <input type="number" name="time" min="0" step="1"
+                                               id="time">
+                                        <input type="submit" value="Gem">
+                                    </form>
 
-									</div>
-								</div>
-							</td>
-						</tr>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
 
-					</tr>
+                    </tr>
 
-					<tr button class="collapsible" onclick="onOff(2)">
-						<td>
-							<div class="line">
-								Kunstner Cooldown
-								<label class="switch">
-									<input type="checkbox" id="check2">
-									<span class="slider round"></span>
-								</div>
-								<div class="subText" id="active2">
-								</div>
-							</label>
-						</td>
-					</tr>
+                    <tr button class="collapsible" onclick="onOff(2)">
+                        <td>
+                            <div class="line">
+                                Kunstner Cooldown
+                                <label class="switch">
+                                    <input type="checkbox" id="check2">
+                                    <span class="slider round"></span>
+                            </div>
+                            <div class="subText" id="active2">
+                            </div>
+                            </label>
+                        </td>
+                    </tr>
 
-					<tr>
-						<td>
-							<button class="collapsible" id= author1>Kunstner Cooldown
-								<div class="subText">@time minutter</div>
-							</button>
-							<div class="content">
+                    <tr>
+                        <td>
+                            <button class="collapsible" id=author1>
+                                Kunstner Cooldown
+                                <div class="subText">@time minutter</div>
+                            </button>
+                            <div class="content">
 
-								<br>
-								<div class="subText">Tidsinterval i minutter</div>
-								<div class="line">
-									<form method="post" action="Settings" runat=server>
-										<input type="number" runat="server" name="time1" min="0"
-											step="1" id="time">
-										<input type="submit" runat="server" value="Gem">
-									</form>
-								</div>
-							</div>
-						</td>
-					</tr>
-				</table>
-				<br>
+                                <br>
+                                <div class="subText">Tidsinterval i minutter</div>
+                                <div class="line">
+                                    <form method="post" action="Settings" runat=server>
+                                        <input type="number" runat="server" name="time1" min="0"
+                                               step="1" id="time">
+                                        <input type="submit" runat="server" value="Gem">
+                                    </form>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <br>
+            </div>
 
-				<table>
-					<tr>
-						<th>Reset</th>
-					</tr>
-					<tr button class="collapsible" onclick="reset()">
-						<td>
-							<div class="line">
-								Ryd alle sange
-								<div class="subText" id= reseter></div>
-							</div>
-						</table>
-					</center>
+            <table>
+                <tr>
+                    <th>Reset</th>
+                </tr>
+                <tr button class="collapsible" onclick="reset()">
+                    <td>
+                        <div class="line">
+                            Ryd alle sange
+                            <div class="subText" id=reseter></div>
+                        </div>
+            </table>
+            <br />
+            <table>
+                <tr>
+                    <th>Notifikationer</th>
+                </tr>
+                <tr>
+                    <td>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#notifikationModal">
+                            Opret og send en notifikation
+                        </button>
+                    </td>
+                </tr>
+            </table>
+            <!-- Modal -->
+            <div class="modal fade" id="notifikationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Opret en notifikation</h5>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group">
+                                    <label for="notificationTitle">Titel</label>
+                                    <input type="text" class="form-control" id="notificationTitle" placeholder="Indtast titel" required="true">
+                                </div>
+                                <div class="form-group">
+                                    <label for="notificationBody">Brødtekst</label>
+                                    <input type="text" class="form-control" id="notificationBody" placeholder="Indtast brødtekst" required="true">
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Afbryd</button>
+                            <button type="submit" class="btn btn-primary" onclick="pushNotification()">Send til alle brugere</button>
+                            <script>
+
+                           </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+</center>
 
 <script>
 var coll = document.getElementsByClassName("collapsible");
@@ -337,5 +385,26 @@ for (i = 0; i < coll.length; i++) {
 }
 
 </script>
+
+<script>function pushNotification() {
+        var title = document.getElementById("notificationTitle").value;
+        var msg = document.getElementById("notificationBody").value;
+        var uri = "https://isdisco-web-api.azurewebsites.net/api/notifications/pushAll?" + "title=" + title + "&" + "msg=" + msg;
+        if (msg != null || title != null) {
+            var res = encodeURI(uri);
+            httpGet(res);
+        }
+
+
+        console.log(res);
+    }
+
+    function httpGet(theUrl) {
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open("GET", theUrl, false); // false for synchronous request
+        xmlHttp.send(null);
+        return xmlHttp.responseText;
+    }</script>
+
 
 </body>
