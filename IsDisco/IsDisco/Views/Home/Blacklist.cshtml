@@ -49,12 +49,13 @@
         }
 </style>
 
-<script>function ImageButton_Click(button)
-      {
-   //     var blist = Track.blacklist;
-        var obj = $(button);
-        alert('Vil du fjerne sangen fra blacklist? ' + obj.blacklist);
-
+<script>
+    function ImageButton_Click(button){
+          var i = button.parentNode.parentNode.rowIndex;
+          if(confirm("Vil du fjerne den fra blacklist?")){
+            $('#MyId').val(i);    
+            alert("Sang på index " + i + " blev slettet fra blacklist");
+        } else {}
     }
     function Pfunc(button) {
         var song = "songname=" + document.getElementById("SongName").value;
@@ -79,6 +80,7 @@
    }
 
  /*
+ 
     $("#Search_form").submit(function (event) {
         event.preventDefault();
         // var url = $(this).attr("action")
@@ -132,7 +134,7 @@
             <tr>
                 <th>Sang</th>
                 <th>Kunstner</th>
-                <th>Ønsket i aften</th>
+                <th>Mulighed</th>
                 <th></th>
             </tr>
             
