@@ -2,12 +2,22 @@
     ViewData["Title"] = "Blacklist";
 
     Singleton instance = Singleton.getInstance();
-    instance.InitUsers();
-    instance.InitTracks();
-    List<Track> tracks = new List<Track>();
-    List<User> users = new List<User>();
-    users = instance.GetUsers();
-    tracks = instance.GetTracks();
+    
+
+  //instance.InitBlacklist();
+    List<BlacklistModel> blacklist = new List<BlacklistModel>();
+    
+
+ if (!instance.GetBlacklist().Any<BlacklistModel>())
+    {
+        instance.InitBlacklist();
+        blacklist = instance.GetBlacklist();
+        Console.WriteLine("InitBlacklist");
+    } 
+     else 
+    {
+        blacklist = instance.GetBlacklist();
+    } 
 }
 
 
@@ -138,12 +148,12 @@
                 <th></th>
             </tr>
             
-            @foreach (var Track in tracks)
+            @foreach (var BlacklistModel in blacklist)
             {
                 {
                     <tr>
-                        <td>@Track.Title </td>
-                        <td>@Track.Artist</td>
+                        <td>@BlacklistModel.TrackObj.Title </td>
+                        <td>@BlacklistModel.TrackObj.Artist</td>
                         <td><button class="material-icons" onclick="ImageButton_Click(this)">delete</button></td>
                     </tr>
                 }
