@@ -70,7 +70,7 @@ namespace IsDisco.Models
         }
         public void InitBlacklist()
         {
-            blacklist.Add(new BlacklistModel(tracks[2]));
+            //blacklist.Add(new BlacklistModel(tracks[2]));
         }
 
         public void InitRequests()
