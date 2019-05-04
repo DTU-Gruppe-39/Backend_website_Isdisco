@@ -10,9 +10,8 @@ namespace IsDisco.Models
         private static List<User> users = new List<User>();
         private static List<Request> requests = new List<Request>();
         private List<Track> tracks = new List<Track>();
-
-
-
+        private List<BlacklistModel> blacklist = new List<BlacklistModel>();
+        
         public static Singleton getInstance()
         {
             if (instance == null)
@@ -21,6 +20,7 @@ namespace IsDisco.Models
             }
             return instance;
         }
+
 
         public void InitUsers()
         {
@@ -67,6 +67,10 @@ namespace IsDisco.Models
             tracks.Add(new Track("Gangnam Style", "Psy", "Test9", "https://open.spotify.com/track/03UrZgTINDqvnUMbbIMhql?si=gtaXMnlsSIm0Klhyvo_yAQ"));
             tracks.Add(new Track("Nede Mette", "Blak", "1Test", "https://open.spotify.com/track/2gFaHRqjAE5ZNNnGr9eYG4?si=Oo4fJD0ZSsq45tFeVvApLw"));
             tracks.Add(new Track("Model", "Gulddreng", "2Test", "https://open.spotify.com/track/7Gf2vkf59IaWPu3Kb5Tdmx?si=dNnR67GKRzeWYyxK7JnqxQ"));
+        }
+        public void InitBlacklist()
+        {
+            blacklist.Add(new BlacklistModel(tracks[2]));
         }
 
         public void InitRequests()
@@ -123,6 +127,11 @@ namespace IsDisco.Models
         public List<Request> GetRequests()
         {
             return requests;
+        }
+
+        public List<BlacklistModel> GetBlacklist()
+        {
+            return blacklist;
         }
     }
 }
