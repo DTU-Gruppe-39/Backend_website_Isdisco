@@ -63,7 +63,9 @@
 function blacklist(x){
   var txt;
   var i = x.parentNode.parentNode.rowIndex;
-  if(confirm("Vil du blackliste denne sang?")){
+  var song = document.getElementById("songTable").rows[i].cells.item(1).innerHTML;
+  var author = document.getElementById("songTable").rows[i].cells.item(2).innerHTML;
+  if(confirm("Vil du blackliste "+ song + " af "  + author + "?")){
     $('#MyId').val(i); 
     alert("Sletter sang på index " + i);
   }  else {

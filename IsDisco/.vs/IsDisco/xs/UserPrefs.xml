@@ -1,16 +1,17 @@
 ﻿<Properties StartupConfiguration="{87518F96-DC2A-46DF-988D-A225A6D8DFFD}|Default">
   <MonoDevelop.Ide.Workbench ActiveDocument="IsDisco/Views/Home/Index.cshtml">
     <Files>
-      <File FileName="IsDisco/IsDisco.csproj" Line="1" Column="1" />
-      <File FileName="IsDisco/Program.cs" Line="17" Column="1" />
-      <File FileName="IsDisco/obj/Debug/netcoreapp2.1/IsDisco.assets.cache" />
+      <File FileName="IsDisco/Program.cs" Line="22" Column="33" />
       <File FileName="IsDisco/Views/Home/Blacklist.cshtml" Line="1" Column="1" />
       <File FileName="../../../../../../usr/local/share/dotnet/sdk/NuGetFallbackFolder/microsoft.aspnetcore.razor.design/2.1.2/build/netstandard2.0/Microsoft.AspNetCore.Razor.Design.CodeGeneration.targets" Line="121" Column="5" />
-      <File FileName="IsDisco/Models/Singleton.cs" Line="51" Column="34" />
-      <File FileName="IsDisco/Views/Home/Livefeed.cshtml" Line="100" Column="30" />
+      <File FileName="IsDisco/Views/Home/Livefeed.cshtml" Line="125" Column="50" />
       <File FileName="IsDisco/Models/Track.cs" Line="19" Column="14" />
       <File FileName="IsDisco/Views/Home/Settings.cshtml" Line="1" Column="1" />
-      <File FileName="IsDisco/Views/Home/Index.cshtml" Line="110" Column="25" NotebookId="1" />
+      <File FileName="IsDisco/Views/_ViewStart.cshtml" Line="1" Column="1" />
+      <File FileName="IsDisco/Properties/launchSettings.json" Line="1" Column="1" />
+      <File FileName="IsDisco/Startup.cs" Line="26" Column="16" />
+      <File FileName="IsDisco/Models/Singleton.cs" Line="72" Column="10" />
+      <File FileName="IsDisco/Views/Home/Index.cshtml" Line="142" Column="49" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
