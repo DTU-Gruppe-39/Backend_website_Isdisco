@@ -69,12 +69,11 @@
     }
 
     function Pfunc(button) {
+        // 'https://isdisco-web-api.azurewebsites.net/api/spotify-track/search'
         if (document.getElementById("SongName").value == "") {
             return;
         }
         var song = "songname=" + document.getElementById("SongName").value;
-      //  alert(song);
-        // 'https://isdisco-web-api.azurewebsites.net/api/spotify-track/search'
         $.ajax('https://localhost:44342/api/spotify-track/search' , {
             crossDomain: 'true',
             headers:{'Access-Control-Allow-Origin':'*'},
@@ -85,25 +84,15 @@
             contentType: 'application/json',
             success: function (response) {
                 alert(response);
-               // var tracks = response.split(new RegExp("}"));
-               // var tracks_parsed = JSON.parse(tracks);
-              //  tracks.forEach(function (entry) {
-                //  $("#Song_Json").append(entry + "<br/>" + "<br/>" + "<br/>");
                 var rec = JSON.parse(response);
                 var tracks = rec.Tracks
-               // var x = tracks[0];
                 var table = document.getElementById("Song_Json");
-                //or use :  var table = document.all.tableid;
                 for (var i = table.rows.length - 1; i > 0; i--) {
                     table.deleteRow(i);
                 }
                 tracks.forEach(function (entry) {
-                    $("#Song_Json").append("<tr>" + "<td>" + entry.SongName + "</td>" + "<td>" + entry.ArtistName + "</td>" + "<td>" + "<a href=" + "" + entry.WebplayerLink + ">" + "Open in spotify" + "</a>" + "</td>" + "</tr>");
+                    $("#Song_Json").append("<tr>" + "<td>" + entry.SongName + "</td>" + "<td>" + entry.ArtistName + "</td>" + "<td>" + "<a href=" + "" + entry.WebplayerLink + ">" + "Åpen i Spotify" + "</a>" + "</td>" + "</tr>");
                 });
-
-               // $("#Song_Json").append(x.SongName);
-              //  });
-
             },
             error: function (xhr, status, error) {
                 alert(status);
