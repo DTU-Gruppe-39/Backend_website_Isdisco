@@ -1,9 +1,9 @@
 ﻿@model IsDisco.Models.Track
 
 @{
-ViewData["Title"] = "Indstillinger";
-Boolean Cooldown = false;
-decimal time = 15;
+    ViewData["Title"] = "Indstillinger";
+    Boolean Cooldown = false;
+    decimal time = 15;
 }
 
 
@@ -11,6 +11,7 @@ decimal time = 15;
     body {
         background-color: #e9ebee;
     }
+
     table {
         font-family: arial, sans-serif;
         border-collapse: collapse;
@@ -18,11 +19,13 @@ decimal time = 15;
         background-color: white;
         border-radius: 10px;
     }
+
     td, th {
         border: 2px solid #f4f5f4;
         text-align: left;
         height: 60px;
     }
+
     th {
         background-color: #9f9fa0;
         height: 40px;
@@ -33,107 +36,106 @@ decimal time = 15;
         margin-top: 5px;
         font-size: 12px;
     }
-    button{
+
+    button {
         width: 100%;
     }
-    .liner{
+
+    .liner {
         display: inline-block;
     }
 
-input[type=submit]{
-  background-color: #4CAF50;
-  border: none;
-  color: white;
-  padding: 8px 8px;
-  text-decoration: none;
-  margin: 4px 2px;
-  cursor: pointer;
-}
+    input[type=submit] {
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 8px 8px;
+        text-decoration: none;
+        margin: 4px 2px;
+        cursor: pointer;
+    }
 
 
-.collapsible {
-  cursor: pointer;
-  background-color: white;
-  text-align: left;
-  height: 30px;
-  width: 100%;
-  border: none;
-  text-align: left;
-  outline: none;
-}
-
-
-
-.content {
-  padding: 0 18px;
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.2s ease-out;
-}
-
-  .slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
-  float: right;
-}
-
-.switch input { 
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-input:checked + .slider {
-  background-color: #2196F3;
-}
-
-input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
-}
-
-input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
-}
-
-/* Rounded sliders */
-.slider.round {
-  border-radius: 34px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
-}
+    .collapsible {
+        cursor: pointer;
+        background-color: white;
+        text-align: left;
+        height: 30px;
+        width: 100%;
+        border: none;
+        text-align: left;
+        outline: none;
+    }
 
 
 
+    .content {
+        padding: 0 18px;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.2s ease-out;
+    }
+
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 60px;
+        height: 34px;
+        float: right;
+    }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 26px;
+        width: 26px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+    input:checked + .slider {
+        background-color: #2196F3;
+    }
+
+    input:focus + .slider {
+        box-shadow: 0 0 1px #2196F3;
+    }
+
+    input:checked + .slider:before {
+        -webkit-transform: translateX(26px);
+        -ms-transform: translateX(26px);
+        transform: translateX(26px);
+    }
+
+    /* Rounded sliders */
+    .slider.round {
+        border-radius: 34px;
+    }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }
 </style>
 
 <script runat="server">
@@ -145,8 +147,6 @@ input:checked + .slider:before {
 </script>
 
 <script>
-
-
 function onOff(x){
   if(x == 1)
     if(document.getElementById("check").checked == false){
@@ -193,23 +193,19 @@ function reset(){
   txt = null;
   }
   document.getElementById("reseter").innerHTML = txt;
-}
-
-</script>
+}</script>
 
 <head runat="server">
-	<script type="text/javascript">
-           window.onload = function() {
+    <script type="text/javascript">
+window.onload = function() {
                 onOffCheck();
            }
-           Request["time"]
-
-     </script>
+           Request["time"]</script>
 </head>
 
 
 <body>
-	<center>
+    <center>
         <div class="row">
             <div class="col-lg-12">
                 <h1>
@@ -359,16 +355,14 @@ function reset(){
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Afbryd</button>
                             <button type="submit" class="btn btn-primary" onclick="pushNotification()">Send til alle brugere</button>
-                            <script>
-
-                           </script>
+                            <script></script>
                         </div>
                     </div>
                 </div>
             </div>
-</center>
+    </center>
 
-<script>
+    <script>
 var coll = document.getElementsByClassName("collapsible");
 var i;
 
@@ -380,23 +374,23 @@ for (i = 0; i < coll.length; i++) {
       content.style.maxHeight = null;
     } else {
       content.style.maxHeight = content.scrollHeight + "px";
-    } 
+    }
   });
-}
+}</script>
 
-</script>
-
-<script>function pushNotification() {
+    <script>
+function pushNotification() {
         var title = document.getElementById("notificationTitle").value;
         var msg = document.getElementById("notificationBody").value;
         var uri = "https://isdisco-web-api.azurewebsites.net/api/notifications/pushAll?" + "title=" + title + "&" + "msg=" + msg;
         if (msg != null || title != null) {
             var res = encodeURI(uri);
-            httpGet(res);
+            httpGetAsync(res, doStuff);
         }
+    }
 
-
-        console.log(res);
+    function doStuff(){
+        console.log("Hej");
     }
 
     function httpGet(theUrl) {
@@ -404,7 +398,20 @@ for (i = 0; i < coll.length; i++) {
         xmlHttp.open("GET", theUrl, false); // false for synchronous request
         xmlHttp.send(null);
         return xmlHttp.responseText;
-    }</script>
+    }
+
+    function httpGetAsync(theUrl, callback) {
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function() {
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+            callback(xmlHttp.responseText);
+    }
+    xmlHttp.open("GET", theUrl, true); // true for asynchronous
+    xmlHttp.send(null);
+    }
+
+
+    </script>
 
 
 </body>

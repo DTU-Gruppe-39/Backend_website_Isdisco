@@ -60,6 +60,36 @@
 </style>
 
 <script>
+    function loadBlacklist(){
+        
+          $.ajax('https://localhost:44342/api/blacklist' , {
+            crossDomain: 'true',
+            headers:{'Access-Control-Allow-Origin':'*'},
+            method: 'get',
+            data: track,
+            dataType: 'text',
+           
+            contentType: 'application/json',
+            success: function (response) {
+                alert(response);
+                var rec = JSON.parse(response);
+                var tracks = rec.Tracks
+                var table = document.getElementById("Song_Json");
+                for (var i = table.rows.length - 1; i > 0; i--) {
+                    table.deleteRow(i);
+                }
+                tracks.forEach(function (entry) {
+                    $("#Song_Json").append("<tr>" + "<td>" + entry.SongName + "</td>" + "<td>" + entry.ArtistName + "</td>" + "<td>" + "<a href=" + "" + entry.WebplayerLink + ">" + "Open in spotify" + "</a>" + "</td>" + "</tr>");
+                });
+            },
+            error: function (xhr, status, error) {
+                alert(status);
+                alert(xhr.responseText + " " + song);
+               
+            }
+        });
+    }
+
     function ImageButton_Click(button){
           var i = button.parentNode.parentNode.rowIndex;
           if(confirm("Vil du fjerne den fra blacklist?")){
@@ -136,6 +166,7 @@
     </form> */
 </script>
 
+<body onload="loadBlacklist()">
 
 <div>
     <input type="text" id="SongName" name="songname"/>
@@ -188,3 +219,4 @@
 
 <p>Use this area to provide additionBl information.</p>
 -->
+</body>

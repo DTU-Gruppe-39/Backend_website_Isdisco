@@ -73,8 +73,7 @@ function blacklist(x,reqID,trackTitle,trackArtist,trackSpot){
     };
      var json = JSON.stringify(obj);
   if(confirm("Vil du blackliste "+ song + " af "  + author + "?")){
-    $('#MyId').val(i); 
-    alert(reqID+ " " + trackTitle);
+  //  alert(reqID+ " " + trackTitle);
     $.ajax('https://localhost:44342/api/blacklist' , {
         crossDomain: 'true',
         headers: {'Access-Control-Allow-Origin':'*'},
