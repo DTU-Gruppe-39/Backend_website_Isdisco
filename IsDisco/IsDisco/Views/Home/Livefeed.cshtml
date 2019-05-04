@@ -60,24 +60,18 @@
 <script>
 
 
-function blacklist(){
+function blacklist(x){
   var txt;
-  var i;
-  var x = document.getElementsByTagName("tr");
+  var i = x.parentNode.parentNode.rowIndex;
   if(confirm("Vil du blackliste denne sang?")){
+    $('#MyId').val(i); 
+    alert("Sletter sang på index " + i);
   }  else {
   // Do nothing
   txt = null;
   }
-  document.getElementById("reseter").innerHTML = txt;
 }
 
-function tester(x){
-    var i;
-    i = x.rowIndex;
-    $('#MyId').val(i); 
-    alert("Sletter sang på index " + i);
-}
 
 </script>
 
@@ -93,7 +87,7 @@ function tester(x){
             </center>
             <div style="height:80vh;overflow-y:scroll; width: 95%">
 
-                <table>
+                <table id="songTable">
                     <tr>
                         <th>Sang</th>
                         <th>Kunstner</th>
@@ -103,7 +97,7 @@ function tester(x){
                     </tr>
                     @foreach (Request request in requests)
                     {
-                        <tr onclick="tester(this)">
+                        <tr>
                             <td>@request.Track.Title</td>
                             <td>@request.Track.Artist</td>
                             <td>@request.User.Name</td>
@@ -126,8 +120,8 @@ function tester(x){
                                 <td>Mere end @time.Hours timer siden</td>
                             }
                             <td><a href=@request.Track.Spotify_webplayer_link target="_blank"> Åben i Spotify</a>
-                           <a href="#" title= "blacklist song">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" ><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8 0-1.85.63-3.55 1.69-4.9L16.9 18.31C15.55 19.37 13.85 20 12 20zm6.31-3.1L7.1 5.69C8.45 4.63 10.15 4 12 4c4.42 0 8 3.58 8 8 0 1.85-.63 3.55-1.69 4.9z"/></svg>
+                            <a href="#" title= "blacklist song" onclick="blacklist(this)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" id="blacklist"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8 0-1.85.63-3.55 1.69-4.9L16.9 18.31C15.55 19.37 13.85 20 12 20zm6.31-3.1L7.1 5.69C8.45 4.63 10.15 4 12 4c4.42 0 8 3.58 8 8 0 1.85-.63 3.55-1.69 4.9z"/></svg>
                            </a> </td>
                         </tr>
                     }
