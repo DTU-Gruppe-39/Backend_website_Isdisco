@@ -56,22 +56,22 @@
 
 <script>
 
-function blacklist(x, reqID,trackTitle,trackArtist,trackSpot){
+function blacklist(x,reqID,trackTitle,trackArtist,trackSpot){
   var i = x.parentNode.parentNode.rowIndex;
   var song = document.getElementById("myTable").rows[i].cells.item(1).innerHTML;
   var author = document.getElementById("myTable").rows[i].cells.item(2).innerHTML;
   var obj = {
-      "track": [
-        "id":"reqID",
-        "songName":"trackTitle",
-        "artistName":"trackArtist",
-        "image_small_url":"er",
-        "image_medium_url":"er",
-        "image_large_url":"er",
-        "webplayerlink":"trackSpot"
-        }
-        };
-    var jsonObj = JSON.parse(obj);   
+      "track": {
+        "id":reqID,
+        "songName":trackTitle,
+        "artistName":trackArtist,
+        "image_small_url":"",
+        "image_medium_url":"",
+        "image_large_url":"",
+        "webplayerlink":trackSpot
+  }
+    };
+     var json = JSON.stringify(obj);
   if(confirm("Vil du blackliste "+ song + " af "  + author + "?")){
     $('#MyId').val(i); 
     alert(reqID+ " " + trackTitle);
@@ -79,7 +79,7 @@ function blacklist(x, reqID,trackTitle,trackArtist,trackSpot){
         crossDomain: 'true',
         headers: {'Access-Control-Allow-Origin':'*'},
         method: 'post',
-        data: jsonObj,
+        data: json,
         dataType: 'text',
         contentType: 'application/json',
         success: function (response) {
