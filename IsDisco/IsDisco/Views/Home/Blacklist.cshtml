@@ -56,34 +56,68 @@
         alert('Vil du fjerne sangen fra blacklist? ' + obj.blacklist);
 
     }
+    function Pfunc(button) {
+        var song = "songname=" + document.getElementById("SongName").value;
+      //  alert(song);
+        // 'https://isdisco-web-api.azurewebsites.net/api/spotify-track/search'
+        $.ajax('https://localhost:44342/api/spotify-track/search' , {
+            crossDomain: 'true',
+            method: 'get',
+            data: song,
+            dataType: 'text',
+           
+            contentType: 'application/json',
+            success: function (response) {
+                alert(response);
+            },
+            error: function (xhr, status, error) {
+                alert(status);
+                alert(xhr.responseText + " "+ song);
+            }
+        });
+        
+   }
 
- 
+ /*
     $("#Search_form").submit(function (event) {
         event.preventDefault();
-        var url = $(this).attr("action");
-        var request_mth = $(this).attr("method");
-        var form_data = $(this).serialize
+        // var url = $(this).attr("action")
+        // var request_mth = $(this).attr("method");
+        var form_data = $(this).serialize;
 
-        $.ajax({
-            url: url,
+        $.get("https://isdisco-web-api.azurewebsites.net/api/spotify-track/search" , function (data, status) {
+            alert("Data" + data + "\nStatus" + status);
+        });
+    });
+    */
+      /*  $.ajax({
+            url: 'https://isdisco-web-api.azurewebsites.net/api/spotify-track/search',
+            method: 'GET',
             data: form_data,
-            type: request_mth,
-        }).done(function (response) {
-            $("#Song_Json").html(response);
+            contentType: 'application/json',
+            dataType: 'text'
+        }).s(function (response) {
+            var song = JSON.parse(response);
+            $("#Song_Json").html(song);
         })
     });
-   
+  */  /*
+  <form id="Search_form">
+        <label>Sang navn</label>
+        <input type="text" name="songname" />
+        <input type="submit" value="Søg" />
+    <div id="Song_Json"> hej </div>
+    </form> */
 </script>
 
 
 <div>
-    <form action="http://isdisco-web-api.azurewebsites.net/api/spotify-track/search" method="get" id="Search_form">
-        <label>Sang navn</label>
-        <input type="text" name="songname" />
-        <input type="submit"  value="Søg" />
-        <div id="Song_Json"></div>
-    </form>
+    <input type="text" id="SongName" name="songname"/>
+    <button onclick="Pfunc(this)"> søg </button>
+    <div name="Song_Json" id="Song_Json"> hej </div>
+
 </div>
+
 
 <div class="row">
     <div class="col-md-12">
