@@ -2,26 +2,27 @@
     ViewData["Title"] = "Blacklist";
 
     Singleton instance = Singleton.getInstance();
-    
 
-  //instance.InitBlacklist();
+
+    //instance.InitBlacklist();
     List<BlacklistModel> blacklist = new List<BlacklistModel>();
-    
 
- if (!instance.GetBlacklist().Any<BlacklistModel>())
+
+    if (!instance.GetBlacklist().Any<BlacklistModel>())
     {
         instance.InitBlacklist();
         blacklist = instance.GetBlacklist();
         Console.WriteLine("InitBlacklist");
-    } 
-     else 
+    }
+    else
     {
         blacklist = instance.GetBlacklist();
-    } 
+    }
 }
 
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 <style>
     body {
         background-color: #e9ebee;
@@ -60,15 +61,14 @@
 </style>
 
 <script>
-    function loadBlacklist(){
-        
-          $.ajax('https://localhost:44342/api/blacklist' , {
+    function loadBlacklist() {
+        $.ajax('https://localhost:44342/api/blacklist', {
             crossDomain: 'true',
-            headers:{'Access-Control-Allow-Origin':'*'},
+            headers: { 'Access-Control-Allow-Origin': '*' },
             method: 'get',
             data: track,
             dataType: 'text',
-           
+
             contentType: 'application/json',
             success: function (response) {
                 alert(response);
@@ -85,138 +85,149 @@
             error: function (xhr, status, error) {
                 alert(status);
                 alert(xhr.responseText + " " + song);
-               
+
             }
         });
     }
 
-    function ImageButton_Click(button){
-          var i = button.parentNode.parentNode.rowIndex;
-          if(confirm("Vil du fjerne den fra blacklist?")){
-            $('#MyId').val(i);    
+    function ImageButton_Click(button) {
+        var i = button.parentNode.parentNode.rowIndex;
+        if (confirm("Vil du fjerne den fra blacklist?")) {
+            $('#MyId').val(i);
             alert("Sang på index " + i + " blev slettet fra blacklist");
         }
     }
 
-    function Pfunc(button) {
+    function ClearTableAndInput() {
+        var table = document.getElementById("Song_Json");
+        for (var i = table.rows.length - 1; i > 0; i--) {
+            table.deleteRow(i);
+        }
+        document.getElementById("SongName").value = "";
+        var input = document.getElementById("SongName");
+
+        // Execute a function when the user releases a key on the keyboard
+        input.addEventListener("keyup", function (event) {
+            // Number 13 is the "Enter" key on the keyboard
+            if (event.keyCode === 13) {
+                // Cancel the default action, if needed
+                event.preventDefault();
+                // Trigger the button element with a click
+                document.getElementById("Search_Btn").click();
+            }
+        });
+    }
+
+    function Pfunc() {
         // 'https://isdisco-web-api.azurewebsites.net/api/spotify-track/search'
         if (document.getElementById("SongName").value == "") {
             return;
         }
         var song = "songname=" + document.getElementById("SongName").value;
-        $.ajax('https://localhost:44342/api/spotify-track/search' , {
+        $.ajax('https://localhost:44342/api/spotify-track/search', {
             crossDomain: 'true',
-            headers:{'Access-Control-Allow-Origin':'*'},
+            headers: { 'Access-Control-Allow-Origin': '*' },
             method: 'get',
             data: song,
             dataType: 'text',
-           
+
             contentType: 'application/json',
             success: function (response) {
                 alert(response);
                 var rec = JSON.parse(response);
                 var tracks = rec.Tracks
-                var table = document.getElementById("Song_Json");
-                for (var i = table.rows.length - 1; i > 0; i--) {
-                    table.deleteRow(i);
-                }
+                ClearTableAndInput();
                 tracks.forEach(function (entry) {
-                    $("#Song_Json").append("<tr>" + "<td>" + entry.SongName + "</td>" + "<td>" + entry.ArtistName + "</td>" + "<td>" + "<a href=" + "" + entry.WebplayerLink + ">" + "Åpen i Spotify" + "</a>" + "</td>" + "</tr>");
+                    $("#Song_Json").append("<tr>" + "<td>" + entry.SongName + "</td>" + "<td>" + entry.ArtistName + "</td>" + "</tr>");
                 });
             },
             error: function (xhr, status, error) {
                 alert(status);
                 alert(xhr.responseText + " " + song);
-               
+
             }
         });
-        
-   }
 
- /*
- 
-    $("#Search_form").submit(function (event) {
-        event.preventDefault();
-        // var url = $(this).attr("action")
-        // var request_mth = $(this).attr("method");
-        var form_data = $(this).serialize;
-
-        $.get("https://isdisco-web-api.azurewebsites.net/api/spotify-track/search" , function (data, status) {
-            alert("Data" + data + "\nStatus" + status);
-        });
-    });
-    */
-      /*  $.ajax({
-            url: 'https://isdisco-web-api.azurewebsites.net/api/spotify-track/search',
-            method: 'GET',
-            data: form_data,
-            contentType: 'application/json',
-            dataType: 'text'
-        }).s(function (response) {
-            var song = JSON.parse(response);
-            $("#Song_Json").html(song);
-        })
-    });
-  */  /*
-  <form id="Search_form">
-        <label>Sang navn</label>
-        <input type="text" name="songname" />
-        <input type="submit" value="Søg" />
-    <div id="Song_Json"> hej </div>
-    </form> */
+    }
 </script>
 
 <body onload="loadBlacklist()">
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" onclick="ClearTableAndInput()" data-toggle="modal" data-target="#basicExampleModal">
+        <i class="fas fa-search"></i>
+        Tilføj sange til Blacklist
+    </button>
 
-<div>
-    <input type="text" id="SongName" name="songname"/>
-    <button onclick="Pfunc(this)"> søg </button>
-    <table name="Song_Json" id="Song_Json">
-        <tr>
-            <th>Sang</th>
-            <th>Kunstner</th>
-            <th>Mulighed</th>
-            <th></th>
-        </tr>
-    </table>
+    <!-- Modal -->
+    <div class="modal fade" id="basicExampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Blacklist sange</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div>
 
-</div>
-
-
-<div class="row">
-    <div class="col-md-12">
-        <center>
-            <h1>
-                <b>
-                    @ViewData["Title"]
-                </b>
-            </h1>
-        </center>
-        <table>
-            <tr>
-                <th>Sang</th>
-                <th>Kunstner</th>
-                <th>Mulighed</th>
-                <th></th>
-            </tr>
-            
-            @foreach (var BlacklistModel in blacklist)
-            {
-                {
-                    <tr>
-                        <td>@BlacklistModel.TrackObj.Title </td>
-                        <td>@BlacklistModel.TrackObj.Artist</td>
-                        <td><button class="material-icons" onclick="ImageButton_Click(this)">delete</button></td>
-                    </tr>
-                }
-            }
-        </table>
+                        <!-- Search form -->
+                          <!--  <input class="form-control" id="SongName" name="songname" type="text" placeholder="Søg" aria-label="Search"> -->
+                            <input class="glyphicon-search" type="text" id="SongName" name="songname" placeholder="Søg" aria-label="Search" />
+                            <button id="Search_Btn" class="btn btn-primary" onclick="Pfunc()"> Søg </button>
+                        <table name="Song_Json" id="Song_Json">
+                            <tr>
+                                <th>Sang</th>
+                                <th>Kunstner</th>
+                                <th>Blacklist Btn</th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
 
-<!-- <h2>@ViewData["Title"]</h2>
-<h3>@ViewData["Message"]</h3>
 
-<p>Use this area to provide additionBl information.</p>
--->
+
+    <div class="row">
+        <div class="col-md-12">
+            <center>
+                <h1>
+                    <b>
+                        @ViewData["Title"]
+                    </b>
+                </h1>
+            </center>
+            <table>
+                <tr>
+                    <th>Sang</th>
+                    <th>Kunstner</th>
+                    <th>Mulighed</th>
+                    <th></th>
+                </tr>
+
+                @foreach (var BlacklistModel in blacklist)
+                {
+                    {
+                        <tr>
+                            <td>@BlacklistModel.TrackObj.Title </td>
+                            <td>@BlacklistModel.TrackObj.Artist</td>
+                            <td><button class="material-icons" onclick="ImageButton_Click(this)">delete</button></td>
+                        </tr>
+                    }
+                }
+            </table>
+        </div>
+    </div>
+
+    <!-- <h2>@ViewData["Title"]</h2>
+    <h3>@ViewData["Message"]</h3>
+
+    <p>Use this area to provide additionBl information.</p>
+    -->
 </body>
