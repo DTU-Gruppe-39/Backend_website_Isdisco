@@ -18,6 +18,11 @@
     {
         blacklist = instance.GetBlacklist();
     }
+
+    /*
+     <a href="#" title= "blacklist song" onclick="blacklist(this, '@Request.Track.Track_id','@Request.Track.Title','@Request.Track.Artist', '@Request.Track.Spotify_webplayer_link')">
+                <img src= "https://image.flaticon.com/icons/svg/61/61057.svg" width="24">
+    */
 }
 
 
@@ -59,6 +64,8 @@
             transition: 0.2s;
         }
 </style>
+
+
 
 <script>
     function loadBlacklist() {
@@ -116,24 +123,47 @@
         }
     }
 
+    function blacklist(x, reqID, trackTitle, trackArtist, trackSpot) {
+        var i = x.parentNode.parentNode.rowIndex;
+        var song = document.getElementById("myTable").rows[i].cells.item(1).innerHTML;
+        var author = document.getElementById("myTable").rows[i].cells.item(2).innerHTML;
+        var obj = {
+            "track": {
+                "id": reqID,
+                "songName": trackTitle,
+                "artistName": trackArtist,
+                "image_small_url": "",
+                "image_medium_url": "",
+                "image_large_url": "",
+                "webplayerlink": trackSpot
+            }
+        };
+        var json = JSON.stringify(obj);
+        if (confirm("Vil du blackliste " + song + " af " + author + "?")) {
+            //  alert(reqID+ " " + trackTitle);
+            $.ajax('https://localhost:44342/api/blacklist', {
+                crossDomain: 'true',
+                headers: { 'Access-Control-Allow-Origin': '*' },
+                method: 'post',
+                data: json,
+                dataType: 'text',
+                contentType: 'application/json',
+                success: function (response) {
+                    alert(response + "Success");
+                },
+                error: function (xhr, status, error) {
+                    alert(status);
+                }
+            });
+        }
+    }
+
     function ClearTableAndInput() {
         var table = document.getElementById("Song_Json");
         for (var i = table.rows.length - 1; i > 0; i--) {
             table.deleteRow(i);
         }
         document.getElementById("SongName").value = "";
-        var input = document.getElementById("SongName");
-
-        // Execute a function when the user releases a key on the keyboard
-        input.addEventListener("keyup", function (event) {
-            // Number 13 is the "Enter" key on the keyboard
-            if (event.keyCode === 13) {
-                // Cancel the default action, if needed
-                event.preventDefault();
-                // Trigger the button element with a click
-                document.getElementById("Search_Btn").click();
-            }
-        });
     }
 
     function Pfunc() {
@@ -155,9 +185,11 @@
                 var tracks = rec.Tracks
                 ClearTableAndInput();
                 tracks.forEach(function (entry) {
-                    $("#Song_Json").append("<tr>" + "<td>" + entry.SongName + "</td>" + "<td>" + entry.ArtistName + "</td>" + "</tr>");
+                    var parameters = "" + entry.id + "," + entry.SongName + "," + entry.ArtistName + "," + entry.webplayerlink;
+                    $("#Song_Json").append("<tr>" + "<td>" + entry.SongName + "</td>" + "<td>" + entry.ArtistName + "</td>" + "<td>" + '<a href="#" title= "blacklist song" onclick="blacklist(this,' + parameters +")>" + '<img src= "https://image.flaticon.com/icons/svg/61/61057.svg" width="24">' + "</a>" + "</td>" + "</tr>");
                 });
             },
+
             error: function (xhr, status, error) {
                 alert(status);
                 alert(xhr.responseText + " " + song);
@@ -191,7 +223,7 @@
 
                         <!-- Search form -->
                           <!--  <input class="form-control" id="SongName" name="songname" type="text" placeholder="Søg" aria-label="Search"> -->
-                            <input class="glyphicon-search" type="text" id="SongName" name="songname" placeholder="Søg" aria-label="Search" />
+                            <input class="glyphicon-search" type="text" id="SongName" name="songname" placeholder="Søg" aria-label="Search" onkeyup="if (event.keyCode == 13) { document.getElementById('Search_Btn').click() } " />
                             <button id="Search_Btn" class="btn btn-primary" onclick="Pfunc()"> Søg </button>
                         <table name="Song_Json" id="Song_Json">
                             <tr>
@@ -225,21 +257,6 @@
                 <th>Mulighed</th>
                 <th>ID</th>
             </tr>
-            
-            <!-- @foreach (var BlacklistModel in blacklist)
-            {
-                {
-                    {
-                        <tr>
-                            <td>@BlacklistModel.TrackObj.Title </td>
-                            <td>@BlacklistModel.TrackObj.Artist</td>
-                            <td><button class="material-icons" onclick="ImageButton_Click(this)">delete</button></td>
-                        </tr>
-                    }
-                }
-            </table>
-        </div>
-            } -->
         </table>
     </div>
 
