@@ -66,20 +66,20 @@
             crossDomain: 'true',
             headers: { 'Access-Control-Allow-Origin': '*' },
             method: 'get',
-            data: track,
             dataType: 'text',
-
             contentType: 'application/json',
             success: function (response) {
-                alert(response);
+       //         alert(response);
                 var rec = JSON.parse(response);
-                var tracks = rec.Tracks
-                var table = document.getElementById("Song_Json");
+                console.log(rec);
+                var tracks = rec.Blacklist;
+                var table = document.getElementById("blacklist");
                 for (var i = table.rows.length - 1; i > 0; i--) {
                     table.deleteRow(i);
                 }
-                tracks.forEach(function (entry) {
-                    $("#Song_Json").append("<tr>" + "<td>" + entry.SongName + "</td>" + "<td>" + entry.ArtistName + "</td>" + "<td>" + "<a href=" + "" + entry.WebplayerLink + ">" + "Open in spotify" + "</a>" + "</td>" + "</tr>");
+                rec.forEach(function (entry) {
+                    console.log("Blacklist: "+ rec["track"]);
+                    $("#blacklist").append("<tr>" + "<td>" + entry.track["songName"] + "</td>" + "<td>" + entry.track["artistName"] + "</td>" + "<td>" + "<button class=\"material-icons\" onclick=\"Remove(this) \">delete</button>" + "</a>" + "</td>" + "<td>" + entry.id + "</td>" + "</tr>");
                 });
             },
             error: function (xhr, status, error) {
@@ -90,11 +90,29 @@
         });
     }
 
-    function ImageButton_Click(button) {
-        var i = button.parentNode.parentNode.rowIndex;
-        if (confirm("Vil du fjerne den fra blacklist?")) {
-            $('#MyId').val(i);
-            alert("Sang på index " + i + " blev slettet fra blacklist");
+    function Remove(button){
+          var i = button.parentNode.parentNode.rowIndex;
+          var id = blacklist.rows[i].cells[3].innerHTML;
+          if(confirm("Vil du fjerne den fra blacklist?")){
+            $.ajax('https://localhost:44342/api/blacklist/'+id , {
+            crossDomain: 'true',
+            headers:{'Access-Control-Allow-Origin':'*'},
+            method: 'delete',
+            data: id,
+            dataType: 'text',
+            contentType: 'application/json',
+            success: function (response) {
+                location.reload();
+                var rec = JSON.parse(response);
+                console.log(rec);
+                var tracks = rec.Blacklist;
+                var table = document.getElementById("blacklist");
+            },
+            error: function (xhr, status, error) {
+                alert(status);
+                alert(xhr.responseText + " " + song);
+            }
+        });
         }
     }
 
@@ -130,7 +148,6 @@
             method: 'get',
             data: song,
             dataType: 'text',
-
             contentType: 'application/json',
             success: function (response) {
                 alert(response);
@@ -192,26 +209,25 @@
         </div>
     </div>
 
-
-
-    <div class="row">
-        <div class="col-md-12">
-            <center>
-                <h1>
-                    <b>
-                        @ViewData["Title"]
-                    </b>
-                </h1>
-            </center>
-            <table>
-                <tr>
-                    <th>Sang</th>
-                    <th>Kunstner</th>
-                    <th>Mulighed</th>
-                    <th></th>
-                </tr>
-
-                @foreach (var BlacklistModel in blacklist)
+<div class="row">
+    <div class="col-md-12">
+        <center>
+            <h1>
+                <b>
+                    @ViewData["Title"]
+                </b>
+            </h1>
+        </center>
+        <table id="blacklist">
+            <tr>
+                <th>Sang</th>
+                <th>Kunstner</th>
+                <th>Mulighed</th>
+                <th>ID</th>
+            </tr>
+            
+            <!-- @foreach (var BlacklistModel in blacklist)
+            {
                 {
                     {
                         <tr>
@@ -223,6 +239,8 @@
                 }
             </table>
         </div>
+            } -->
+        </table>
     </div>
 
     <!-- <h2>@ViewData["Title"]</h2>
