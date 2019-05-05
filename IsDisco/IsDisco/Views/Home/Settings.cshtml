@@ -385,7 +385,7 @@ function pushNotification() {
         var uri = "https://isdisco-web-api.azurewebsites.net/api/notifications/pushall?" + "title=" + title + "&" + "msg=" + msg;
         if (msg != null || title != null) {
             var res = encodeURI(uri);
-            httpGetAsync(res, doStuff);
+            httpGet(res);
         }
     }
 
