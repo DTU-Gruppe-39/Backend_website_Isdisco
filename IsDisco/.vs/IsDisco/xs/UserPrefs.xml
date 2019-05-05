@@ -4,7 +4,7 @@
       <File FileName="IsDisco/Program.cs" Line="22" Column="33" />
       <File FileName="IsDisco/Views/Home/Blacklist.cshtml" Line="1" Column="1" />
       <File FileName="../../../../../../usr/local/share/dotnet/sdk/NuGetFallbackFolder/microsoft.aspnetcore.razor.design/2.1.2/build/netstandard2.0/Microsoft.AspNetCore.Razor.Design.CodeGeneration.targets" Line="121" Column="5" />
-      <File FileName="IsDisco/Views/Home/Settings.cshtml" Line="397" Column="21" />
+      <File FileName="IsDisco/Views/Home/Settings.cshtml" Line="356" Column="39" />
       <File FileName="IsDisco/Models/Track.cs" Line="19" Column="14" />
       <File FileName="IsDisco/Views/_ViewStart.cshtml" Line="1" Column="1" />
       <File FileName="IsDisco/Properties/launchSettings.json" Line="1" Column="1" />

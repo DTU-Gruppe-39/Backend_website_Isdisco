@@ -340,23 +340,24 @@ window.onload = function() {
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Opret en notifikation</h5>
                         </div>
-                        <div class="modal-body">
-                            <form>
-                                <div class="form-group">
-                                    <label for="notificationTitle">Titel</label>
-                                    <input type="text" class="form-control" id="notificationTitle" placeholder="Indtast titel" required="true">
-                                </div>
-                                <div class="form-group">
-                                    <label for="notificationBody">Brødtekst</label>
-                                    <input type="text" class="form-control" id="notificationBody" placeholder="Indtast brødtekst" required="true">
-                                </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Afbryd</button>
-                            <button type="submit" class="btn btn-primary" onclick="pushNotification()">Send til alle brugere</button>
-                            <script></script>
-                        </div>
+                        <form>
+                            <div class="modal-body">
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="notificationTitle">Titel</label>
+                                            <input type="text" class="form-control" id="notificationTitle" placeholder="Indtast titel" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="notificationBody">Brødtekst</label>
+                                            <input type="text" class="form-control" id="notificationBody" placeholder="Indtast brødtekst" required>
+                                        </div>
+                                    </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Afbryd</button>
+                                <button id="savebtn" class="btn btn-primary" type="submit" onclick="pushNotification()">Send til alle brugere</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -382,7 +383,7 @@ for (i = 0; i < coll.length; i++) {
 function pushNotification() {
         var title = document.getElementById("notificationTitle").value;
         var msg = document.getElementById("notificationBody").value;
-        var uri = "https://isdisco-web-api.azurewebsites.net/api/notifications/pushall?" + "title=" + title + "&" + "msg=" + msg;
+        var uri = "https://isdisco.azurewebsites.net/api/notifications/pushall?" + "title=" + title + "&" + "msg=" + msg;
         if (msg != null || title != null) {
             var res = encodeURI(uri);
             httpGet(res);
@@ -412,6 +413,4 @@ function pushNotification() {
 
 
     </script>
-
-
 </body>
