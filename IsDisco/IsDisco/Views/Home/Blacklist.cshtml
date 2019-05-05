@@ -125,8 +125,8 @@
 
     function blacklist(x, reqID, trackTitle, trackArtist, trackSpot) {
         var i = x.parentNode.parentNode.rowIndex;
-        var song = document.getElementById("myTable").rows[i].cells.item(1).innerHTML;
-        var author = document.getElementById("myTable").rows[i].cells.item(2).innerHTML;
+        var song = document.getElementById("Song_Json").rows[i].cells.item(0).innerHTML;
+        var author = document.getElementById("Song_Json").rows[i].cells.item(1).innerHTML;
         var obj = {
             "track": {
                 "id": reqID,
@@ -186,7 +186,9 @@
                 ClearTableAndInput();
                 tracks.forEach(function (entry) {
                     var parameters = "" + entry.id + "," + entry.SongName + "," + entry.ArtistName + "," + entry.webplayerlink;
-                    $("#Song_Json").append("<tr>" + "<td>" + entry.SongName + "</td>" + "<td>" + entry.ArtistName + "</td>" + "<td>" + '<a href="#" title= "blacklist song" onclick="blacklist(this,' + parameters +")>" + '<img src= "https://image.flaticon.com/icons/svg/61/61057.svg" width="24">' + "</a>" + "</td>" + "</tr>");
+                    $("#Song_Json").append("<tr>" + "<td>" + entry.SongName + "</td>" + "<td>" + entry.ArtistName + "</td>" + "<td>" + "<a href=\"#\" title= \"blacklist song\" onclick=\"blacklist(this," + entry.id + "," + entry.songName + "," + entry.artistName + "," + entry.webplayerlink + ")\">" + "<img src= \"https://image.flaticon.com/icons/svg/61/61057.svg\" width=\"24\"/>" + "</tr>");
+                    $("#Song_Json").append();
+                    
                 });
             },
 
