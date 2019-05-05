@@ -382,7 +382,7 @@ for (i = 0; i < coll.length; i++) {
 function pushNotification() {
         var title = document.getElementById("notificationTitle").value;
         var msg = document.getElementById("notificationBody").value;
-        var uri = "https://isdisco-web-api.azurewebsites.net/api/notifications/pushAll?" + "title=" + title + "&" + "msg=" + msg;
+        var uri = "https://isdisco-web-api.azurewebsites.net/api/notifications/pushall?" + "title=" + title + "&" + "msg=" + msg;
         if (msg != null || title != null) {
             var res = encodeURI(uri);
             httpGetAsync(res, doStuff);
