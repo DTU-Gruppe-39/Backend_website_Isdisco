@@ -133,7 +133,7 @@ function blacklist(x,reqID,trackTitle,trackArtist,trackSpot){
                 @foreach (var Request in something)
     {
             <tr>
-                <td>@Request.User.Name </td>
+                <td>@Request.User.Name</td>
                 <td>@Request.Track.Title</td>
                 <td>@Request.Track.Artist</td>
                 @if (DateTime.Now.Subtract(Request.Since).Seconds < 60 && DateTime.Now.Subtract(Request.Since).Minutes < 1)
