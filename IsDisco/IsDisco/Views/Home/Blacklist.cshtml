@@ -187,10 +187,12 @@
                 var tracks = rec.Tracks
                 ClearTableAndInput();
                 tracks.forEach(function (entry) {
-                    var parameters = "" + entry.id + "," + entry.SongName + "," + entry.ArtistName + "," + entry.webplayerlink;
-                    $("#Song_Json").append("<tr>" + "<td>" + entry.SongName + "</td>" + "<td>" + entry.ArtistName + "</td>" + "<td>" + "<a href=\"#\" title= \"blacklist song\" onclick=\"blacklist(this," + entry.id + "," + entry.songName + "," + entry.artistName + "," + entry.webplayerlink + ")\">" + "<img src= \"https://image.flaticon.com/icons/svg/61/61057.svg\" width=\"24\"/>" + "</tr>");
-                    $("#Song_Json").append();
-                    
+                    var id = "" + entry.Id ;
+                    var songname = "" + entry.SongName;
+                    var artist = "" + entry.ArtistName;
+                    var webplayer = "" + entry.WebplayerLink;
+                    console.log("id =" + id + ": \n songname =" + songname + ": \n artist =" + artist + ": \n webplayer =" + webplayer)
+                    $("#Song_Json").append("<tr>" + "<td>" + songname + "</td>" + "<td>" + artist + "</td>" + "<td>" + "<a href=\"#\" title= \"blacklist song\" onclick=\"blacklist(this"+ ", '" + id + "', '" + songname + "', '" + artist + "', '" + webplayer + "')"+"\">" + "\n <img src= \"https://image.flaticon.com/icons/svg/61/61057.svg\" width=\"24\"/>" + "</tr>");    
                 });
             },
 
