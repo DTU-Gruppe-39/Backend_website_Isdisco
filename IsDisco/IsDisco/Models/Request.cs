@@ -5,7 +5,7 @@ namespace IsDisco.Models
 {
     public class Request
     {
-        public int ReqId { get; set; }
+        public string ReqId { get; set; }
         public Track Track { get; set; }
         public int UserId { get; set; }
         public DateTime Timestamp { get; set; }
