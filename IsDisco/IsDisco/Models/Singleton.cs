@@ -76,38 +76,23 @@ namespace IsDisco.Models
         public void InitRequests()
         {
             Random random = new Random();
-            requests.Add(new Request("0", tracks.Find(x => x.Title.Contains("Baby")), users.Find(y => y.ID.Equals(0)), DateTime.Now.AddSeconds(-10000)));
-            requests.Add(new Request("1", tracks.Find(x => x.Title.Contains("Despacito")), users.Find(y => y.ID.Equals(1)), DateTime.Now.AddSeconds(-random.Next(1000))));
-            requests.Add(new Request("2", tracks.Find(x => x.Title.Contains("American Idiot")), users.Find(y => y.ID.Equals(2)), DateTime.Now.AddSeconds(-random.Next(1000))));
-            requests.Add(new Request("3", tracks.Find(x => x.Title.Contains("Sucker")), users.Find(y => y.ID.Equals(3)), DateTime.Now.AddSeconds(-random.Next(1000))));
-            requests.Add(new Request("4", tracks.Find(x => x.Title.Contains("Sweet but Psycho")), users.Find(y => y.ID.Equals(4)), DateTime.Now.AddSeconds(-random.Next(1000))));
-            requests.Add(new Request("5", tracks.Find(x => x.Title.Contains("Model")), users.Find(y => y.ID.Equals(5)), DateTime.Now.AddSeconds(-random.Next(1000))));
-            requests.Add(new Request("6", tracks.Find(x => x.Title.Contains("Nede Mette")), users.Find(y => y.ID.Equals(6)), DateTime.Now.AddSeconds(-random.Next(1000))));
-            requests.Add(new Request("7", tracks.Find(x => x.Title.Contains("Despacito")), users.Find(y => y.ID.Equals(7)), DateTime.Now.AddSeconds(-random.Next(1000))));
-            requests.Add(new Request("8", tracks.Find(x => x.Title.Contains("Baby")), users.Find(y => y.ID.Equals(8)), DateTime.Now.AddSeconds(-random.Next(1000))));
-            requests.Add(new Request("9", tracks.Find(x => x.Title.Contains("Gangnam Style")), users.Find(y => y.ID.Equals(9)), DateTime.Now.AddSeconds(-random.Next(1000))));
-            requests.Add(new Request("10", tracks.Find(x => x.Title.Contains("Sunflower")), users.Find(y => y.ID.Equals(10)), DateTime.Now.AddSeconds(-random.Next(1000))));
-            requests.Add(new Request("11", tracks.Find(x => x.Title.Contains("Despacito")), users.Find(y => y.ID.Equals(11)), DateTime.Now.AddSeconds(-random.Next(1000))));
-            requests.Add(new Request("12", tracks.Find(x => x.Title.Contains("Baby")), users.Find(y => y.ID.Equals(0)), DateTime.Now.AddSeconds(-random.Next(1000))));
-            requests.Add(new Request("13", tracks.Find(x => x.Title.Contains("7 Rings")), users.Find(y => y.ID.Equals(2)), DateTime.Now.AddSeconds(-random.Next(1000))));
-            requests.Add(new Request("14", tracks.Find(x => x.Title.Contains("Despacito")), users.Find(y => y.ID.Equals(6)), DateTime.Now.AddSeconds(-random.Next(1000))));
-            requests.Add(new Request("15", tracks.Find(x => x.Title.Contains("Despacito")), users.Find(y => y.ID.Equals(8)), DateTime.Now.AddSeconds(-random.Next(1000))));
-            requests.Add(new Request("16", tracks.Find(x => x.Title.Contains("Despacito")), users.Find(y => y.ID.Equals(8)), DateTime.Now.AddSeconds(-random.Next(1000))));
-            requests.Add(new Request("17", tracks.Find(x => x.Title.Contains("Despacito")), users.Find(y => y.ID.Equals(8)), DateTime.Now.AddSeconds(-random.Next(1000))));
-            requests.Add(new Request("18", tracks.Find(x => x.Title.Contains("Despacito")), users.Find(y => y.ID.Equals(8)), DateTime.Now.AddSeconds(-random.Next(1000))));
-            requests.Add(new Request("19", tracks.Find(x => x.Title.Contains("Despacito")), users.Find(y => y.ID.Equals(8)), DateTime.Now.AddSeconds(-random.Next(1000))));
-            requests.Add(new Request("20", tracks.Find(x => x.Title.Contains("Despacito")), users.Find(y => y.ID.Equals(8)), DateTime.Now.AddSeconds(-random.Next(1000))));
-            requests.Add(new Request("21", tracks.Find(x => x.Title.Contains("Despacito")), users.Find(y => y.ID.Equals(8)), DateTime.Now.AddSeconds(-random.Next(1000))));
-            requests.Add(new Request("22", tracks.Find(x => x.Title.Contains("Despacito")), users.Find(y => y.ID.Equals(8)), DateTime.Now.AddSeconds(-random.Next(1000))));
-            requests.Add(new Request("23", tracks.Find(x => x.Title.Contains("Despacito")), users.Find(y => y.ID.Equals(8)), DateTime.Now.AddSeconds(-random.Next(1000))));
-            requests.Add(new Request("24", tracks.Find(x => x.Title.Contains("Despacito")), users.Find(y => y.ID.Equals(8)), DateTime.Now.AddSeconds(-random.Next(1000))));
-            requests.Add(new Request("25", tracks.Find(x => x.Title.Contains("Despacito")), users.Find(y => y.ID.Equals(8)), DateTime.Now.AddSeconds(-random.Next(1000))));
-            requests.Add(new Request("26", tracks.Find(x => x.Title.Contains("Despacito")), users.Find(y => y.ID.Equals(8)), DateTime.Now.AddSeconds(-random.Next(1000))));
-            requests.Add(new Request("27", tracks.Find(x => x.Title.Contains("Despacito")), users.Find(y => y.ID.Equals(8)), DateTime.Now.AddSeconds(-random.Next(1000))));
-            requests.Add(new Request("28", tracks.Find(x => x.Title.Contains("Despacito")), users.Find(y => y.ID.Equals(8)), DateTime.Now.AddSeconds(-random.Next(1000))));
-            requests.Add(new Request("29", tracks.Find(x => x.Title.Contains("Despacito")), users.Find(y => y.ID.Equals(8)), DateTime.Now.AddSeconds(-random.Next(1000))));
-            requests.Add(new Request("30", tracks.Find(x => x.Title.Contains("Despacito")), users.Find(y => y.ID.Equals(8)), DateTime.Now.AddSeconds(-random.Next(1000))));
-            requests.Add(new Request("31", tracks.Find(x => x.Title.Contains("Despacito")), users.Find(y => y.ID.Equals(8)), DateTime.Now.AddSeconds(-random.Next(1000))));
+            requests.Add(new Request(0, tracks.Find(x => x.Title.Contains("Baby")), users.Find(y => y.ID==0).ID, DateTime.Now.AddSeconds(-10000)));
+            requests.Add(new Request(1, tracks.Find(x => x.Title.Contains("Despacito")), users.Find(y => y.ID ==1).ID, DateTime.Now.AddSeconds(-random.Next(1000))));
+            requests.Add(new Request(2, tracks.Find(x => x.Title.Contains("American Idiot")), users.Find(y => y.ID == 2).ID, DateTime.Now.AddSeconds(-random.Next(1000))));
+            requests.Add(new Request(3, tracks.Find(x => x.Title.Contains("Sucker")), users.Find(y => y.ID == 3).ID, DateTime.Now.AddSeconds(-random.Next(1000))));
+            requests.Add(new Request(4, tracks.Find(x => x.Title.Contains("Sweet but Psycho")), users.Find(y => y.ID == 4).ID, DateTime.Now.AddSeconds(-random.Next(1000))));
+            requests.Add(new Request(5, tracks.Find(x => x.Title.Contains("Model")), users.Find(y => y.ID == 5).ID, DateTime.Now.AddSeconds(-random.Next(1000))));
+            requests.Add(new Request(6, tracks.Find(x => x.Title.Contains("Nede Mette")), users.Find(y => y.ID == 6).ID, DateTime.Now.AddSeconds(-random.Next(1000))));
+            requests.Add(new Request(7, tracks.Find(x => x.Title.Contains("Despacito")), users.Find(y => y.ID == 7).ID, DateTime.Now.AddSeconds(-random.Next(1000))));
+            requests.Add(new Request(8, tracks.Find(x => x.Title.Contains("Baby")), users.Find(y => y.ID == 8).ID, DateTime.Now.AddSeconds(-random.Next(1000))));
+            requests.Add(new Request(9, tracks.Find(x => x.Title.Contains("Gangnam Style")), users.Find(y => y.ID == 9).ID, DateTime.Now.AddSeconds(-random.Next(1000))));
+            requests.Add(new Request(10, tracks.Find(x => x.Title.Contains("Sunflower")), users.Find(y => y.ID == 10).ID, DateTime.Now.AddSeconds(-random.Next(1000))));
+            requests.Add(new Request(11, tracks.Find(x => x.Title.Contains("Despacito")), users.Find(y => y.ID == 11).ID, DateTime.Now.AddSeconds(-random.Next(1000))));
+            requests.Add(new Request(12, tracks.Find(x => x.Title.Contains("Baby")), users.Find(y => y.ID == 0).ID, DateTime.Now.AddSeconds(-random.Next(1000))));
+            requests.Add(new Request(13, tracks.Find(x => x.Title.Contains("7 Rings")), users.Find(y => y.ID ==2 ).ID, DateTime.Now.AddSeconds(-random.Next(1000))));
+            requests.Add(new Request(14, tracks.Find(x => x.Title.Contains("Despacito")), users.Find(y => y.ID == 6).ID, DateTime.Now.AddSeconds(-random.Next(1000))));
+            requests.Add(new Request(15, tracks.Find(x => x.Title.Contains("Despacito")), users.Find(y => y.ID == 8).ID, DateTime.Now.AddSeconds(-random.Next(1000))));
+       
 
 
 

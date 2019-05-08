@@ -8,17 +8,17 @@ namespace IsDisco.Models
         public int ReqId { get; set; }
         public Track Track { get; set; }
         public int UserId { get; set; }
-        public DateTime Since { get; set; }
+        public DateTime Timestamp { get; set; }
         public ArrayList UpVotes { get; set; }
         public int DownVotes { get; set; }
 
 
-        public Request(int reqId, Track track, int user, DateTime since )
+        public Request(int reqId, Track track, int user, DateTime timestamp )
         {
             this.ReqId = reqId;
             this.Track = track;
             this.UserId = user;
-            this.Since = since;
+            this.Timestamp = timestamp;
             this.UpVotes = new ArrayList();
             UpVotes.Add(reqId);
             this.DownVotes = 0;

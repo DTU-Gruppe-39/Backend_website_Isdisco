@@ -1,12 +1,66 @@
-﻿@{
+﻿@using IsDisco.Controllers;
+@using Newtonsoft.Json.Linq;
+@using System.Net;
+@{
+
     ViewData["Title"] = "Musik Ønsker";
     Singleton instance = Singleton.getInstance();
     instance.InitUsers();
     List<User> users = new List<User>();
     users = instance.GetUsers();
 
-
+    // HttpRequestController httpRequest = new HttpRequestController();
+    // var Reqresp = httpRequest.Get("https://isdisco.azurewebsites.net/api/musicrequest");
+    var webclient = new WebClient();
+    String Reqresp = webclient.DownloadString("https://isdisco.azurewebsites.net/api/musicrequest");
+    var JRequests = JArray.Parse(Reqresp);
     List<Request> requests = new List<Request>();
+   /* for (int i = 0; i < JRequests.Count; i++)
+    {
+        var userId = Convert.ToInt32(JRequests[i].SelectToken("userId").ToString());
+        var ReqId = Convert.ToInt32(JRequests[i].SelectToken("id").ToString());
+        //  var userName = JRequests[i]["request"]["user"]["name"].ToString();
+        var trackId = JRequests[i].SelectToken("track[0].id").ToString();
+        var thesongName = JRequests[i]["track"]["songName"].ToString();
+        var artistName = JRequests[i]["track"]["artistName"].ToString();
+        var webplayerLink = JRequests[i]["track"]["webplayerLink"].ToString();
+        var date = Convert.ToDateTime(JRequests[i]["timestamp"].ToString());
+        //User usr = new User(userName, userId);
+        Track track = new Track(trackId, thesongName, artistName, webplayerLink);
+        Request Reqs = new Request(ReqId, track, userId, date);
+        requests.Add(Reqs);
+    }*/
+
+
+    for (int i = 0; i < JRequests.Count; i++)
+    {
+        var userId = Convert.ToInt32 (JRequests[i]["userId"].ToString());
+        var ReqId = Convert.ToInt32(JRequests[i]["id"].ToString());
+        //  var userName = JRequests[i]["request"]["user"]["name"].ToString();
+        var trackId = JRequests[i]["track"][i]["id"].ToString();
+        var thesongName = JRequests[i]["track"]["songName"].ToString();
+        var artistName = JRequests[i]["track"]["artistName"].ToString();
+        var webplayerLink = JRequests[i]["track"]["webplayerLink"].ToString();
+        var date = Convert.ToDateTime (JRequests[i]["timestamp"].ToString());
+        //User usr = new User(userName, userId);
+        Track track = new Track(trackId, thesongName, artistName, webplayerLink);
+        Request Reqs = new Request(ReqId, track, userId, date);
+        requests.Add(Reqs);
+    }
+    //String Usrresp = httpRequest.Get("https://isdisco.azurewebsites.net/api/user");
+    String Usrresp =webclient.DownloadString("https://isdisco.azurewebsites.net/api/user");
+    var jsonUsrReq = JObject.Parse(Reqresp);
+    JArray JUsrReq = (JArray)jsonUsrReq["items"];
+    List<User> usrlist = new List<User>();
+    for (int i = 0; i < JUsrReq.Count; i++)
+    {
+        var userId = Convert.ToInt32(JRequests[i]["id"].ToString());
+        var userName = JRequests[i]["fullname"].ToString();
+        User usr = new User(userName,userId);
+        usrlist.Add(usr);
+    }
+
+    //List<Request> requests = new List<Request>();
     List<Request> something = new List<Request>();
     //Init lists if they are empty
     if (!instance.GetTracks().Any<Track>())
@@ -15,7 +69,7 @@
         Console.WriteLine("InitTracks");
 
     }
-
+    /*
     if (!instance.GetRequests().Any<Request>())
     {
         instance.InitRequests();
@@ -25,14 +79,14 @@
     else
     {
         requests = instance.GetRequests();
+    }*/
+
+    requests.Sort((x, y) => x.Timestamp.CompareTo(y.Timestamp));
+
+
+
+
     }
-
-    requests.Sort((x, y) => x.Since.CompareTo(y.Since));
-
-
-
-
-}
 <style>
     body {
         background-color: #e9ebee;
@@ -150,7 +204,7 @@ function blacklist(x,reqID,trackTitle,trackArtist,trackSpot){
                     <th>Muligheder</th>
                 </tr>
 
-                <!-- @foreach (var Req in requests)
+                 @foreach (var Req in requests)
     {
         if (something.Find(x => x.Track.Track_id.Contains(Req.Track.Track_id)) == null)
         {
@@ -159,7 +213,7 @@ function blacklist(x,reqID,trackTitle,trackArtist,trackSpot){
                         select req;
             foreach (Request r in query)
             {
-                Req.Votes++;
+                Req.UpVotes.Add(r.UserId);
             }
             something.Add(Req);
         }
@@ -167,28 +221,28 @@ function blacklist(x,reqID,trackTitle,trackArtist,trackSpot){
     }
 
                 @{
-        something.Sort((x, y) => -x.Votes.CompareTo(y.Votes));
+        something.Sort((x, y) => -x.UpVotes.Count.CompareTo(y.UpVotes.Count));
                 }
-                @foreach (var Request in something)
+                @foreach (var Req in something)
     {
             <tr>
-                <td>@Request.User.Name</td>
-                <td>@Request.Track.Title</td>
-                <td>@Request.Track.Artist</td>
-                @if (DateTime.Now.Subtract(Request.Since).Seconds < 60 && DateTime.Now.Subtract(Request.Since).Minutes < 1)
+                <td>@usrlist.Find(x => x.ID == Req.UserId)</td>
+                <td>@Req.Track.Title</td>
+                <td>@Req.Track.Artist</td>
+                @if (DateTime.Now.Subtract(Req.Timestamp).Seconds < 60 && DateTime.Now.Subtract(Req.Timestamp).Minutes < 1)
     {
-        TimeSpan time = DateTime.Now.Subtract(Request.Since);
+        TimeSpan time = DateTime.Now.Subtract(Req.Timestamp);
             <td>@time.Seconds s siden</td>
 
 }
-else if (DateTime.Now.Subtract(Request.Since).Minutes >= 1)
+else if (DateTime.Now.Subtract(Req.Timestamp).Minutes >= 1)
 {
-TimeSpan time = DateTime.Now.Subtract(Request.Since);
+TimeSpan time = DateTime.Now.Subtract(Req.Timestamp);
             <td>@time.Minutes m siden</td>
 }
-                <td> @(Request.Votes - 1) </td>
-                <td><a href=@Request.Track.Spotify_webplayer_link target="_blank"><img src="https://ninalerche.dk/wp-content/uploads/2018/08/spotify-2-logo-png-transparent.png" width="24" height="24" title="Åben i spotify"></a>
-                <a href="#" title= "blacklist song" onclick="blacklist(this, '@Request.Track.Track_id','@Request.Track.Title','@Request.Track.Artist', '@Request.Track.Spotify_webplayer_link')">
+                <td> @(Req.UpVotes.Count - 1) </td>
+                <td><a href=@Req.Track.Spotify_webplayer_link target="_blank"><img src="https://ninalerche.dk/wp-content/uploads/2018/08/spotify-2-logo-png-transparent.png" width="24" height="24" title="Åben i spotify"></a>
+                <a href="#" title= "blacklist song" onclick="blacklist(this, '@Req.Track.Track_id','@Req.Track.Title','@Req.Track.Artist', '@Req.Track.Spotify_webplayer_link')">
                 <img src= "https://image.flaticon.com/icons/svg/61/61057.svg" width="24">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8 0-1.85.63-3.55 1.69-4.9L16.9 18.31C15.55 19.37 13.85 20 12 20zm6.31-3.1L7.1 5.69C8.45 4.63 10.15 4 12 4c4.42 0 8 3.58 8 8 0 1.85-.63 3.55-1.69 4.9z"/></svg>
                 
