@@ -12001,11 +12001,19 @@
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< Updated upstream
       "projectUniqueName": "/Users/rasmusG/Backend_website_Isdisco/IsDisco/IsDisco/IsDisco.csproj",
       "projectName": "IsDisco",
       "projectPath": "/Users/rasmusG/Backend_website_Isdisco/IsDisco/IsDisco/IsDisco.csproj",
       "packagesPath": "/Users/rasmusG/.nuget/packages/",
       "outputPath": "/Users/rasmusG/Backend_website_Isdisco/IsDisco/IsDisco/obj/",
+=======
+      "projectUniqueName": "/home/soren/Backend_website_Isdisco/IsDisco/IsDisco/IsDisco.csproj",
+      "projectName": "IsDisco",
+      "projectPath": "/home/soren/Backend_website_Isdisco/IsDisco/IsDisco/IsDisco.csproj",
+      "packagesPath": "/home/soren/.nuget/packages/",
+      "outputPath": "/home/soren/Backend_website_Isdisco/IsDisco/IsDisco/obj/",
+>>>>>>> Stashed changes
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
