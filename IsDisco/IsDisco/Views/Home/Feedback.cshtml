@@ -4,18 +4,11 @@
 
 @{
     ViewData["Title"] = "Feedback";
-    Singleton instance = Singleton.getInstance();
-    instance.InitUsers();
-    List<User> users = new List<User>();
-    users = instance.GetUsers();
-    List<Request> something = new List<Request>();
-    List<User> usrlist = new List<User>();
     List<FeedbackModel> Feedbacks = new List<FeedbackModel>();
 
     var webclient = new WebClient();
-    String Reqresp = webclient.DownloadString("https://isdiscof.azurewebsites.net/api/feedback/all");
+    String Reqresp = webclient.DownloadString("https://isdisco.azurewebsites.net/api/feedback/all");
     var JFeedback = JArray.Parse(Reqresp);
-
 
 
     for (int i = 0; i < JFeedback.Count; i++)
@@ -25,47 +18,19 @@
         var userVIP = JFeedback[i]["user"]["vip"].ToString();
         var tag = JFeedback[i]["tag"].ToString();
         var message = JFeedback[i]["message"].ToString();
+        var id = Convert.ToInt32(JFeedback[i]["id"].ToString());
 
         User user = new User(userName, userId);
-        FeedbackModel Reqs = new FeedbackModel(user, tag, message);
-        Feedbacks.Add(Reqs);
+        FeedbackModel Feeds = new FeedbackModel(user, tag, message, id);
+        Feedbacks.Add(Feeds);
     }
     //String Usrresp = httpRequest.Get("https://isdisco.azurewebsites.net/api/user");
     //  String Usrresp =webclient.DownloadString("https://isdisco.azurewebsites.net/api/user");
 
-
-    using (var w = new WebClient())
-    {
-        var json_data = string.Empty;
-        // attempt to download JSON data as a string
-        try
-        {
-            json_data = w.DownloadString("https://isdisco.azurewebsites.net/api/user");
-            var jsonUsrReq = JObject.Parse(json_data);
-            JArray JUsrReq = (JArray)jsonUsrReq["items"];
-
-
-            for (int i = 0; i < JUsrReq.Count; i++)
-            {
-                var userId = Convert.ToInt32(JFeedback[i]["id"].ToString());
-                var userName = JFeedback[i]["fullname"].ToString();
-                User usr = new User(userName, userId);
-                usrlist.Add(usr);
-                //List<Request> requests = new List<Request>();
-                //Init lists if they are empty
-                if (!instance.GetTracks().Any<Track>())
-                {
-                    instance.InitTracks();
-                    Console.WriteLine("InitTracks");
-
-                }
-
-            }
-        }
-        catch (Exception) { }
-    }
 }
-
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 <style>
     table {
         font-family: arial, sans-serif;
@@ -80,59 +45,107 @@
     td, th {
         border: 2px solid white;
         text-align: left;
-        height: 60px;
+        padding-bottom: 10px;
     }
 
     th {
-        background-color: whitesmoke;
-        height: 40px;
+        background-color: #f2efef;
+        height: 43px;
     }
+
+    .material-icons {
+        align: auto;
+        border: none;
+        background-color: transparent;
+    }
+
+
+
+    #tag {
+        color: grey;
+        font-size: 13px;
+        font-weight: bold;
+    }
+
+    .glyphicon{
+        color: black;
+        align: auto;
+        border: none;
+        background-color: transparent;
+        font-size: 20px;
+    }
+        .glyphicon:hover{
+        color: red;
+        transition: 0.2s;
+        text-decoration: none;
+    }
+    #message{
+        font-weight: bold;
+        padding: 5px;
+    }
+
 </style>
+
+<script>
+    function Remove(id){
+          if(confirm("Vil du fjerne denne feedback")){
+            $.ajax('https://isdisco.azurewebsites.net/api/feedback/delete/'+id , {
+            crossDomain: 'true',
+            headers:{'Access-Control-Allow-Origin':'*'},
+            method: 'delete',
+            data: id,
+            dataType: 'text',
+            contentType: 'application/json',
+            success: function (response) {
+                location.reload();
+                var rec = JSON.parse(response);
+                console.log(rec);
+            },
+            error: function (xhr, status, error) {
+                alert(status);
+            }
+        });
+        }
+    }
+
+
+
+
+
+</script>
 
 
 <body>
-    <h1>Feedback</h1>
-
+          <center>
+                <h1>
+                    <b>
+                        @ViewData["Title"]
+                    </b>
+                </h1>
+                <h4>@Feedbacks.Count besvarelser</h4>
+            </center>
     <table>
 
-        @foreach (var Req in something)
+        @foreach (var Feed in Feedbacks)
         {
             <tr>
-                <!-- <td>@usrlist.Find(x => x.ID == Req.UserId)</td> -->
-                <!-- <td>@Req.Track.Title</td> -->
-                <td>@Req.Track.Artist</td>
-                <td>@Req.Track.Track_id</td>
-                @if (DateTime.Now.Subtract(Req.Timestamp).Seconds < 60 && DateTime.Now.Subtract(Req.Timestamp).Minutes < 1)
-                {
-                    TimeSpan time = DateTime.Now.Subtract(Req.Timestamp);
-                    <td>@time.Seconds s siden</td>
-
-                }
-                else if (DateTime.Now.Subtract(Req.Timestamp).Minutes >= 1)
-                {
-                    TimeSpan time = DateTime.Now.Subtract(Req.Timestamp);
-                    <td>@time.Minutes m siden</td>
-                }
-                <td> @(Req.UpVotes.Count - 1) </td>
-                <td>
-                    <a href=@Req.Track.Spotify_webplayer_link target="_blank"><img src="https://ninalerche.dk/wp-content/uploads/2018/08/spotify-2-logo-png-transparent.png" width="24" height="24" title="Åben i spotify"></a>
-                    <a href="#" title="blacklist song" onclick="blacklist(this, '@Req.Track.Title','@Req.Track.Artist','@Req.Track.Track_id', '@Req.Track.Spotify_webplayer_link')">
-                        <img src="https://image.flaticon.com/icons/svg/61/61057.svg" width="24">
-
-                    </a>
-                </td>
+                <th>@Feed.user.Name</th>
+                
+                <th><center>Muligheder</center></th>
             </tr>
-
-        }
-
-        <table>
             <tr>
-                <th>Navn</th>
+                <td>
+                    <div id = "tag">< @Feed.tag ></div>
+                <div id = "message">@Feed.message</div>
+                </td>
+                <td style="width:100px;"> 
+                    <center>
+                        <a href="" class="glyphicon glyphicon-remove" onclick="Remove('@Feed.id')" title="Fjern feedback"></a> </center></td>
             </tr>
-            <td>Message</td>
-
-
-
+            <tr>
+                <td id = "message"></td>
+            </tr>
+        }
 
         </table>
 
