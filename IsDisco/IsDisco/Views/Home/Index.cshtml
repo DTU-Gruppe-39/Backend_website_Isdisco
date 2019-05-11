@@ -1,13 +1,15 @@
 ﻿@using IsDisco.Controllers;
 @using Newtonsoft.Json.Linq;
 @using System.Net;
-@{
 
+@{
     ViewData["Title"] = "Musik Ønsker";
     Singleton instance = Singleton.getInstance();
     instance.InitUsers();
     List<User> users = new List<User>();
     users = instance.GetUsers();
+    List<Request> something = new List<Request>();
+    List<User> usrlist = new List<User>();
 
     // HttpRequestController httpRequest = new HttpRequestController();
     // var Reqresp = httpRequest.Get("https://isdisco.azurewebsites.net/api/musicrequest");
@@ -37,7 +39,7 @@
         var userId = Convert.ToInt32 (JRequests[i]["userId"].ToString());
         var ReqId = Convert.ToInt32(JRequests[i]["id"].ToString());
         //  var userName = JRequests[i]["request"]["user"]["name"].ToString();
-        var trackId = JRequests[i]["track"][i]["id"].ToString();
+        var trackId = JRequests[i]["track"]["id"].ToString();
         var thesongName = JRequests[i]["track"]["songName"].ToString();
         var artistName = JRequests[i]["track"]["artistName"].ToString();
         var webplayerLink = JRequests[i]["track"]["webplayerLink"].ToString();
@@ -48,20 +50,25 @@
         requests.Add(Reqs);
     }
     //String Usrresp = httpRequest.Get("https://isdisco.azurewebsites.net/api/user");
-    String Usrresp =webclient.DownloadString("https://isdisco.azurewebsites.net/api/user");
-    var jsonUsrReq = JObject.Parse(Reqresp);
-    JArray JUsrReq = (JArray)jsonUsrReq["items"];
-    List<User> usrlist = new List<User>();
+  //  String Usrresp =webclient.DownloadString("https://isdisco.azurewebsites.net/api/user");
+    
+
+ using (var w = new WebClient()) {
+    var json_data = string.Empty;
+    // attempt to download JSON data as a string
+    try {
+      json_data = w.DownloadString("https://isdisco.azurewebsites.net/api/user");
+          var jsonUsrReq = JObject.Parse(json_data);
+              JArray JUsrReq = (JArray)jsonUsrReq["items"];
+
+
     for (int i = 0; i < JUsrReq.Count; i++)
     {
         var userId = Convert.ToInt32(JRequests[i]["id"].ToString());
         var userName = JRequests[i]["fullname"].ToString();
         User usr = new User(userName,userId);
         usrlist.Add(usr);
-    }
-
-    //List<Request> requests = new List<Request>();
-    List<Request> something = new List<Request>();
+            //List<Request> requests = new List<Request>();
     //Init lists if they are empty
     if (!instance.GetTracks().Any<Track>())
     {
@@ -80,13 +87,18 @@
     {
         requests = instance.GetRequests();
     }*/
+    }
+    }
+    catch (Exception) {}
+ }
+
+
 
     requests.Sort((x, y) => x.Timestamp.CompareTo(y.Timestamp));
 
-
-
-
     }
+
+
 <style>
     body {
         background-color: #e9ebee;
@@ -183,8 +195,8 @@ function blacklist(x,reqID,trackTitle,trackArtist,trackSpot){
   } 
 }
 </script>
-
-<body onload="loadRequest()">
+<!-- onload="loadRequest()" -->
+<body >
 
 <center>
 <div class="row">
@@ -204,7 +216,7 @@ function blacklist(x,reqID,trackTitle,trackArtist,trackSpot){
                     <th>Muligheder</th>
                 </tr>
 
-                 @foreach (var Req in requests)
+                @foreach (var Req in requests)
     {
         if (something.Find(x => x.Track.Track_id.Contains(Req.Track.Track_id)) == null)
         {
@@ -221,14 +233,15 @@ function blacklist(x,reqID,trackTitle,trackArtist,trackSpot){
     }
 
                 @{
-        something.Sort((x, y) => -x.UpVotes.Count.CompareTo(y.UpVotes.Count));
+   //     something.Sort((x, y) => -x.UpVotes.Count.CompareTo(y.UpVotes.Count));
                 }
                 @foreach (var Req in something)
     {
             <tr>
-                <td>@usrlist.Find(x => x.ID == Req.UserId)</td>
-                <td>@Req.Track.Title</td>
+                <!-- <td>@usrlist.Find(x => x.ID == Req.UserId)</td> -->
+                <!-- <td>@Req.Track.Title</td> -->
                 <td>@Req.Track.Artist</td>
+                <td>@Req.Track.Track_id</td>
                 @if (DateTime.Now.Subtract(Req.Timestamp).Seconds < 60 && DateTime.Now.Subtract(Req.Timestamp).Minutes < 1)
     {
         TimeSpan time = DateTime.Now.Subtract(Req.Timestamp);
@@ -242,15 +255,14 @@ TimeSpan time = DateTime.Now.Subtract(Req.Timestamp);
 }
                 <td> @(Req.UpVotes.Count - 1) </td>
                 <td><a href=@Req.Track.Spotify_webplayer_link target="_blank"><img src="https://ninalerche.dk/wp-content/uploads/2018/08/spotify-2-logo-png-transparent.png" width="24" height="24" title="Åben i spotify"></a>
-                <a href="#" title= "blacklist song" onclick="blacklist(this, '@Req.Track.Track_id','@Req.Track.Title','@Req.Track.Artist', '@Req.Track.Spotify_webplayer_link')">
+                <a href="#" title= "blacklist song" onclick="blacklist(this, '@Req.Track.Title','@Req.Track.Artist','@Req.Track.Track_id', '@Req.Track.Spotify_webplayer_link')">
                 <img src= "https://image.flaticon.com/icons/svg/61/61057.svg" width="24">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8 0-1.85.63-3.55 1.69-4.9L16.9 18.31C15.55 19.37 13.85 20 12 20zm6.31-3.1L7.1 5.69C8.45 4.63 10.15 4 12 4c4.42 0 8 3.58 8 8 0 1.85-.63 3.55-1.69 4.9z"/></svg>
                 
                 </a>
                 </td>
             </tr>
-*/
-} -->
+
+} 
 
             </table>
         </div>
