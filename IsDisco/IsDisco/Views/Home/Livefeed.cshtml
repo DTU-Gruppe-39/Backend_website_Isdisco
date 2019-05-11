@@ -125,7 +125,8 @@ function loadUser(id){
                 var rec = JSON.parse(response);
                 console.log(rec);
           //      var tracks = rec.Blacklist;
-          //      var table = document.getElementById("blacklist");
+                document.getElementById("user").innerHTML = rec.fullname;
+                
             },
             error: function (xhr, status, error) {
                 alert(status);
@@ -165,8 +166,9 @@ function blacklist(x,reqID,trackTitle,trackArtist,trackSpot){
         error: function (xhr, status, error) {
             alert(status);
         }
-    }
-
+    });
+  }
+}
 </script>
 
 <body>
@@ -195,7 +197,7 @@ function blacklist(x,reqID,trackTitle,trackArtist,trackSpot){
                         <tr>
                             <td>@request.Track.Artist</td>
                             <td>@request.Track.Track_id</td>
-                            <td onload="loadUser(@request.Track.Title)"></td>
+                            <td >@request.UserId</td>
                             <!-- <td>@usrlist.Find(x => x.ID == request.UserId)</td> -->
                             @if (DateTime.Now.Subtract(request.Timestamp).Seconds < 60 && DateTime.Now.Subtract(request.Timestamp).Minutes < 1 && DateTime.Now.Subtract(request.Timestamp).Hours < 1)
                             {
