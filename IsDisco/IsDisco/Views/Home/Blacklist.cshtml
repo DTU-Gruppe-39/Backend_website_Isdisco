@@ -203,7 +203,7 @@
                     var artist = "" + entry.artistName;
                     var webplayer = "" + entry.webplayerLink;
                     console.log("id =" + id + ": \n songname =" + songname + ": \n artist =" + artist + ": \n webplayer =" + webplayer)
-                    $("#Song_Json").append("<tr>" + "<td>" + songname + "</td>" + "<td>" + artist + "</td>" + "<td>" + "<a href=\"#\" title= \"blacklist song\" onclick=\"blacklist(this"+ ", '" + id + "', '" + songname + "', '" + artist + "', '" + webplayer + "')"+"\">" + "\n <img src= \"https://image.flaticon.com/icons/svg/61/61057.svg\" width=\"24\"/>" + "</tr>");    
+                    $("#Song_Json").append("<tr>" + "<td>" + songname + "</td>" + "<td>" + artist + "</td>" + "<td>" + "<a href=\"#\" title= \"Blacklist sang\" onclick=\"blacklist(this"+ ", '" + id + "', '" + songname + "', '" + artist + "', '" + webplayer + "')"+"\">" + "\n <img src= \"https://image.flaticon.com/icons/svg/61/61057.svg\" width=\"24\"/>" + "</tr>");    
                 });
             },
 
@@ -219,10 +219,7 @@
 
 <body onload="loadBlacklist()">
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" onclick="ClearTableAndInput()" data-toggle="modal" data-target="#basicExampleModal">
-        <i class="fas fa-search"></i>
-        Tilføj sange til Blacklist
-    </button>
+
 
     <!-- Modal -->
     <div class="modal fade" id="basicExampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -246,13 +243,13 @@
                             <tr>
                                 <th>Sang</th>
                                 <th>Kunstner</th>
-                                <th>Blacklist Btn</th>
+                                <th>Blacklist</th>
                             </tr>
                         </table>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Luk</button>
                 </div>
             </div>
         </div>
@@ -265,9 +262,20 @@
                 <b>
                     @ViewData["Title"]
                 </b>
+                
             </h1>
+
         </center>
+        <center>
+            <div class="col-md-11">
+    <button type="button" class="btn btn-primary" onclick="ClearTableAndInput()" data-toggle="modal" data-target="#basicExampleModal" style="width:35%; float:right; margin-right:0.5%"> 
+        <i class="fas fa-search"></i>
+        Tilføj sange til Blacklist
+    </button>
+    </div>
+    </center>
         <table id="blacklist">
+<br><br>            
             <tr>
                 <th>Sang</th>
                 <th>Kunstner</th>

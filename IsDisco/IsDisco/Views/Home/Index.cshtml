@@ -146,8 +146,8 @@
                     "<td>" + entry.track["artistName"] + "</td>" + 
                     "<td>" + entry.timestamp + "</td>" +  
                     "<td>" + entry.upvotes.length + "</td>" + 
-                    "<td>" + "<a href=" + "\"" + entry.track.webplayerLink + "\"" + "><img src=\"https:\/\/ninalerche.dk/wp-content/uploads/2018/08/spotify-2-logo-png-transparent.png\"" +  " width=\"24\" height=\"24\" title=\"Åben i spotify\"></a>" + 
-                    "<a href=\"#\" title= \"blacklist song\" onclick=\"blacklist(this, \'" + entry.track["id"] + '\''+ ',' + '\'' + entry.track["songName"] + '\'' + ',' + '\'' + entry.track["artistName"] + '\'' + ',' + '\'' + entry.track["webplayerLink"] + '\'' + ")\">" + 
+                    "<td>" + "<a href=" + "\"" + entry.track.webplayerLink + "\"" + "><img src=\"https:\/\/ninalerche.dk/wp-content/uploads/2018/08/spotify-2-logo-png-transparent.png\"" +  " width=\"24\" height=\"24\" title=\"Åben i Spotify\"></a>" + 
+                    "<a href=\"#\" title= \"Blacklist sang\" onclick=\"blacklist(this, \'" + entry.track["id"] + '\''+ ',' + '\'' + entry.track["songName"] + '\'' + ',' + '\'' + entry.track["artistName"] + '\'' + ',' + '\'' + entry.track["webplayerLink"] + '\'' + ")\">" + 
                     "<img src= \"https://image.flaticon.com/icons/svg/61/61057.svg\" width=\"24\">" + "</td>" + "</a>" + 
                     "<td>" + entry.id + "</td>" + "</tr>");
                 });
@@ -254,8 +254,8 @@ TimeSpan time = DateTime.Now.Subtract(Req.Timestamp);
             <td>@time.Minutes m siden</td>
 }
                 <td> @(Req.UpVotes.Count - 1) </td>
-                <td><a href=@Req.Track.Spotify_webplayer_link target="_blank"><img src="https://ninalerche.dk/wp-content/uploads/2018/08/spotify-2-logo-png-transparent.png" width="24" height="24" title="Åben i spotify"></a>
-                <a href="#" title= "blacklist song" onclick="blacklist(this, '@Req.Track.Title','@Req.Track.Artist','@Req.Track.Track_id', '@Req.Track.Spotify_webplayer_link')">
+                <td><a href=@Req.Track.Spotify_webplayer_link target="_blank"><img src="https://ninalerche.dk/wp-content/uploads/2018/08/spotify-2-logo-png-transparent.png" width="24" height="24" title="Åben i Spotify"></a>
+                <a href="#" title= "Blacklist sang" onclick="blacklist(this, '@Req.Track.Title','@Req.Track.Artist','@Req.Track.Track_id', '@Req.Track.Spotify_webplayer_link')">
                 <img src= "https://image.flaticon.com/icons/svg/61/61057.svg" width="24">
                 
                 </a>

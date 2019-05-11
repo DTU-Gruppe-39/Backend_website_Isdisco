@@ -32,6 +32,10 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 <style>
+    body {
+        background-color: #e9ebee;
+    }
+
     table {
         font-family: arial, sans-serif;
         border-collapse: collapse;
@@ -125,14 +129,14 @@
         @foreach (var Feed in Feedbacks)
         {
             <tr>
-                <th>@Feed.user.Name</th>
+                <th style="padding:2px;">@Feed.user.Name</th>
                 
                 <th><center>Muligheder</center></th>
             </tr>
             <tr>
                 <td>
-                    <div id = "tag">< @Feed.tag ></div>
-                <div id = "message">@Feed.message</div>
+                    <div id = "tag" style="padding:2px;">< @Feed.tag ></div>
+                <div id = "message" style="padding:2px;">@Feed.message</div>
                 </td>
                 <td style="width:100px;"> 
                     <center>
