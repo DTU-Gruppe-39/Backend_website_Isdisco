@@ -1,17 +1,21 @@
 ﻿<Properties StartupConfiguration="{87518F96-DC2A-46DF-988D-A225A6D8DFFD}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="IsDisco/Views/Home/Settings.cshtml">
+  <MonoDevelop.Ide.Workbench ActiveDocument="IsDisco/Controllers/HomeController.cs">
     <Files>
       <File FileName="IsDisco/Program.cs" Line="22" Column="33" />
-      <File FileName="IsDisco/Views/Home/Blacklist.cshtml" Line="1" Column="1" />
+      <File FileName="IsDisco/Views/Home/Blacklist.cshtml" Line="5" Column="37" />
       <File FileName="../../../../usr/local/share/dotnet/sdk/NuGetFallbackFolder/microsoft.aspnetcore.razor.design/2.1.2/build/netstandard2.0/Microsoft.AspNetCore.Razor.Design.CodeGeneration.targets" Line="121" Column="5" />
-      <File FileName="IsDisco/Views/Home/Settings.cshtml" Line="356" Column="39" />
+      <File FileName="IsDisco/Views/Home/Settings.cshtml" Line="1" Column="1" />
       <File FileName="IsDisco/Models/Track.cs" Line="19" Column="14" />
       <File FileName="IsDisco/Views/_ViewStart.cshtml" Line="1" Column="1" />
       <File FileName="IsDisco/Properties/launchSettings.json" Line="1" Column="1" />
       <File FileName="IsDisco/Startup.cs" Line="26" Column="16" />
       <File FileName="IsDisco/Models/Singleton.cs" Line="1" Column="1" />
-      <File FileName="IsDisco/Views/Home/Index.cshtml" Line="1" Column="1" />
-      <File FileName="IsDisco/Views/Home/Livefeed.cshtml" Line="4" Column="3" />
+      <File FileName="IsDisco/Views/Home/Index.cshtml" Line="252" Column="1" />
+      <File FileName="IsDisco/Views/Home/Livefeed.cshtml" Line="1" Column="1" />
+      <File FileName="IsDisco/Views/Home/Feedback.cshtml" Line="4" Column="18" />
+      <File FileName="IsDisco/Views/Home/Admin.cshtml" Line="31" Column="19" />
+      <File FileName="IsDisco/Views/Shared/_Layout.cshtml" Line="36" Column="86" />
+      <File FileName="IsDisco/Controllers/HomeController.cs" Line="37" Column="10" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -22,13 +26,13 @@
                 <Node name="PackageDependencies" expanded="True" />
                 <Node name="SdkDependencies" expanded="True" />
               </Node>
-              <Node name="Controllers" expanded="True" />
+              <Node name="Controllers" expanded="True">
+                <Node name="HomeController.cs" selected="True" />
+              </Node>
               <Node name="Models" expanded="True" />
               <Node name="Properties" expanded="True" />
               <Node name="Views" expanded="True">
-                <Node name="Home" expanded="True">
-                  <Node name="Settings.cshtml" selected="True" />
-                </Node>
+                <Node name="Home" expanded="True" />
                 <Node name="Shared" expanded="True" />
               </Node>
               <Node name="wwwroot" expanded="True">

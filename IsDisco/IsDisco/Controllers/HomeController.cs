@@ -32,6 +32,11 @@ namespace IsDisco.Controllers
             return View();
         }
 
+        public IActionResult Feedback()
+        {
+            return View();
+        }
+
         public IActionResult Settings()
         {
             return View();
