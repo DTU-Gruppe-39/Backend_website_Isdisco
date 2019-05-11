@@ -8,14 +8,10 @@
     Singleton instance = Singleton.getInstance();
     List<User> usrlist = new List<User>();
 
-    //Init lists if they are empty
-
-    //HttpRequestController httpRequest = new HttpRequestController();
-    //  String Reqresp = httpRequest.Get("https://isdisco.azurewebsites.net/api/musicrequest");
+   
     var webclient = new WebClient();
     String Reqresp = webclient.DownloadString("https://isdisco.azurewebsites.net/api/musicrequest");
     var JRequests = JArray.Parse(Reqresp);
- //   JArray JRequests = (JArray)jsonRequests["items"];
     List<Request> requests = new List<Request>();
 
     for (int i = 0; i < JRequests.Count; i++)

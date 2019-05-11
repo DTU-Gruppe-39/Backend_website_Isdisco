@@ -27,7 +27,7 @@
         var artistName = JRequests[i]["track"]["artistName"].ToString();
         var webplayerLink = JRequests[i]["track"]["webplayerLink"].ToString();
         var date = Convert.ToDateTime (JRequests[i]["timestamp"].ToString());
-        Track track = new Track(trackId, thesongName, artistName, webplayerLink);
+        Track track = new Track(thesongName, artistName, trackId, webplayerLink);
         Request Reqs = new Request(ReqId, track, userId, date);
         requests.Add(Reqs);
     }
@@ -210,15 +210,13 @@ function blacklist(x,reqID,trackTitle,trackArtist,trackSpot){
     }
 
                 @{
-   //     something.Sort((x, y) => -x.UpVotes.Count.CompareTo(y.UpVotes.Count));
+        something.Sort((x, y) => -x.UpVotes.Count.CompareTo(y.UpVotes.Count));
                 }
                 @foreach (var Req in something)
     {
             <tr>
-                <!-- <td>@usrlist.Find(x => x.ID == Req.UserId)</td> -->
-                <!-- <td>@Req.Track.Title</td> -->
+                <td>@Req.Track.Title</td>
                 <td>@Req.Track.Artist</td>
-                <td>@Req.Track.Track_id</td>
                 @if (DateTime.Now.Subtract(Req.Timestamp).Seconds < 60 && DateTime.Now.Subtract(Req.Timestamp).Minutes < 1)
     {
         TimeSpan time = DateTime.Now.Subtract(Req.Timestamp);
@@ -232,7 +230,7 @@ TimeSpan time = DateTime.Now.Subtract(Req.Timestamp);
 }
                 <td> @(Req.UpVotes.Count - 1) </td>
                 <td><a href=@Req.Track.Spotify_webplayer_link target="_blank"><img src="https://ninalerche.dk/wp-content/uploads/2018/08/spotify-2-logo-png-transparent.png" width="24" height="24" title="Åben i spotify"></a>
-                <a href="#" title= "blacklist song" onclick="blacklist(this, '@Req.Track.Title','@Req.Track.Artist','@Req.Track.Track_id', '@Req.Track.Spotify_webplayer_link')">
+                <a href="#" title= "blacklist song" onclick="blacklist(this, '@Req.Track.Track_id','@Req.Track.Title','@Req.Track.Artist', '@Req.Track.Spotify_webplayer_link')">
                 <img src= "https://image.flaticon.com/icons/svg/61/61057.svg" width="24">
                 
                 </a>

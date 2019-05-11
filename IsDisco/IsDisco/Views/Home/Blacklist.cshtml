@@ -224,7 +224,7 @@
     <div>
         <br />
         <button type="button" class="btn btn-primary" onclick="ClearTableAndInput()" data-toggle="modal" data-target="#basicExampleModal">
-            <i class="fas fa-search"></i>
+            <i class="fas fa-search"></i>   
             Tilføj sange til Blacklist
         </button>
     </div>
@@ -243,8 +243,6 @@
                     <div class="modal-body">
                         <div>
 
-                            <!-- Search form -->
-                            <!--  <input class="form-control" id="SongName" name="songname" type="text" placeholder="Søg" aria-label="Search"> -->
                             <input class="glyphicon-search" type="text" id="SongName" name="songname" placeholder="Søg" aria-label="Search" onkeyup="if (event.keyCode == 13) { document.getElementById('Search_Btn').click() } " />
                             <button id="Search_Btn" class="btn btn-primary" onclick="Pfunc()"> Søg </button>
                             <table name="Song_Json" id="Song_Json">

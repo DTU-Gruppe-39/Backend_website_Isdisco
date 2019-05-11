@@ -244,16 +244,16 @@ window.onload = function() {
 
                 <table>
                     <tr>
-                        <th>Start/Stop event</th>
+                        <th style="padding-left: 2%">Start/Stop event</th>
                     </tr>
                     <tr>
                         <td>
-                            <button class="btn-primary" onclick="startEvent()" style="height: 45px; background-color: green;">Start event</button>
+                            <button class="btn btn-succes" onclick="startEvent()" style="height: 45px; background-color: lightgreen;">Start event</button>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <button class="btn-primary" onclick="stopEvent()" style="height: 45px;  background-color: indianred;">Stop event</button>
+                            <button class="btn btn-danger" onclick="stopEvent()" style="height: 45px;  background-color: indianred;">Stop event</button>
                         </td>
                     </tr>
                 </table>
@@ -261,10 +261,10 @@ window.onload = function() {
                 <br><br>
                 <table>
                     <tr>
-                        <th>Cooldown (Endnu ikke implementeret)</th>
+                        <th style="padding-left: 2%"> Cooldown (Endnu ikke implementeret)</th>
                     </tr>
                     <tr button class="collapsible" onclick="onOff(1)">
-                        <td>
+                        <td style="padding-left: 3%">
                             <div class="line">
                                 Sang Cooldown
                                 <label class="switch">
@@ -277,10 +277,9 @@ window.onload = function() {
                         </td>
 
                     <tr button class="collapsible">
-                        <td>
+                        <td style="padding-left: 2%">
                             <button class="collapsible" id=author1 runat="server">
-                                Sang
-                                Cooldown
+                                Sang Cooldown
                                 <div class="subText">@time minutter</div>
                             </button>
                             <div class="content">
@@ -303,7 +302,7 @@ window.onload = function() {
                     </tr>
 
                     <tr button class="collapsible" onclick="onOff(2)">
-                        <td>
+                        <td style="padding-left: 3%">
                             <div class="line">
                                 Kunstner Cooldown
                                 <label class="switch">
@@ -317,7 +316,7 @@ window.onload = function() {
                     </tr>
 
                     <tr>
-                        <td>
+                        <td style="padding-left: 2%">
                             <button class="collapsible" id=author1>
                                 Kunstner Cooldown
                                 <div class="subText">@time minutter</div>
@@ -342,19 +341,20 @@ window.onload = function() {
 
             <table>
                 <tr>
-                    <th>Reset</th>
+                    <th style="padding-left: 2%"> Reset</th>
                 </tr>
-                <tr button class="collapsible" onclick="reset()">
+                <tr>
                     <td>
-                        <div class="line">
-                            Ryd alle sange
-                            <div class="subText" id=reseter></div>
-                        </div>
+                            <button class="btn btn-primary" onclick="reset()">
+                                Ryd alle sange
+                            </button>
+                        </td>
+                        
             </table>
             <br />
             <table>
                 <tr>
-                    <th>Notifikationer</th>
+                    <th style="padding-left: 2%">Notifikationer</th>
                 </tr>
                 <tr>
                     <td>
