@@ -1,4 +1,138 @@
-﻿@{
+﻿@using IsDisco.Controllers;
+@using Newtonsoft.Json.Linq;
+@using System.Net;
+
+@{
     ViewData["Title"] = "Feedback";
+    Singleton instance = Singleton.getInstance();
+    instance.InitUsers();
+    List<User> users = new List<User>();
+    users = instance.GetUsers();
+    List<Request> something = new List<Request>();
+    List<User> usrlist = new List<User>();
+    List<Models.FeedbackModel> Feedbacks = new List<Models.FeedbackModel>();
+
+    var webclient = new WebClient();
+    String Reqresp = webclient.DownloadString("https://isdiscof.azurewebsites.net/api/feedback/all");
+    var JFeedback = JArray.Parse(Reqresp);
+  
+
+
+    for (int i = 0; i < JFeedback.Count; i++)
+    {
+        var userId = Convert.ToInt32 (JFeedback[i]["user"]["id"].ToString());
+        var userName = JFeedback[i]["user"]["fullname"].ToString();
+        var userVIP = JFeedback[i]["user"]["vip"].ToString();
+        var tag = JFeedback[i]["tag"].ToString();
+        var message = JFeedback[i]["message"].ToString();
+
+        User user = new User(userName, userId);
+        FeedbackModel Reqs = new FeedbackModel(user, tag, message);
+        Feedbacks.Add(Reqs);
+    }
+    //String Usrresp = httpRequest.Get("https://isdisco.azurewebsites.net/api/user");
+  //  String Usrresp =webclient.DownloadString("https://isdisco.azurewebsites.net/api/user");
+    
+
+ using (var w = new WebClient()) {
+    var json_data = string.Empty;
+    // attempt to download JSON data as a string
+    try {
+      json_data = w.DownloadString("https://isdisco.azurewebsites.net/api/user");
+          var jsonUsrReq = JObject.Parse(json_data);
+              JArray JUsrReq = (JArray)jsonUsrReq["items"];
+
+
+    for (int i = 0; i < JUsrReq.Count; i++)
+    {
+        var userId = Convert.ToInt32(JFeedback[i]["id"].ToString());
+        var userName = JFeedback[i]["fullname"].ToString();
+        User usr = new User(userName,userId);
+        usrlist.Add(usr);
+            //List<Request> requests = new List<Request>();
+    //Init lists if they are empty
+    if (!instance.GetTracks().Any<Track>())
+    {
+        instance.InitTracks();
+        Console.WriteLine("InitTracks");
+
+    }
+
+    }
+    }
+    catch (Exception) {}
+ }
 }
-<h1>TEST Feedback</h1>
+
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+        background-color: white;
+        border-radius: 10px;
+    }
+
+    td, th {
+        border: 2px solid white;
+        text-align: left;
+        height: 60px;
+    }
+
+    th {
+        background-color: whitesmoke;
+        height: 40px;
+    }
+
+
+</style>
+
+
+<body>
+<h1>Feedback</h1>
+
+<table>
+
+             @foreach (var Req in something)
+    {
+            <tr>
+                <!-- <td>@usrlist.Find(x => x.ID == Req.UserId)</td> -->
+                <!-- <td>@Req.Track.Title</td> -->
+                <td>@Req.Track.Artist</td>
+                <td>@Req.Track.Track_id</td>
+                @if (DateTime.Now.Subtract(Req.Timestamp).Seconds < 60 && DateTime.Now.Subtract(Req.Timestamp).Minutes < 1)
+    {
+        TimeSpan time = DateTime.Now.Subtract(Req.Timestamp);
+            <td>@time.Seconds s siden</td>
+
+}
+else if (DateTime.Now.Subtract(Req.Timestamp).Minutes >= 1)
+{
+TimeSpan time = DateTime.Now.Subtract(Req.Timestamp);
+            <td>@time.Minutes m siden</td>
+}
+                <td> @(Req.UpVotes.Count - 1) </td>
+                <td><a href=@Req.Track.Spotify_webplayer_link target="_blank"><img src="https://ninalerche.dk/wp-content/uploads/2018/08/spotify-2-logo-png-transparent.png" width="24" height="24" title="Åben i spotify"></a>
+                <a href="#" title= "blacklist song" onclick="blacklist(this, '@Req.Track.Title','@Req.Track.Artist','@Req.Track.Track_id', '@Req.Track.Spotify_webplayer_link')">
+                <img src= "https://image.flaticon.com/icons/svg/61/61057.svg" width="24">
+                
+                </a>
+                </td>
+            </tr>
+
+} 
+
+<table>
+<tr>
+<th>Navn</th>
+</tr>
+<td>Message</td>
+
+
+
+
+</table>
+
+</body>
