@@ -10,48 +10,27 @@
     users = instance.GetUsers();
     List<Request> something = new List<Request>();
     List<User> usrlist = new List<User>();
-
-    // HttpRequestController httpRequest = new HttpRequestController();
-    // var Reqresp = httpRequest.Get("https://isdisco.azurewebsites.net/api/musicrequest");
+    
     var webclient = new WebClient();
     String Reqresp = webclient.DownloadString("https://isdisco.azurewebsites.net/api/musicrequest");
     var JRequests = JArray.Parse(Reqresp);
     List<Request> requests = new List<Request>();
-   /* for (int i = 0; i < JRequests.Count; i++)
-    {
-        var userId = Convert.ToInt32(JRequests[i].SelectToken("userId").ToString());
-        var ReqId = Convert.ToInt32(JRequests[i].SelectToken("id").ToString());
-        //  var userName = JRequests[i]["request"]["user"]["name"].ToString();
-        var trackId = JRequests[i].SelectToken("track[0].id").ToString();
-        var thesongName = JRequests[i]["track"]["songName"].ToString();
-        var artistName = JRequests[i]["track"]["artistName"].ToString();
-        var webplayerLink = JRequests[i]["track"]["webplayerLink"].ToString();
-        var date = Convert.ToDateTime(JRequests[i]["timestamp"].ToString());
-        //User usr = new User(userName, userId);
-        Track track = new Track(trackId, thesongName, artistName, webplayerLink);
-        Request Reqs = new Request(ReqId, track, userId, date);
-        requests.Add(Reqs);
-    }*/
+  
 
 
     for (int i = 0; i < JRequests.Count; i++)
     {
         var userId = Convert.ToInt32 (JRequests[i]["userId"].ToString());
         var ReqId = Convert.ToInt32(JRequests[i]["id"].ToString());
-        //  var userName = JRequests[i]["request"]["user"]["name"].ToString();
         var trackId = JRequests[i]["track"]["id"].ToString();
         var thesongName = JRequests[i]["track"]["songName"].ToString();
         var artistName = JRequests[i]["track"]["artistName"].ToString();
         var webplayerLink = JRequests[i]["track"]["webplayerLink"].ToString();
         var date = Convert.ToDateTime (JRequests[i]["timestamp"].ToString());
-        //User usr = new User(userName, userId);
         Track track = new Track(trackId, thesongName, artistName, webplayerLink);
         Request Reqs = new Request(ReqId, track, userId, date);
         requests.Add(Reqs);
     }
-    //String Usrresp = httpRequest.Get("https://isdisco.azurewebsites.net/api/user");
-  //  String Usrresp =webclient.DownloadString("https://isdisco.azurewebsites.net/api/user");
-    
 
  using (var w = new WebClient()) {
     var json_data = string.Empty;
@@ -68,8 +47,6 @@
         var userName = JRequests[i]["fullname"].ToString();
         User usr = new User(userName,userId);
         usrlist.Add(usr);
-            //List<Request> requests = new List<Request>();
-    //Init lists if they are empty
     if (!instance.GetTracks().Any<Track>())
     {
         instance.InitTracks();
