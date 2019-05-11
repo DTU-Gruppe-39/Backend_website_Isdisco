@@ -1,12 +1,55 @@
 ﻿@using IsDisco.Controllers;
 @using Newtonsoft.Json.Linq;
 @using System.Net;
+
 @{
     ViewData["Title"] = "Livefeed";
 
     Singleton instance = Singleton.getInstance();
+    List<User> usrlist = new List<User>();
+
+    //Init lists if they are empty
+
+    //HttpRequestController httpRequest = new HttpRequestController();
+    //  String Reqresp = httpRequest.Get("https://isdisco.azurewebsites.net/api/musicrequest");
+    var webclient = new WebClient();
+    String Reqresp = webclient.DownloadString("https://isdisco.azurewebsites.net/api/musicrequest");
+    var JRequests = JArray.Parse(Reqresp);
+ //   JArray JRequests = (JArray)jsonRequests["items"];
+    List<Request> requests = new List<Request>();
+
+    for (int i = 0; i < JRequests.Count; i++)
+    {
+        var userId = Convert.ToInt32 (JRequests[i]["userId"].ToString());
+        var ReqId = Convert.ToInt32(JRequests[i]["id"].ToString());
+        //  var userName = JRequests[i]["request"]["user"]["name"].ToString();
+        var trackId = JRequests[i]["track"]["id"].ToString();
+        var thesongName = JRequests[i]["track"]["songName"].ToString();
+        var artistName = JRequests[i]["track"]["artistName"].ToString();
+        var webplayerLink = JRequests[i]["track"]["webplayerLink"].ToString();
+        var date = Convert.ToDateTime (JRequests[i]["timestamp"].ToString());
+        //User usr = new User(userName, userId);
+        Track track = new Track(trackId, thesongName, artistName, webplayerLink);
+        Request Reqs = new Request(ReqId, track, userId, date);
+        requests.Add(Reqs);
+    }
+
+  using (var w = new WebClient()) {
+    var json_data = string.Empty;
+    // attempt to download JSON data as a string
+    try {
+      json_data = w.DownloadString("https://isdisco.azurewebsites.net/api/user");
+          var jsonUsrReq = JObject.Parse(json_data);
+              JArray JUsrReq = (JArray)jsonUsrReq["items"];
 
 
+    for (int i = 0; i < JUsrReq.Count; i++)
+    {
+        var userId = Convert.ToInt32(JRequests[i]["id"].ToString());
+        var userName = JRequests[i]["fullname"].ToString();
+        User usr = new User(userName,userId);
+        usrlist.Add(usr);
+            //List<Request> requests = new List<Request>();
     //Init lists if they are empty
     if (!instance.GetTracks().Any<Track>())
     {
@@ -14,44 +57,7 @@
         Console.WriteLine("InitTracks");
 
     }
-
-    //HttpRequestController httpRequest = new HttpRequestController();
-    //  String Reqresp = httpRequest.Get("https://isdisco.azurewebsites.net/api/musicrequest");
-    var webclient = new WebClient();
-    var Reqresp = webclient.DownloadString("https://isdisco.azurewebsites.net/api/musicrequest");
-    var jsonRequests = JObject.Parse(Reqresp);
-    JArray JRequests = (JArray)jsonRequests["items"];
-    List<Request> requests = new List<Request>();
-    for (int i = 0; i < JRequests.Count; i++)
-    {
-        var userId = Convert.ToInt32(JRequests[i]["request"]["user"]["id"].ToString());
-        var ReqId = Convert.ToInt32(JRequests[i]["request"]["id"].ToString());
-        //  var userName = JRequests[i]["request"]["user"]["name"].ToString();
-        var trackId = JRequests[i]["request"]["track"]["id"].ToString();
-        var thesongName = JRequests[i]["request"]["track"]["name"].ToString();
-        var artistName = JRequests[i]["request"]["track"]["artists"][0]["name"].ToString();
-        var webplayerLink = JRequests[i]["request"]["track"]["external_urls"]["spotify"].ToString();
-        var date = Convert.ToDateTime(JRequests[i]["request"]["timestamp"].ToString());
-        //User usr = new User(userName, userId);
-        Track track = new Track(trackId, thesongName, artistName, webplayerLink);
-        Request Reqs = new Request(ReqId, track, userId, date);
-        requests.Add(Reqs);
-    }
-
-    String Usrresp = webclient.DownloadString("https://isdisco.azurewebsites.net/api/user");
-    var jsonUsrReq = JObject.Parse(Reqresp);
-    JArray JUsrReq = (JArray)jsonUsrReq["items"];
-    List<User> usrlist = new List<User>();
-    for (int i = 0; i < JUsrReq.Count; i++)
-    {
-        var userId = Convert.ToInt32(JRequests[i]["user"]["id"].ToString());
-        var userName = JRequests[i]["user"]["name"].ToString();
-        User usr = new User(userName, userId);
-        usrlist.Add(usr);
-    }
-
-    /*
-    if (!instance.GetRequests().Any<Request>())
+       if (!instance.GetRequests().Any<Request>())
     {
         instance.InitRequests();
         requests = instance.GetRequests();
@@ -60,7 +66,16 @@
     else
     {
         requests = instance.GetRequests();
-    }*/
+    }
+   }
+    }
+    catch (Exception) {}
+ }
+
+
+
+    
+ 
 
     //Sorts the list so that the newest item is at the top
     requests.Sort((x, y) => -x.Timestamp.CompareTo(y.Timestamp));
@@ -96,6 +111,28 @@
 
 <script>
 
+function loadUser(id){
+      //    alert(id);
+            $.ajax('https://isdisco.azurewebsites.net/api/user/'+id , {
+            crossDomain: 'true',
+            headers:{'Access-Control-Allow-Origin':'*'},
+            method: 'get',
+            data: id,
+            dataType: 'text',
+            contentType: 'application/json',
+            success: function (response) {
+         //       location.reload();
+                var rec = JSON.parse(response);
+                console.log(rec);
+          //      var tracks = rec.Blacklist;
+          //      var table = document.getElementById("blacklist");
+            },
+            error: function (xhr, status, error) {
+                alert(status);
+                alert(xhr.responseText + " " + song);
+            }
+    });
+}
 
 function blacklist(x,reqID,trackTitle,trackArtist,trackSpot){
   var i = x.parentNode.parentNode.rowIndex;
@@ -130,9 +167,9 @@ function blacklist(x,reqID,trackTitle,trackArtist,trackSpot){
         }
     }
 
-
 </script>
 
+<body>
 <center>
     <div class="row">
         <div class="col-sm-12">
@@ -156,9 +193,10 @@ function blacklist(x,reqID,trackTitle,trackArtist,trackSpot){
                     @foreach (Request request in requests)
                     {
                         <tr>
-                            <td>@request.Track.Title</td>
                             <td>@request.Track.Artist</td>
-                            <td>@usrlist.Find(x => x.ID == request.UserId)</td>
+                            <td>@request.Track.Track_id</td>
+                            <td onload="loadUser(@request.Track.Title)"></td>
+                            <!-- <td>@usrlist.Find(x => x.ID == request.UserId)</td> -->
                             @if (DateTime.Now.Subtract(request.Timestamp).Seconds < 60 && DateTime.Now.Subtract(request.Timestamp).Minutes < 1 && DateTime.Now.Subtract(request.Timestamp).Hours < 1)
                             {
                                 TimeSpan time = DateTime.Now.Subtract(request.Timestamp);
@@ -195,3 +233,4 @@ function blacklist(x,reqID,trackTitle,trackArtist,trackSpot){
 </center>
 
 <h3>@ViewData["Message"]</h3>
+</body>
