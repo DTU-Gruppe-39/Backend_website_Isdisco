@@ -138,13 +138,6 @@
         }
 </style>
 
-<script runat="server">
-    private DateTime dt;
-    protected void Page_Load(object sender, EventArgs e)
-    {
-        dt = DateTime.Now;
-    }
-</script>
 
 <script>function onOff(x){
   if(x == 1)
@@ -195,11 +188,37 @@ function reset(){
 }
 
 function startEvent(){
-    alert("Start Event");
+ //   alert("Start Event");
+     $.ajax('https://isdisco.azurewebsites.net/api/settings/start', {
+            crossDomain: 'true',
+            headers: { 'Access-Control-Allow-Origin': '*' },
+            method: 'get',
+            dataType: 'text',
+            contentType: 'application/json',
+            success: function (response) {
+                console.log(response);
+            },
+            error: function (xhr, status, error) {
+                alert(status);
+            }
+        });
 }
 
 function stopEvent(){
-    alert("Stop Event");
+    //alert("Stop Event");
+         $.ajax('https://isdisco.azurewebsites.net/api/settings/stop', {
+            crossDomain: 'true',
+            headers: { 'Access-Control-Allow-Origin': '*' },
+            method: 'get',
+            dataType: 'text',
+            contentType: 'application/json',
+            success: function (response) {
+                console.log(response);
+            },
+            error: function (xhr, status, error) {
+                alert(status);
+            }
+        });
 }
 
     </script>
