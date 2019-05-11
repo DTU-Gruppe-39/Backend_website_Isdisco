@@ -146,8 +146,7 @@
     }
 </script>
 
-<script>
-function onOff(x){
+<script>function onOff(x){
   if(x == 1)
     if(document.getElementById("check").checked == false){
         document.getElementById("check").checked = true;
@@ -193,7 +192,17 @@ function reset(){
   txt = null;
   }
   document.getElementById("reseter").innerHTML = txt;
-}</script>
+}
+
+function startEvent(){
+    alert("Start Event");
+}
+
+function stopEvent(){
+    alert("Stop Event");
+}
+
+    </script>
 
 <head runat="server">
     <script type="text/javascript">
@@ -216,13 +225,16 @@ window.onload = function() {
 
                 <table>
                     <tr>
-                        <th>Spotify</th>
+                        <th>Start/Stop event</th>
                     </tr>
                     <tr>
                         <td>
-                            Spotify bruger
-                            <br>
-                            <div class="subText"> Indstillinger til/fra</div>
+                            <button class="btn-primary" onclick="startEvent()" style="height: 45px; background-color: green;">Start event</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button class="btn-primary" onclick="stopEvent()" style="height: 45px;  background-color: indianred;">Stop event</button>
                         </td>
                     </tr>
                 </table>
