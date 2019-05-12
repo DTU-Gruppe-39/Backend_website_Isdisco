@@ -77,7 +77,7 @@
                 }
                 rec.forEach(function (entry) {
                     console.log("Blacklist: "+ rec["track"]);
-                    $("#blacklist").append("<tr>" + "<td>" + entry.track["songName"] + "</td>" + "<td>" + entry.track["artistName"] + "</td> <td> <button class=\"material-icons\" onclick=\"Remove(this)\" title=\"Fjern fra blacklist\">delete</button> </a> </td>" + "</tr>");
+                    $("#blacklist").append("<tr>" + "<td>" + entry.track["songName"] + "</td>" + "<td>" + entry.track["artistName"] + "</td> <td> <button class=\"material-icons\" onclick=\"Remove(this)\" title=\"Fjern fra blacklist\">delete</button> </a> </td> <td style=\"display:none;\">" +  entry.id + "</td> </tr>");
                 });
             },
             error: function (xhr, status, error) {
@@ -184,7 +184,7 @@
                     var artist = "" + entry.artistName;
                     var webplayer = "" + entry.webplayerLink;
                     console.log("id =" + id + ": \n songname =" + songname + ": \n artist =" + artist + ": \n webplayer =" + webplayer)
-                    $("#Song_Json").append("<tr>" + "<td>" + songname + "</td>" + "<td>" + artist + "</td>" + "<td>" + "<a href=\"#\" title= \"Blacklist sang\" onclick=\"blacklist(this"+ ", '" + id + "', '" + songname + "', '" + artist + "', '" + webplayer + "')"+"\">" + "\n <img src= \"https://image.flaticon.com/icons/svg/61/61057.svg\" width=\"24\"/>" + "</tr>");    
+                    $("#Song_Json").append("<tr>" + "<td>" + songname + "</td>" + "<td>" + artist + "</td>" + "<td>" + "<a href=\"#\" title= \"Blacklist sang\" onclick=\"blacklist(this"+ ", '" + id + "', '" + songname + "', '" + artist + "', '" + webplayer + "') \"> \n <img src= \"https://image.flaticon.com/icons/svg/61/61057.svg\" width=\"24\"/> </td> <td>" +  id + "</td>"  + "</tr>" );    
                 });
             },
 
@@ -224,6 +224,7 @@
                                 <th>Sang</th>
                                 <th>Kunstner</th>
                                 <th>Blacklist</th>
+                                <th style="display:none;">Id</th>
                             </tr>
                         </table>
                     </div>
@@ -260,7 +261,7 @@
                 <th>Sang</th>
                 <th>Kunstner</th>
                 <th style="width:10%">Mulighed</th>
-                <th style="width:10%">ID</th>
+                <th style="width:10%; display:none;">ID</th>
             </tr>
         </table>
     </div>
