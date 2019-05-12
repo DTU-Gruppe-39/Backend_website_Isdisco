@@ -9,7 +9,7 @@
 
 
     var webclient = new WebClient();
-    String Reqresp = webclient.DownloadString("https://isdisco.azurewebsites.net/api/musicrequest");
+    String Reqresp = webclient.DownloadString("https://isdisco.azurewebsites.net/api/musicrequest/live");
     var JRequests = JArray.Parse(Reqresp);
     List<Request> requests = new List<Request>();
 
@@ -75,7 +75,9 @@
 
 
 
-
+<head>
+    <!-- <META HTTP-EQUIV="refresh" CONTENT="15; URL=https://localhost:44375/Home/Livefeed">-->
+</head>
 <style>
     body {
         background-color: #e9ebee;

@@ -217,7 +217,7 @@
                     <div class="modal-body">
                         <div>
 
-                            <input class="glyphicon-search" type="text" id="SongName" name="songname" placeholder="Søg" aria-label="Search" onkeyup="if (event.keyCode == 13) { document.getElementById('Search_Btn').click() } " />
+                            <input class="glyphicon-search" type="text" onload="self.focus" id="SongName" name="songname" placeholder="Søg" aria-label="Search" onkeyup="if (event.keyCode == 13) { document.getElementById('Search_Btn').click() } " />
                             <button id="Search_Btn" class="btn btn-primary" onclick="Pfunc()"> Søg </button>
                         <table name="Song_Json" id="Song_Json">
                             <tr>
