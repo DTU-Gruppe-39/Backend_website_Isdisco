@@ -3,65 +3,65 @@
 @using System.Net;
 
 @{
-            ViewData["Title"] = "Musik Ønsker";
-            Singleton instance = Singleton.getInstance();
-            // instance.InitUsers();
-            List<User> users = new List<User>();
-            // users = instance.GetUsers();
-            List<Request> something = new List<Request>();
-            List<User> usrlist = new List<User>();
+    ViewData["Title"] = "Musik Ønsker";
+    Singleton instance = Singleton.getInstance();
+    // instance.InitUsers();
+    List<User> users = new List<User>();
+    // users = instance.GetUsers();
+    List<Request> something = new List<Request>();
+    List<User> usrlist = new List<User>();
 
-            var webclient = new WebClient();
-            String Reqresp = webclient.DownloadString("https://isdisco.azurewebsites.net/api/musicrequest");
-            var JRequests = JArray.Parse(Reqresp);
-            List<Request> requests = new List<Request>();
+    var webclient = new WebClient();
+    String Reqresp = webclient.DownloadString("https://isdisco.azurewebsites.net/api/musicrequest");
+    var JRequests = JArray.Parse(Reqresp);
+    List<Request> requests = new List<Request>();
 
 
 
-            for (int i = 0; i < JRequests.Count; i++)
-            {
-                List<int> downvotes = new List<int>();
-                List<int> upvotes = new List<int>();
-                List<User> downvoteUsers = new List<User>();
-                List<User> upvoteUsers = new List<User>();
-                var userId = Convert.ToInt32(JRequests[i]["userId"].ToString());
-                var ReqId = Convert.ToInt32(JRequests[i]["id"].ToString());
-                var trackId = JRequests[i]["track"]["id"].ToString();
-                var downNum = JRequests[i]["downvotes"].Count();
-                for (int j = 0; j < downNum; j++)
-                {
-                    downvotes.Add(Convert.ToInt32(JRequests[i]["downvotes"][j].ToString()));
-                }
-                var upNum = JRequests[i]["upvotes"].Count();
-                for (int j = 0; j < upNum; j++)
-                {
-                    upvotes.Add(Convert.ToInt32(JRequests[i]["upvotes"][j].ToString()));
-                }
-                var downUserNum = JRequests[i]["downvoteUsers"].Count();
-                for (int j = 0; j < downUserNum; j++)
-                {
-                    var downUserId = Convert.ToInt32(JRequests[i]["downvoteUsers"][j]["id"].ToString());
-                    var downUserName = JRequests[i]["downvoteUsers"][j]["fullname"].ToString();
-                    User downUsr = new User(downUserName, downUserId);
-                    downvoteUsers.Add(downUsr);
-                }
-                var upUserNum = JRequests[i]["upvoteUsers"].Count();
-                for (int j = 0; j < upUserNum; j++)
-                {
-                    var upUserId = Convert.ToInt32(JRequests[i]["upvoteUsers"][j]["id"].ToString());
-                    var upUserName = JRequests[i]["upvoteUsers"][j]["fullname"].ToString();
-                    User upUsr = new User(upUserName, upUserId);
-                    upvoteUsers.Add(upUsr);
-                }
-                var thesongName = JRequests[i]["track"]["songName"].ToString();
-                var artistName = JRequests[i]["track"]["artistName"].ToString();
-                var webplayerLink = JRequests[i]["track"]["webplayerLink"].ToString();
-                var date = Convert.ToDateTime(JRequests[i]["timestamp"].ToString());
-                Track track = new Track(thesongName, artistName, trackId, webplayerLink);
-                Request Reqs = new Request(ReqId, track, userId, date, downvotes, upvotes, upvoteUsers, downvoteUsers);
-                requests.Add(Reqs);
-            }
-        
+    for (int i = 0; i < JRequests.Count; i++)
+    {
+        List<int> downvotes = new List<int>();
+        List<int> upvotes = new List<int>();
+        List<User> downvoteUsers = new List<User>();
+        List<User> upvoteUsers = new List<User>();
+        var userId = Convert.ToInt32(JRequests[i]["userId"].ToString());
+        var ReqId = Convert.ToInt32(JRequests[i]["id"].ToString());
+        var trackId = JRequests[i]["track"]["id"].ToString();
+        var downNum = JRequests[i]["downvotes"].Count();
+        for (int j = 0; j < downNum; j++)
+        {
+            downvotes.Add(Convert.ToInt32(JRequests[i]["downvotes"][j].ToString()));
+        }
+        var upNum = JRequests[i]["upvotes"].Count();
+        for (int j = 0; j < upNum; j++)
+        {
+            upvotes.Add(Convert.ToInt32(JRequests[i]["upvotes"][j].ToString()));
+        }
+        var downUserNum = JRequests[i]["downvoteUsers"].Count();
+        for (int j = 0; j < downUserNum; j++)
+        {
+            var downUserId = Convert.ToInt32(JRequests[i]["downvoteUsers"][j]["id"].ToString());
+            var downUserName = JRequests[i]["downvoteUsers"][j]["fullname"].ToString();
+            User downUsr = new User(downUserName, downUserId);
+            downvoteUsers.Add(downUsr);
+        }
+        var upUserNum = JRequests[i]["upvoteUsers"].Count();
+        for (int j = 0; j < upUserNum; j++)
+        {
+            var upUserId = Convert.ToInt32(JRequests[i]["upvoteUsers"][j]["id"].ToString());
+            var upUserName = JRequests[i]["upvoteUsers"][j]["fullname"].ToString();
+            User upUsr = new User(upUserName, upUserId);
+            upvoteUsers.Add(upUsr);
+        }
+        var thesongName = JRequests[i]["track"]["songName"].ToString();
+        var artistName = JRequests[i]["track"]["artistName"].ToString();
+        var webplayerLink = JRequests[i]["track"]["webplayerLink"].ToString();
+        var date = Convert.ToDateTime(JRequests[i]["timestamp"].ToString());
+        Track track = new Track(thesongName, artistName, trackId, webplayerLink);
+        Request Reqs = new Request(ReqId, track, userId, date, downvotes, upvotes, upvoteUsers, downvoteUsers);
+        requests.Add(Reqs);
+    }
+
 
 
     /*
@@ -86,7 +86,7 @@
                     Console.WriteLine("InitTracks");
 
                 }
-                
+
                 if (!instance.GetRequests().Any<Request>())
                 {
                     instance.InitRequests();
@@ -104,7 +104,9 @@
     }
 
     @{
-        requests.Sort((x, y) => -(x.UpVotes.Count - x.DownVotes.Count).CompareTo((y.UpVotes.Count - y.DownVotes.Count)));
+        requests.Sort((x, y) => (x.UpVotes.Count - x.DownVotes.Count).CompareTo((y.UpVotes.Count - y.DownVotes.Count)));
+        requests.Reverse();
+        //requests.Sort((x, y) => -(x.UpVotes.Count - x.DownVotes.Count).CompareTo((y.UpVotes.Count - y.DownVotes.Count)));
     }
 
 
