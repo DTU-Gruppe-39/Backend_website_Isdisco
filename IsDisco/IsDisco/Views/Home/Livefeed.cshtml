@@ -8,78 +8,110 @@
     Singleton instance = Singleton.getInstance();
     List<User> usrlist = new List<User>();
 
-   
+
     var webclient = new WebClient();
     String Reqresp = webclient.DownloadString("https://isdisco.azurewebsites.net/api/musicrequest");
     var JRequests = JArray.Parse(Reqresp);
     List<Request> requests = new List<Request>();
 
+    List<int> downvotes = new List<int>();
+    List<int> upvotes = new List<int>();
+    List<User> downvoteUsers = new List<User>();
+    List<User> upvoteUsers = new List<User>();
+
+
+
     for (int i = 0; i < JRequests.Count; i++)
     {
-        var userId = Convert.ToInt32 (JRequests[i]["userId"].ToString());
+        var userId = Convert.ToInt32(JRequests[i]["userId"].ToString());
         var ReqId = Convert.ToInt32(JRequests[i]["id"].ToString());
-        //  var userName = JRequests[i]["request"]["user"]["name"].ToString();
         var trackId = JRequests[i]["track"]["id"].ToString();
+        var downNum = JRequests[i]["downvotes"].Count();
+        for (int j = 0; j < downNum; j++)
+        {
+            downvotes.Add(Convert.ToInt32(JRequests[i]["downvotes"][j].ToString()));
+        }
+        var upNum = JRequests[i]["upvotes"].Count();
+        for (int j = 0; j < upNum; j++)
+        {
+            upvotes.Add(Convert.ToInt32(JRequests[i]["upvotes"][j].ToString()));
+        }
+        var downUserNum = JRequests[i]["downvoteUsers"].Count();
+        for (int j = 0; j < downUserNum; j++)
+        {
+            var downUserId = Convert.ToInt32(JRequests[i]["downvoteUsers"][j]["id"].ToString());
+            var downUserName = JRequests[i]["downvoteUsers"][j]["fullname"].ToString();
+            User downUsr = new User(downUserName, downUserId);
+            downvoteUsers.Add(downUsr);
+        }
+        var upUserNum = JRequests[i]["upvoteUsers"].Count();
+        for (int j = 0; j < upUserNum; j++)
+        {
+            var upUserId = Convert.ToInt32(JRequests[i]["upvoteUsers"][j]["id"].ToString());
+            var upUserName = JRequests[i]["upvoteUsers"][j]["fullname"].ToString();
+            User upUsr = new User(upUserName, upUserId);
+            upvoteUsers.Add(upUsr);
+        }
         var thesongName = JRequests[i]["track"]["songName"].ToString();
         var artistName = JRequests[i]["track"]["artistName"].ToString();
         var webplayerLink = JRequests[i]["track"]["webplayerLink"].ToString();
-        var date = Convert.ToDateTime (JRequests[i]["timestamp"].ToString());
-        //User usr = new User(userName, userId);
-        Track track = new Track(trackId, thesongName, artistName, webplayerLink);
-        Request Reqs = new Request(ReqId, track, userId, date);
+        var date = Convert.ToDateTime(JRequests[i]["timestamp"].ToString());
+        Track track = new Track(thesongName, artistName, trackId, webplayerLink);
+        Request Reqs = new Request(ReqId, track, userId, date, downvotes, upvotes, upvoteUsers, downvoteUsers);
         requests.Add(Reqs);
     }
-
-  using (var w = new WebClient()) {
-    var json_data = string.Empty;
-    // attempt to download JSON data as a string
-    try {
-      json_data = w.DownloadString("https://isdisco.azurewebsites.net/api/user");
-          var jsonUsrReq = JObject.Parse(json_data);
-              JArray JUsrReq = (JArray)jsonUsrReq["items"];
-
-
-    for (int i = 0; i < JUsrReq.Count; i++)
-    {
-        var userId = Convert.ToInt32(JRequests[i]["id"].ToString());
-        var userName = JRequests[i]["fullname"].ToString();
-        User usr = new User(userName,userId);
-        usrlist.Add(usr);
-            //List<Request> requests = new List<Request>();
-    //Init lists if they are empty
-    if (!instance.GetTracks().Any<Track>())
-    {
-        instance.InitTracks();
-        Console.WriteLine("InitTracks");
-
-    }
-       if (!instance.GetRequests().Any<Request>())
-    {
-        instance.InitRequests();
-        requests = instance.GetRequests();
-        Console.WriteLine("InitRequests");
-    }
-    else
-    {
-        requests = instance.GetRequests();
-    }
-   }
-    }
-    catch (Exception) {}
- }
+    /*
+    using (var w = new WebClient()) {
+        var json_data = string.Empty;
+        // attempt to download JSON data as a string
+        try {
+            json_data = w.DownloadString("https://isdisco.azurewebsites.net/api/user");
+            var jsonUsrReq = JObject.Parse(json_data);
+            JArray JUsrReq = (JArray)jsonUsrReq["items"];
 
 
+            for (int i = 0; i < JUsrReq.Count; i++)
+            {
+                var userId = Convert.ToInt32(JRequests[i]["id"].ToString());
+                var userName = JRequests[i]["fullname"].ToString();
+                User usr = new User(userName,userId);
+                usrlist.Add(usr);
+                //List<Request> requests = new List<Request>();
+                //Init lists if they are empty
+                if (!instance.GetTracks().Any<Track>())
+                {
+                    instance.InitTracks();
+                    Console.WriteLine("InitTracks");
 
-    
- 
-
+                }
+                if (!instance.GetRequests().Any<Request>())
+                {
+                    instance.InitRequests();
+                    requests = instance.GetRequests();
+                    Console.WriteLine("InitRequests");
+                }
+                else
+                {
+                    requests = instance.GetRequests();
+                }
+            }
+        }
+        catch (Exception) 
+        */
     //Sorts the list so that the newest item is at the top
     requests.Sort((x, y) => -x.Timestamp.CompareTo(y.Timestamp));
-
     Html.Hidden("MyId", 0);
+    }
 
 
-}
+
+
+
+
+
+
+
+
 
 <style>
     body {
@@ -191,9 +223,9 @@ function blacklist(x,reqID,trackTitle,trackArtist,trackSpot){
                     @foreach (Request request in requests)
                     {
                         <tr>
+                            <td>@request.Track.Title</td>
                             <td>@request.Track.Artist</td>
-                            <td>@request.Track.Track_id</td>
-                            <td >@request.UserId</td>
+                            <td >@request.UpvoteUsers.Find(x => x.ID.Equals(request.UserId)).Name</td>
                             <!-- <td>@usrlist.Find(x => x.ID == request.UserId)</td> -->
                             @if (DateTime.Now.Subtract(request.Timestamp).Seconds < 60 && DateTime.Now.Subtract(request.Timestamp).Minutes < 1 && DateTime.Now.Subtract(request.Timestamp).Hours < 1)
                             {

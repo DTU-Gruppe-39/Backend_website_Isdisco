@@ -11,7 +11,7 @@ namespace IsDisco.Models
         private static List<Request> requests = new List<Request>();
         private List<Track> tracks = new List<Track>();
         private List<BlacklistModel> blacklist = new List<BlacklistModel>();
-        
+
         private List<FeedbackModel> feedback = new List<FeedbackModel>();
         public static Singleton getInstance()
         {
@@ -22,7 +22,7 @@ namespace IsDisco.Models
             return instance;
         }
 
-
+        /*
         public void InitUsers()
         {
             users.Add(new User("Mark", 0));
@@ -124,5 +124,7 @@ namespace IsDisco.Models
         {
             return feedback;
         }
+    }
+    */
     }
 }
