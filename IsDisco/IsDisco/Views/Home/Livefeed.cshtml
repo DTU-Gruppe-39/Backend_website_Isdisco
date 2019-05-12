@@ -5,8 +5,7 @@
 @{
     ViewData["Title"] = "Livefeed";
 
-    Singleton instance = Singleton.getInstance();
-    List<User> usrlist = new List<User>();
+  //  List<User> usrlist = new List<User>();
 
 
     var webclient = new WebClient();
@@ -20,7 +19,7 @@
     List<User> upvoteUsers = new List<User>();
 
 
-
+    // Makes a List<Request> from the Json data from the backend
     for (int i = 0; i < JRequests.Count; i++)
     {
         var userId = Convert.ToInt32(JRequests[i]["userId"].ToString());
@@ -60,46 +59,10 @@
         Request Reqs = new Request(ReqId, track, userId, date, downvotes, upvotes, upvoteUsers, downvoteUsers);
         requests.Add(Reqs);
     }
-    /*
-    using (var w = new WebClient()) {
-        var json_data = string.Empty;
-        // attempt to download JSON data as a string
-        try {
-            json_data = w.DownloadString("https://isdisco.azurewebsites.net/api/user");
-            var jsonUsrReq = JObject.Parse(json_data);
-            JArray JUsrReq = (JArray)jsonUsrReq["items"];
-
-
-            for (int i = 0; i < JUsrReq.Count; i++)
-            {
-                var userId = Convert.ToInt32(JRequests[i]["id"].ToString());
-                var userName = JRequests[i]["fullname"].ToString();
-                User usr = new User(userName,userId);
-                usrlist.Add(usr);
-                //List<Request> requests = new List<Request>();
-                //Init lists if they are empty
-                if (!instance.GetTracks().Any<Track>())
-                {
-                    instance.InitTracks();
-                    Console.WriteLine("InitTracks");
-
-                }
-                if (!instance.GetRequests().Any<Request>())
-                {
-                    instance.InitRequests();
-                    requests = instance.GetRequests();
-                    Console.WriteLine("InitRequests");
-                }
-                else
-                {
-                    requests = instance.GetRequests();
-                }
-            }
-        }
-        catch (Exception) 
-        */
     //Sorts the list so that the newest item is at the top
-    requests.Sort((x, y) => -x.Timestamp.CompareTo(y.Timestamp));
+    // requests.Sort((x, y) => -x.Timestamp.CompareTo(y.Timestamp));
+    requests.Sort((x, y) => x.Timestamp.CompareTo(y.Timestamp));
+    requests.Reverse();
     Html.Hidden("MyId", 0);
     }
 
@@ -226,7 +189,7 @@ function blacklist(x,reqID,trackTitle,trackArtist,trackSpot){
                             <td>@request.Track.Title</td>
                             <td>@request.Track.Artist</td>
                             <td >@request.UpvoteUsers.Find(x => x.ID.Equals(request.UserId)).Name</td>
-                            <!-- <td>@usrlist.Find(x => x.ID == request.UserId)</td> -->
+                            <!-- <td>usrlist.Find(x => x.ID == request.UserId)</td> -->
                             @if (DateTime.Now.Subtract(request.Timestamp).Seconds < 60 && DateTime.Now.Subtract(request.Timestamp).Minutes < 1 && DateTime.Now.Subtract(request.Timestamp).Hours < 1)
                             {
                                 TimeSpan time = DateTime.Now.Subtract(request.Timestamp);

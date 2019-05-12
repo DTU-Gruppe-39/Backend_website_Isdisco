@@ -3,32 +3,10 @@
 @using System.Net;
 @{
     ViewData["Title"] = "Blacklist";
-
-    Singleton instance = Singleton.getInstance();
-
-
-    //instance.InitBlacklist();
     List<BlacklistModel> blacklist = new List<BlacklistModel>();
 
     List<Request> something = new List<Request>();
     List<User> usrlist = new List<User>();
-
-    // HttpRequestController httpRequest = new HttpRequestController();
-    // var Reqresp = httpRequest.Get("https://isdisco.azurewebsites.net/api/musicrequest");
-
-
-    /*
-    if (!instance.GetBlacklist().Any<BlacklistModel>())
-    {
-        instance.InitBlacklist();
-        blacklist = instance.GetBlacklist();
-        Console.WriteLine("InitBlacklist");
-    }
-    else
-    {
-        blacklist = instance.GetBlacklist();
-    }
-    */
 
     /*
      <a href="#" title= "blacklist song" onclick="blacklist(this, '@Request.Track.Track_id','@Request.Track.Title','@Request.Track.Artist', '@Request.Track.Spotify_webplayer_link')">

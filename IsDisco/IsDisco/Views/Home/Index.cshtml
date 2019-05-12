@@ -4,20 +4,15 @@
 
 @{
     ViewData["Title"] = "Musik Ønsker";
-    Singleton instance = Singleton.getInstance();
-    // instance.InitUsers();
-    List<User> users = new List<User>();
-    // users = instance.GetUsers();
-    List<Request> something = new List<Request>();
-    List<User> usrlist = new List<User>();
+    // List<Request> something = new List<Request>();
 
+    // Downloads the music Requests from the backend as a with Json format
     var webclient = new WebClient();
     String Reqresp = webclient.DownloadString("https://isdisco.azurewebsites.net/api/musicrequest");
     var JRequests = JArray.Parse(Reqresp);
     List<Request> requests = new List<Request>();
 
-
-
+    // Makes a List<Request> from the Json data from the backend
     for (int i = 0; i < JRequests.Count; i++)
     {
         List<int> downvotes = new List<int>();
@@ -61,54 +56,11 @@
         Request Reqs = new Request(ReqId, track, userId, date, downvotes, upvotes, upvoteUsers, downvoteUsers);
         requests.Add(Reqs);
     }
-
-
-
-    /*
-    using (var w = new WebClient()) {
-        var json_data = string.Empty;
-        // attempt to download JSON data as a string
-        try {
-            json_data = w.DownloadString("https://isdisco.azurewebsites.net/api/user");
-            var jsonUsrReq = JObject.Parse(json_data);
-            JArray JUsrReq = (JArray)jsonUsrReq["items"];
-
-
-            for (int i = 0; i < JUsrReq.Count; i++)
-            {
-                var userId = Convert.ToInt32(JRequests[i]["id"].ToString());
-                var userName = JRequests[i]["fullname"].ToString();
-                User usr = new User(userName,userId);
-                usrlist.Add(usr);
-                if (!instance.GetTracks().Any<Track>())
-                {
-                    instance.InitTracks();
-                    Console.WriteLine("InitTracks");
-
-                }
-
-                if (!instance.GetRequests().Any<Request>())
-                {
-                    instance.InitRequests();
-                    requests = instance.GetRequests();
-                    Console.WriteLine("InitRequests");
-                }
-                else
-                {
-                    requests = instance.GetRequests();
-                }
-            }
-        }
-        catch (Exception) {}
-    */
-    }
-
-    @{
-        requests.Sort((x, y) => (x.UpVotes.Count - x.DownVotes.Count).CompareTo((y.UpVotes.Count - y.DownVotes.Count)));
-        requests.Reverse();
-        //requests.Sort((x, y) => -(x.UpVotes.Count - x.DownVotes.Count).CompareTo((y.UpVotes.Count - y.DownVotes.Count)));
-    }
-
+    // Sorts the list so the one with most upvotes - downvotes is at the top
+    requests.Sort((x, y) => (x.UpVotes.Count - x.DownVotes.Count).CompareTo((y.UpVotes.Count - y.DownVotes.Count)));
+    requests.Reverse();
+    //requests.Sort((x, y) => -(x.UpVotes.Count - x.DownVotes.Count).CompareTo((y.UpVotes.Count - y.DownVotes.Count)));
+ }
 
 <style>
     body {
@@ -135,42 +87,6 @@
 </style>
 
 <script>
-    function loadRequest() {
-        $.ajax('https://isdisco.azurewebsites.net/api/musicrequest', {
-            crossDomain: 'true',
-            headers: { 'Access-Control-Allow-Origin': '*' },
-            method: 'get',
-            dataType: 'text',
-            contentType: 'application/json',
-            success: function (response) {
-                var rec = JSON.parse(response);
-       //         console.log(rec);
-                var tracks = rec.Blacklist;
-                var table = document.getElementById("myTable");
-                for (var i = table.rows.length - 1; i > 0; i--) {
-                    table.deleteRow(i);
-                }
-                rec.forEach(function (entry) {
-                    console.log("Blacklist: "+ rec["track"]);
-                    $("#myTable").append(
-                    "<tr>" + "<td>" + entry.track["songName"] + "</td>" + 
-                    "<td>" + entry.track["artistName"] + "</td>" + 
-                    "<td>" + entry.timestamp + "</td>" +  
-                    "<td>" + entry.upvotes.length + "</td>" + 
-                    "<td>" + "<a href=" + "\"" + entry.track.webplayerLink + "\"" + "><img src=\"https:\/\/ninalerche.dk/wp-content/uploads/2018/08/spotify-2-logo-png-transparent.png\"" +  " width=\"24\" height=\"24\" title=\"Åben i Spotify\"></a>" + 
-                    "<a href=\"#\" title= \"Blacklist sang\" onclick=\"blacklist(this, \'" + entry.track["id"] + '\''+ ',' + '\'' + entry.track["songName"] + '\'' + ',' + '\'' + entry.track["artistName"] + '\'' + ',' + '\'' + entry.track["webplayerLink"] + '\'' + ")\">" + 
-                    "<img src= \"https://image.flaticon.com/icons/svg/61/61057.svg\" width=\"24\">" + "</td>" + "</a>" + 
-                    "<td>" + entry.id + "</td>" + "</tr>");
-                });
-            },
-            error: function (xhr, status, error) {
-            //    alert(status);
-            //    alert(xhr.responseText + " " + song);
-
-            }
-        });
-    }
-
 function blacklist(x,reqID,trackTitle,trackArtist,trackSpot){
   var i = x.parentNode.parentNode.rowIndex;
 //  var song = document.getElementById("myTable").rows[i].cells.item(1).innerHTML;
@@ -206,7 +122,6 @@ function blacklist(x,reqID,trackTitle,trackArtist,trackSpot){
   } 
 }
 </script>
-<!-- onload="loadRequest()" -->
 <body >
 
 <center>
@@ -215,31 +130,14 @@ function blacklist(x,reqID,trackTitle,trackArtist,trackSpot){
 
         <h1>@ViewData["Title"]</h1>
         <div style="height:72vh;overflow-y:scroll; width: 100%">
-
             <table id="myTable">
-
                 <tr>
-                    <!--  <th>Navn</th> -->
                     <th>Sang</th>
                     <th>Kunstner</th>
                     <th>Tid siden</th>
                     <th>Upvotes</th>
                     <th>Muligheder</th>
                 </tr>
-
-                <!--foreach (var Req in requests)
-    {
-        if (something.Find(x => x.Track.Track_id.Contains(Req.Track.Track_id)) == null)
-        {
-            var query = from Request req in requests
-                        where req.Track.Track_id.Contains(Req.Track.Track_id)
-                        select req;
-            foreach (Request r in query)
-            {
-                Req.UpVotes.Add(r.UserId);
-            }
-            something.Add(Req);
-        }-->
 
                 @foreach (var Req in requests)
                 {
@@ -273,65 +171,3 @@ function blacklist(x,reqID,trackTitle,trackArtist,trackSpot){
         </div>
    </center>
 </body>
-
-<!--
-<div class="row">
-    <div class="col-xl-2">
-        <h2>Application uses</h2>
-        <ul>
-            <li>Sample pages using ASP.NET Core MVC</li>
-            <li>Theming using <a href="https://go.microsoft.com/fwlink/?LinkID=398939">Bootstrap</a></li>
-        </ul>
-    </div>
-    <div class="col-md-3">
-        <h2>How to</h2>
-        <ul>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=398600">Add a Controller and View</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=699315">Manage User Secrets using Secret Manager.</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=699316">Use logging to log a message.</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=699317">Add packages using NuGet.</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=699319">Target development, staging or production environment.</a></li>
-        </ul>
-    </div>
-    <div class="col-md-3">
-        <h2>Overview</h2>
-        <ul>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=518008">Conceptual overview of what is ASP.NET Core</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=699320">Fundamentals of ASP.NET Core such as Startup and middleware.</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=398602">Working with Data</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=398603">Security</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=699321">Client side development</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=699322">Develop on different platforms</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=699323">Read more on the documentation site</a></li>
-        </ul>
-    </div>
-    <div class="col-md-3">
-        <h2>Run &amp; Deploy</h2>
-        <ul>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=517851">Run your app</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=517853">Run tools such as EF migrations and more</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=398609">Publish to Microsoft Azure Web Apps</a></li>
-        </ul>
-    </div>
-</div>
-
-
-
-    dummy table info.
-     <tr>
-        <td>Mark</td>
-        <td>Job</td>
-        <td>Otto</td>
-        <td>10 s</td>
-        <td>mdo</td>
-    </tr>
-    <tr>
-        <td>Job</td>
-        <td>Thomton</td>
-        <td>Thomton</td>
-        <td>30 s</td>
-        <td>fat</td>
-    </tr>
-
-
-    -->

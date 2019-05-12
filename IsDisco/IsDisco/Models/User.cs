@@ -21,24 +21,12 @@ namespace IsDisco.Models
             set;
         }
 
-    /*    public Boolean Requester
-        {
-            get;
-            set;
-        }
-  */
         public User(string Name, int ID)
         {
             this.Name = Name;
             this.ID = ID;
             VIP = false;
-            // Requester = false;
+            
         }
-
-     /*  private void SetVIP()
-        {
-            VIP = true;
-        }
-     */
     }
 }
