@@ -77,7 +77,7 @@
                 }
                 rec.forEach(function (entry) {
                     console.log("Blacklist: "+ rec["track"]);
-                    $("#blacklist").append("<tr>" + "<td>" + entry.track["songName"] + "</td>" + "<td>" + entry.track["artistName"] + "</td> <td> <button class=\"material-icons\" onclick=\"Remove(this)\" title=\"Fjern fra blacklist\">delete</button> </a> </td> <td>" + entry.id + "</td>" + "</tr>");
+                    $("#blacklist").append("<tr>" + "<td>" + entry.track["songName"] + "</td>" + "<td>" + entry.track["artistName"] + "</td> <td> <button class=\"material-icons\" onclick=\"Remove(this)\" title=\"Fjern fra blacklist\">delete</button> </a> </td>" + "</tr>");
                 });
             },
             error: function (xhr, status, error) {
@@ -255,13 +255,11 @@
     </button>
     </div>
     </center>
-        <table id="blacklist">
-<br><br>            
+        <table id="blacklist">           
             <tr>
                 <th>Sang</th>
                 <th>Kunstner</th>
                 <th>Mulighed</th>
-                <th>ID</th>
             </tr>
         </table>
     </div>
