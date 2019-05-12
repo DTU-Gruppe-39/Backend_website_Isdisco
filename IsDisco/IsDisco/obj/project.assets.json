@@ -12001,12 +12001,18 @@
     ]
   },
   "packageFolders": {
+<<<<<<< Updated upstream
     "C:\\Users\\pmads\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\dotnet\\sdk\\NuGetFallbackFolder": {}
+=======
+    "/home/soren/.nuget/packages/": {},
+    "/usr/share/dotnet/sdk/NuGetFallbackFolder": {}
+>>>>>>> Stashed changes
   },
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< Updated upstream
       "projectUniqueName": "C:\\Users\\pmads\\OneDrive\\Documents\\GitHub\\Backend_website_Isdisco\\IsDisco\\IsDisco\\IsDisco.csproj",
       "projectName": "IsDisco",
       "projectPath": "C:\\Users\\pmads\\OneDrive\\Documents\\GitHub\\Backend_website_Isdisco\\IsDisco\\IsDisco\\IsDisco.csproj",
@@ -12019,6 +12025,19 @@
       "configFilePaths": [
         "C:\\Users\\pmads\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+=======
+      "projectUniqueName": "/home/soren/Backend_website_Isdisco/IsDisco/IsDisco/IsDisco.csproj",
+      "projectName": "IsDisco",
+      "projectPath": "/home/soren/Backend_website_Isdisco/IsDisco/IsDisco/IsDisco.csproj",
+      "packagesPath": "/home/soren/.nuget/packages/",
+      "outputPath": "/home/soren/Backend_website_Isdisco/IsDisco/IsDisco/obj/",
+      "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "/usr/share/dotnet/sdk/NuGetFallbackFolder"
+      ],
+      "configFilePaths": [
+        "/home/soren/.nuget/NuGet/NuGet.Config"
+>>>>>>> Stashed changes
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.1"
