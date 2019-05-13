@@ -113,10 +113,9 @@
     }
 
     function filter() {
-       var selec = document.getElementById("selector").selectedIndex;
-     alert("hej")
-            @{ 
-                Reqresp = webclient.DownloadString("https://isdisco.azurewebsites.net/api/feedback/generelt");
+        var selec = document.getElementById("selector").selectedIndex;
+        alert("hej")
+            @{Reqresp = webclient.DownloadString("https://isdisco.azurewebsites.net/api/feedback/generelt");
                 JFeedback = JArray.Parse(Reqresp);
                 for (int i = 0; i < JFeedback.Count; i++)
                 {
@@ -132,6 +131,8 @@
                     Feedbacks.Add(Feeds);
                 } 
               }
+            var table = document.getElementById ("tableFeed");
+            table.refresh();
 
         }
         
@@ -158,7 +159,7 @@
     </select>
     <button onclick="filter()">Filtrer</button>
 
-    <table>
+    <table id="tableFeed">
 
         @foreach (var Feed in Feedbacks)
         {
