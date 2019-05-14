@@ -111,31 +111,6 @@
         });
         }
     }
-
-    function filter() {
-        var selec = document.getElementById("selector").selectedIndex;
-        alert("hej");
-                for (int i = 0; i < Feedbacks.Count; i++)
-                {
-                    switch (Feedbacks[i].tag)
-                        {
-                    case "Generelt":
-                Feedbacks = lstProducts 
-                .Where(x => lstProducts
-                .All(c => c.tag == "Generelt"))
-                .GroupBy(c => c.tag).Select(c => c.First())
-                .ToList();
-                        break;
-                    case "Andet":
-                        break;
-                    default:
-                     
-                    break;
-                } 
-                
-              }
-
-        }
         
 
 </script>
@@ -158,8 +133,8 @@
         <option value="opel">--Andet--</option>
     </select>
     <button onclick="filter()">Filtrer</button>
-
-    <table id="tableFeed"> -->
+    -->
+    <table id="tableFeed"> 
 
         @foreach (var Feed in Feedbacks)
         {
