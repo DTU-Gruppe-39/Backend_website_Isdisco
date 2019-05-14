@@ -12012,11 +12012,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/soren/Backend_website_Isdisco/IsDisco/IsDisco/IsDisco.csproj",
+      "projectUniqueName": "/home/soren/Documents/GIT/Backend_website_Isdisco/IsDisco/IsDisco/IsDisco.csproj",
       "projectName": "IsDisco",
-      "projectPath": "/home/soren/Backend_website_Isdisco/IsDisco/IsDisco/IsDisco.csproj",
+      "projectPath": "/home/soren/Documents/GIT/Backend_website_Isdisco/IsDisco/IsDisco/IsDisco.csproj",
       "packagesPath": "/home/soren/.nuget/packages/",
-      "outputPath": "/home/soren/Backend_website_Isdisco/IsDisco/IsDisco/obj/",
+      "outputPath": "/home/soren/Documents/GIT/Backend_website_Isdisco/IsDisco/IsDisco/obj/",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "/usr/share/dotnet/sdk/NuGetFallbackFolder"
@@ -12073,13 +12073,5 @@
         "warn": true
       }
     }
-  },
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problem reading the cache file /home/soren/Backend_website_Isdisco/IsDisco/IsDisco/obj/IsDisco.csproj.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  }
 }

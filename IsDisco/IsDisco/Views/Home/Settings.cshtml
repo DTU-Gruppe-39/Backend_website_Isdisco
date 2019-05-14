@@ -176,15 +176,22 @@ function onOffCheck(){
 }
 
 function reset(){
-  var txt;
   if(confirm("Vil du slette alle sang anmodninger?")){
   // Reset all song requests
-  txt = "Sange blev slettet"
-  }  else {
-  // Do nothing
-  txt = null;
-  }
-  document.getElementById("reseter").innerHTML = txt;
+       $.ajax('https://isdisco.azurewebsites.net/api/settings/reset', {
+            crossDomain: 'true',
+            headers: { 'Access-Control-Allow-Origin': '*' },
+            method: 'delete',
+            dataType: 'text',
+            contentType: 'application/json',
+            success: function (response) {
+                console.log(response);
+            },
+            error: function (xhr, status, error) {
+                alert(status);
+            }
+        });
+    }
 }
 
 function startEvent(){
