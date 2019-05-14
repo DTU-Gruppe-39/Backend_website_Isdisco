@@ -157,7 +157,7 @@
         document.getElementById("SongName").value = "";
     }
 
-    function Pfunc() {
+    function Search() {
         // 'https://isdisco-web-api.azurewebsites.net/api/spotify-track/search'
         if (document.getElementById("SongName").value == "") {
             return;
@@ -216,7 +216,7 @@
                         <div>
 
                             <input class="glyphicon-search" type="text" onload="self.focus" id="SongName" name="songname" placeholder="Søg" aria-label="Search" onkeyup="if (event.keyCode == 13) { document.getElementById('Search_Btn').click() } " />
-                            <button id="Search_Btn" class="btn btn-primary" onclick="Pfunc()"> Søg </button>
+                            <button id="Search_Btn" class="btn btn-primary" onclick="Search()"> Søg </button>
                         <table name="Song_Json" id="Song_Json">
                             <tr>
                                 <th>Sang</th>
