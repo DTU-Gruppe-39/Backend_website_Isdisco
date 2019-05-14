@@ -114,29 +114,29 @@
 
     function filter() {
         var selec = document.getElementById("selector").selectedIndex;
-        alert("hej")
-            @{Reqresp = webclient.DownloadString("https://isdisco.azurewebsites.net/api/feedback/generelt");
-                JFeedback = JArray.Parse(Reqresp);
-                for (int i = 0; i < JFeedback.Count; i++)
+        alert("hej");
+                for (int i = 0; i < Feedbacks.Count; i++)
                 {
-                    var userId = Convert.ToInt32(JFeedback[i]["user"]["id"].ToString());
-                    var userName = JFeedback[i]["user"]["fullname"].ToString();
-                    var userVIP = JFeedback[i]["user"]["vip"].ToString();
-                    var tag = JFeedback[i]["tag"].ToString();
-                    var message = JFeedback[i]["message"].ToString();
-                    var id = Convert.ToInt32(JFeedback[i]["id"].ToString());
-
-                    User user = new User(userName, userId);
-                    FeedbackModel Feeds = new FeedbackModel(user, tag, message, id);
-                    Feedbacks.Add(Feeds);
+                    switch (Feedbacks[i].tag)
+                        {
+                    case "Generelt":
+                Feedbacks = lstProducts 
+                .Where(x => lstProducts
+                .All(c => c.tag == "Generelt"))
+                .GroupBy(c => c.tag).Select(c => c.First())
+                .ToList();
+                        break;
+                    case "Andet":
+                        break;
+                    default:
+                     
+                    break;
                 } 
+                
               }
-            var table = document.getElementById ("tableFeed");
-            table.refresh();
 
         }
         
-    
 
 </script>
 
@@ -152,14 +152,14 @@
     </center>
 
 
-    <select id="selector">
+    <!-- <select id="selector">
         <option value="volvo">--Generelt--</option>
         <option value="saab">--Event--</option>
         <option value="opel">--Andet--</option>
     </select>
     <button onclick="filter()">Filtrer</button>
 
-    <table id="tableFeed">
+    <table id="tableFeed"> -->
 
         @foreach (var Feed in Feedbacks)
         {

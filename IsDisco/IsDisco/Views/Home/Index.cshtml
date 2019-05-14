@@ -88,9 +88,10 @@
 
 <script>
 function blacklist(x,reqID,trackTitle,trackArtist,trackSpot){
-  var i = x.parentNode.parentNode.rowIndex;
 //  var song = document.getElementById("myTable").rows[i].cells.item(1).innerHTML;
  // var author = document.getElementById("myTable").rows[i].cells.item(2).innerHTML;
+ console.log(trackTitle);
+  // alert( escape(trackTitle));
   var obj = {
       "track": {
         "id":reqID,
@@ -102,7 +103,7 @@ function blacklist(x,reqID,trackTitle,trackArtist,trackSpot){
         "webplayerlink":trackSpot
   }
     };
-     var json = JSON.stringify(obj);
+    var json = JSON.stringify(obj);
   if(confirm("Vil du blackliste denne sang? ")){
   //  alert(reqID+ " " + trackTitle);
     $.ajax('https://isdisco.azurewebsites.net/api/blacklist' , {
@@ -159,7 +160,7 @@ function blacklist(x,reqID,trackTitle,trackArtist,trackSpot){
                         <td> @(Req.UpVotes.Count - Req.DownVotes.Count )</td>
                         <td>
                             <a href=@Req.Track.Spotify_webplayer_link target="_blank"><img src="https://ninalerche.dk/wp-content/uploads/2018/08/spotify-2-logo-png-transparent.png" width="24" height="24" title="Åben i spotify"></a>
-                            <a href="#" title="blacklist song" onclick="blacklist(this, '@Req.Track.Track_id','@Req.Track.Title','@Req.Track.Artist', '@Req.Track.Spotify_webplayer_link')">
+                            <a href="#" accept-charset="utf-8" title="blacklist song"  onclick='blacklist(this, "@Req.Track.Track_id","@Req.Track.Title","@Req.Track.Artist", "@Req.Track.Spotify_webplayer_link")'>
                                 <img src="https://image.flaticon.com/icons/svg/61/61057.svg" width="24">
 
                             </a>

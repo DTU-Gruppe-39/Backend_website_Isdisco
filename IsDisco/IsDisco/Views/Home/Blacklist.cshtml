@@ -116,9 +116,6 @@
     }
 
     function blacklist(x, reqID, trackTitle, trackArtist, trackSpot) {
-        var i = x.parentNode.parentNode.rowIndex;
-        var song = document.getElementById("Song_Json").rows[i].cells.item(0).innerHTML;
-        var author = document.getElementById("Song_Json").rows[i].cells.item(1).innerHTML;
         var obj = {
             "track": {
                 "id": reqID,
@@ -130,8 +127,9 @@
                 "webplayerlink": trackSpot
             }
         };
+        console.log(obj);
         var json = JSON.stringify(obj);
-        if (confirm("Vil du blackliste " + song + " af " + author + "?")) {
+        if (confirm("Vil du blackliste denne sang?")) {
             //  alert(reqID+ " " + trackTitle);
             $.ajax('https://isdisco.azurewebsites.net/api/blacklist', {
                 crossDomain: 'true',
@@ -184,7 +182,7 @@
                     var artist = "" + entry.artistName;
                     var webplayer = "" + entry.webplayerLink;
                     console.log("id =" + id + ": \n songname =" + songname + ": \n artist =" + artist + ": \n webplayer =" + webplayer)
-                    $("#Song_Json").append("<tr>" + "<td>" + songname + "</td>" + "<td>" + artist + "</td>" + "<td>" + "<a href=\"#\" title= \"Blacklist sang\" onclick=\"blacklist(this"+ ", '" + id + "', '" + songname + "', '" + artist + "', '" + webplayer + "') \"> \n <img src= \"https://image.flaticon.com/icons/svg/61/61057.svg\" width=\"24\"/> </td> <td>" +  id + "</td>"  + "</tr>" );    
+                    $("#Song_Json").append("<tr>" + "<td>" + songname + "</td>" + "<td>" + artist + "</td>" + "<td>" + "<a href=\"#\" title= \"Blacklist sang\" accept-charset=\"utf-8\" onclick=\"blacklist(this"+ ", '" + id + "', '" + songname + "', '" + artist + "', '" + webplayer + "') \"> \n <img src= \"https://image.flaticon.com/icons/svg/61/61057.svg\" width=\"24\"/> </td> <td>" +  id + "</td>"  + "</tr>" );    
                 });
             },
 
