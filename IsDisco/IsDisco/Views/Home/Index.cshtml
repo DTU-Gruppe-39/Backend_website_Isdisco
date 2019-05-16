@@ -136,7 +136,7 @@ function blacklist(x,reqID,trackTitle,trackArtist,trackSpot){
                 <tr>
                     <th>Sang</th>
                     <th>Kunstner</th>
-                    <th>Tid siden</th>
+                    <th>Tid ønsket</th>
                     <th>Upvotes</th>
                     <th>Muligheder</th>
                 </tr>
@@ -146,17 +146,21 @@ function blacklist(x,reqID,trackTitle,trackArtist,trackSpot){
                     <tr>
                         <td>@Req.Track.Title</td>
                         <td>@Req.Track.Artist</td>
-                        @if (DateTime.Now.Subtract(Req.Timestamp).Seconds < 60 && DateTime.Now.Subtract(Req.Timestamp).Minutes < 1)
+                        
+                        <!-- @if (DateTime.Now.Subtract(Req.Timestamp).Seconds < 60 && DateTime.Now.Subtract(Req.Timestamp).Minutes < 1)
                         {
                             TimeSpan time = DateTime.Now.Subtract(Req.Timestamp);
-                            <td>@time.Seconds s siden</td>
+                            <td>@Req.Timestamp s siden</td>
 
                         }
                         else if (DateTime.Now.Subtract(Req.Timestamp).Minutes >= 1)
                         {
                             TimeSpan time = DateTime.Now.Subtract(Req.Timestamp);
                             <td>@time.Minutes m siden</td>
-                        }
+                        } -->
+
+                        <td>@Req.Timestamp.Hour : 
+                            @Req.Timestamp.Minute
                         <td> @(Req.UpVotes.Count - Req.DownVotes.Count )</td>
                         <td>
                             <a href=@Req.Track.Spotify_webplayer_link target="_blank"><img src="https://ninalerche.dk/wp-content/uploads/2018/08/spotify-2-logo-png-transparent.png" width="24" height="24" title="Åben i spotify"></a>
