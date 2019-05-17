@@ -1,0 +1,143 @@
+﻿@using IsDisco.Controllers;
+
+@{
+    ViewData["Title"] = "Feedback";
+    List<FeedbackModel> Feedbacks = new List<FeedbackModel>();
+    FeedbackController feedbackController = new FeedbackController();
+    Feedbacks = (List<FeedbackModel>) feedbackController.GetFeedback();
+
+}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+<style>
+    body {
+        background-color: #e9ebee;
+    }
+
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+        background-color: white;
+        border-radius: 10px;
+    }
+
+    td, th {
+        border: 2px solid white;
+        text-align: left;
+        padding-bottom: 10px;
+    }
+
+    th {
+        background-color: #f2efef;
+        height: 43px;
+    }
+
+    .material-icons {
+        align: auto;
+        border: none;
+        background-color: transparent;
+    }
+
+
+
+    #tag {
+        color: grey;
+        font-size: 13px;
+        font-weight: bold;
+    }
+
+    .glyphicon{
+        color: black;
+        align: auto;
+        border: none;
+        background-color: transparent;
+        font-size: 20px;
+    }
+        .glyphicon:hover{
+        color: red;
+        transition: 0.2s;
+        text-decoration: none;
+    }
+    #message{
+        font-weight: bold;
+        padding: 5px;
+    }
+
+</style>
+
+<script>
+    function Remove(id){
+          if(confirm("Vil du fjerne denne feedback")){
+            $.ajax('https://isdisco.azurewebsites.net/api/feedback/delete/'+id , {
+            crossDomain: 'true',
+            headers:{'Access-Control-Allow-Origin':'*'},
+            method: 'delete',
+            data: id,
+            dataType: 'text',
+            contentType: 'application/json',
+            success: function (response) {
+                location.reload();
+                var rec = JSON.parse(response);
+                console.log(rec);
+            },
+            error: function (xhr, status, error) {
+                alert(status);
+            }
+        });
+        }
+    }
+        
+
+</script>
+
+
+<body>
+    <center>
+        <h1>
+            <b>
+                @ViewData["Title"]
+            </b>
+        </h1>
+        <h4>@Feedbacks.Count besvarelser</h4>
+    </center>
+
+
+    <!-- <select id="selector">
+        <option value="volvo">--Generelt--</option>
+        <option value="saab">--Event--</option>
+        <option value="opel">--Andet--</option>
+    </select>
+    <button onclick="filter()">Filtrer</button>
+    -->
+    <table id="tableFeed"> 
+
+        @foreach (var Feed in Feedbacks)
+        {
+            <tr>
+                <th style="padding:2px;">@Feed.user.Name</th>
+
+                <th><center>Muligheder</center></th>
+            </tr>
+            <tr>
+                <td>
+                    <div id="tag" style="padding:2px;">< @Feed.tag ></div>
+                    <div id="message" style="padding:2px;">@Feed.message</div>
+                </td>
+                <td style="width:100px;">
+                    <center>
+                        <a href="#" class="glyphicon glyphicon-remove" onclick="Remove('@Feed.id')" title="Fjern feedback"></a>
+                    </center>
+                </td>
+            </tr>
+            <tr>
+                <td id="message"></td>
+            </tr>
+        }
+
+    </table>
+
+</body>

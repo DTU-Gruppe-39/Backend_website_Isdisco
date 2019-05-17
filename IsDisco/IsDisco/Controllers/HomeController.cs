@@ -15,21 +15,34 @@ namespace IsDisco.Controllers
             return View();
         }
 
-        public IActionResult About()
+        public IActionResult Blacklist()
         {
             ViewData["Message"] = "Your application description page.";
 
             return View();
         }
 
-        public IActionResult Contact()
+        public IActionResult Livefeed()
         {
-            ViewData["Message"] = "Your contact page.";
-
             return View();
         }
 
         public IActionResult Privacy()
+        {
+            return View();
+        }
+
+        public IActionResult Feedback()
+        {
+            return View();
+        }
+
+        public IActionResult Settings()
+        {
+            return View();
+        }
+
+        public IActionResult Admin()
         {
             return View();
         }

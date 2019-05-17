@@ -1,0 +1,168 @@
+﻿@using IsDisco.Controllers;
+
+@{
+    ViewData["Title"] = "Livefeed";
+
+    List<RequestModel> requests = new List<RequestModel>();
+    MusicRequestController musicRequestController = new MusicRequestController();
+    requests = (List<RequestModel>)musicRequestController.GetMusicRequest(true);
+
+    Html.Hidden("MyId", 0);
+    }
+
+<head>
+    <!-- <META HTTP-EQUIV="refresh" CONTENT="15; URL=https://localhost:44375/Home/Livefeed">-->
+</head>
+<style>
+    body {
+        background-color: #e9ebee;
+    }
+
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 95%;
+        background-color: white;
+        border-radius: 10px;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f4f5f4;
+    }
+</style>
+
+<script>
+
+function loadUser(id){
+      //    alert(id);
+            $.ajax('https://isdisco.azurewebsites.net/api/user/'+id , {
+            crossDomain: 'true',
+            headers:{'Access-Control-Allow-Origin':'*'},
+            method: 'get',
+            data: id,
+            dataType: 'text',
+            contentType: 'application/json',
+            success: function (response) {
+         //       location.reload();
+                var rec = JSON.parse(response);
+                console.log(rec);
+          //      var tracks = rec.Blacklist;
+                document.getElementById("user").innerHTML = rec.fullname;
+                
+            },
+            error: function (xhr, status, error) {
+                alert(status);
+                alert(xhr.responseText + " " + song);
+            }
+    });
+}
+
+function blacklist(x,reqID,trackTitle,trackArtist,trackSpot){
+  var i = x.parentNode.parentNode.rowIndex;
+  var song = document.getElementById("songTable").rows[i].cells.item(0).innerHTML;
+  var author = document.getElementById("songTable").rows[i].cells.item(1).innerHTML;
+  var obj = {
+      "track": {
+        "id":reqID,
+        "songName":trackTitle,
+        "artistName":trackArtist,
+        "image_small_url":"",
+        "image_medium_url":"",
+        "image_large_url":"",
+        "webplayerlink":trackSpot
+  }
+    };
+     var json1 = encodeURIComponent(obj)
+     var json = JSON.stringify(obj);
+    
+  if(confirm("Vil du blackliste denne sang?")){
+  //  alert(reqID+ " " + trackTitle);
+      $.ajax('https://isdisco.azurewebsites.net/api/blacklist' , {
+        crossDomain: 'true',
+        headers: {'Access-Control-Allow-Origin':'*'},
+        method: 'post',
+        data: json,
+        dataType: 'text',
+        contentType: 'application/json',
+        success: function (response) {
+            alert(response + "Success");
+        },
+        error: function (xhr, status, error) {
+            alert(status);
+        }
+    });
+  }
+}
+</script>
+
+<body>
+<center>
+    <div class="row">
+        <div class="col-sm-12">
+            <center>
+                <h1>
+                    <b>
+                        @ViewData["Title"]
+                    </b>
+                </h1>
+            </center>
+            <div style="height:80vh;overflow-y:scroll; width: 95%">
+
+                <table id="songTable">
+                    <tr>
+                        <th>Sang</th>
+                        <th>Kunstner</th>
+                        <th>Ønsket af</th>
+                        <th>Hvornår</th>
+                        <th>Muligheder</th>
+                    </tr>
+                    @foreach (RequestModel request in requests)
+                    {
+                        <tr>
+                            <td>@request.Track.Title</td>
+                            <td>@request.Track.Artist</td>
+                            <td >@request.UpvoteUsers.Find(x => x.ID.Equals(request.UserId)).Name</td>
+                            <!-- <td>usrlist.Find(x => x.ID == request.UserId)</td> -->
+                            @if (DateTime.Now.Subtract(request.Timestamp).Seconds < 60 && DateTime.Now.Subtract(request.Timestamp).Minutes < 1 && DateTime.Now.Subtract(request.Timestamp).Hours < 1)
+                            {
+                                TimeSpan time = DateTime.Now.Subtract(request.Timestamp);
+                                <td>@time.Seconds s siden</td>
+
+                            }
+                            else if (DateTime.Now.Subtract(request.Timestamp).Minutes >= 1 && DateTime.Now.Subtract(request.Timestamp).Hours < 1)
+                            {
+                                TimeSpan time = DateTime.Now.Subtract(request.Timestamp);
+
+                                <td>@time.Minutes m siden</td>
+                            }
+                            else if (DateTime.Now.Subtract(request.Timestamp).Hours >= 1)
+                            {
+                                TimeSpan time = DateTime.Now.Subtract(request.Timestamp);
+
+                                <td>Mere end @time.Hours timer siden</td>
+                            }
+                            <td>
+                                <a href=@request.Track.Spotify_webplayer_link target="_blank"> <img src="https://ninalerche.dk/wp-content/uploads/2018/08/spotify-2-logo-png-transparent.png" width="24" height="24" title="Åben i Spotify"></a>
+                                <a href="#" title="Blacklist sang" accept-charset="utf-8" onclick='blacklist(this, "@request.Track.Track_id","@request.Track.Title","@request.Track.Artist", "@request.Track.Spotify_webplayer_link")'>
+                                    <img src="https://image.flaticon.com/icons/svg/61/61057.svg" width="24">
+                                    <!-- <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" id="blacklist"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8 0-1.85.63-3.55 1.69-4.9L16.9 18.31C15.55 19.37 13.85 20 12 20zm6.31-3.1L7.1 5.69C8.45 4.63 10.15 4 12 4c4.42 0 8 3.58 8 8 0 1.85-.63 3.55-1.69 4.9z"/></svg>
+                                    !-->
+                                </a>
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+        </div>
+    </div>
+</center>
+
+<h3>@ViewData["Message"]</h3>
+</body>

@@ -1,0 +1,465 @@
+﻿@model IsDisco.Models.TrackModel
+
+@{
+    ViewData["Title"] = "Indstillinger";
+    Boolean Cooldown = false;
+    decimal time = 15;
+}
+
+
+<style>
+    body {
+        background-color: #e9ebee;
+    }
+
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 50%;
+        background-color: white;
+        border-radius: 10px;
+    }
+
+    td, th {
+        border: 2px solid #f4f5f4;
+        text-align: left;
+        height: 60px;
+    }
+
+    th {
+        background-color: #9f9fa0;
+        height: 40px;
+    }
+
+
+    .subText {
+        margin-top: 5px;
+        font-size: 12px;
+    }
+
+    button {
+        width: 100%;
+    }
+
+    .liner {
+        display: inline-block;
+    }
+
+    input[type=submit] {
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 8px 8px;
+        text-decoration: none;
+        margin: 4px 2px;
+        cursor: pointer;
+    }
+
+
+    .collapsible {
+        cursor: pointer;
+        background-color: white;
+        text-align: left;
+        height: 30px;
+        width: 100%;
+        border: none;
+        text-align: left;
+        outline: none;
+    }
+
+
+
+    .content {
+        padding: 0 18px;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.2s ease-out;
+    }
+
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 60px;
+        height: 34px;
+        float: right;
+    }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 26px;
+        width: 26px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+    input:checked + .slider {
+        background-color: #2196F3;
+    }
+
+    input:focus + .slider {
+        box-shadow: 0 0 1px #2196F3;
+    }
+
+    input:checked + .slider:before {
+        -webkit-transform: translateX(26px);
+        -ms-transform: translateX(26px);
+        transform: translateX(26px);
+    }
+
+    /* Rounded sliders */
+    .slider.round {
+        border-radius: 34px;
+    }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }
+</style>
+
+
+<script>function onOff(x){
+  if(x == 1)
+    if(document.getElementById("check").checked == false){
+        document.getElementById("check").checked = true;
+        onOffCheck();
+    } else {
+        document.getElementById("check").checked = false;
+        onOffCheck();
+    }
+    else {
+        if(document.getElementById("check2").checked == false){
+          document.getElementById("check2").checked = true;
+        document.getElementById("active2").innerHTML = "Til"
+        document.getElementById("author1").disabled = false;
+    } else {
+        document.getElementById("check2").checked = false;
+        document.getElementById("active2").innerHTML = "Fra"
+        document.getElementById("author1").disabled = true;
+    }
+    }
+}
+
+function onOffCheck(){
+  if(document.getElementById("check2").checked == false){
+          document.getElementById("active2").innerHTML = "Fra"
+    } else {
+        document.getElementById("active2").innerHTML = "Til"
+    }
+
+     if(document.getElementById("check").checked == false){
+          document.getElementById("active").innerHTML = "Fra"
+    } else {
+        document.getElementById("active").innerHTML = "Til"
+    }
+}
+
+function reset(){
+  if(confirm("Vil du slette alle sang anmodninger?")){
+  // Reset all song requests
+       $.ajax('https://isdisco.azurewebsites.net/api/settings/reset', {
+            crossDomain: 'true',
+            headers: { 'Access-Control-Allow-Origin': '*' },
+            method: 'delete',
+            dataType: 'text',
+            contentType: 'application/json',
+            success: function (response) {
+                console.log(response);
+            },
+            error: function (xhr, status, error) {
+                alert(status);
+            }
+        });
+    }
+}
+
+function startEvent(){
+ //   alert("Start Event");
+     $.ajax('https://isdisco.azurewebsites.net/api/settings/start', {
+            crossDomain: 'true',
+            headers: { 'Access-Control-Allow-Origin': '*' },
+            method: 'get',
+            dataType: 'text',
+            contentType: 'application/json',
+            success: function (response) {
+                console.log(response);
+            },
+            error: function (xhr, status, error) {
+                alert(status);
+            }
+        });
+}
+
+function stopEvent(){
+    //alert("Stop Event");
+         $.ajax('https://isdisco.azurewebsites.net/api/settings/stop', {
+            crossDomain: 'true',
+            headers: { 'Access-Control-Allow-Origin': '*' },
+            method: 'get',
+            dataType: 'text',
+            contentType: 'application/json',
+            success: function (response) {
+                console.log(response);
+            },
+            error: function (xhr, status, error) {
+                alert(status);
+            }
+        });
+}
+
+    </script>
+
+<head runat="server">
+    <script type="text/javascript">
+window.onload = function() {
+                onOffCheck();
+           }
+           Request["time"]</script>
+</head>
+
+
+<body>
+    <center>
+        <div class="row">
+            <div class="col-lg-12">
+                <h1>
+                    <b>
+                        @ViewData["Title"]
+                    </b>
+                </h1>
+
+                <table>
+                    <tr>
+                        <th style="padding-left: 2%">Start/Stop event</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button class="btn btn-success" onclick="startEvent()" style="height: 45px;">Start event</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button class="btn btn-danger" onclick="stopEvent()" style="height: 45px;  background-color: indianred;">Stop event</button>
+                        </td>
+                    </tr>
+                </table>
+<!-- <br>
+                <table>
+                    <tr>
+                        <th style="padding-left: 2%">Spotify playlist link</th>
+                    </tr>
+                    <tr>
+                        <td style="display:inline;">
+                       <input type="text"  placeholder="playlist link" value="" style="width:80%; height:35px;">
+                       <button class="btn btn-success" style="width:15%; height:auto; float:right;" onclick="" >Søg</button>
+                       </td>
+                    </tr>
+                </table> -->
+
+                <br><br>
+                <table>
+                    <tr>
+                        <th style="padding-left: 2%"> Cooldown (Endnu ikke implementeret)</th>
+                    </tr>
+                    <tr button class="collapsible" onclick="onOff(1)">
+                        <td style="padding-left: 3%">
+                            <div class="line">
+                                Sang Cooldown
+                                <label class="switch">
+                                    <input type="checkbox" id="check">
+                                    <span class="slider round"></span>
+                            </div>
+                            <div class="subText" id="active">
+                            </div>
+                            </label>
+                        </td>
+                      </tr>
+
+                    <tr button class="collapsible">
+                        <td style="padding-left: 2%">
+                            <button class="collapsible" id=author1 runat="server">
+                                Sang Cooldown
+                                <div class="subText">@time minutter</div>
+                            </button>
+                            <div class="content">
+
+                                <br>
+                                <div class="subText">Tidsinterval i minutter</div>
+                                <div class="line">
+
+                                    <form method="post" action="Settings">
+                                        <input type="number" name="time" min="0" step="1"
+                                               id="time">
+                                        <input type="submit" value="Gem">
+                                    </form>
+
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr button class="collapsible" onclick="onOff(2)">
+                        <td style="padding-left: 3%">
+                            <div class="line">
+                                Kunstner Cooldown
+                                <label class="switch">
+                                    <input type="checkbox" id="check2">
+                                    <span class="slider round"></span>
+                            </div>
+                            <div class="subText" id="active2">
+                            </div>
+                            </label>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="padding-left: 2%">
+                            <button class="collapsible" id=author1>
+                                Kunstner Cooldown
+                                <div class="subText">@time minutter</div>
+                            </button>
+                            <div class="content">
+
+                                <br>
+                                <div class="subText">Tidsinterval i minutter</div>
+                                <div class="line">
+                                    <form method="post" action="Settings" runat=server>
+                                        <input type="number" runat="server" name="time1" min="0"
+                                               step="1" id="time">
+                                        <input type="submit" runat="server" value="Gem">
+                                    </form>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <br>
+            </div>
+
+            <table>
+                <tr>
+                    <th style="padding-left: 2%"> Reset</th>
+                </tr>
+                <tr>
+                    <td>
+                            <button class="btn btn-primary" onclick="reset()">
+                                Ryd alle sange
+                            </button>
+                        </td>
+                        
+            </table>
+            <br />
+            <table>
+                <tr>
+                    <th style="padding-left: 2%">Notifikationer</th>
+                </tr>
+                <tr>
+                    <td>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#notifikationModal">
+                            Opret og send en notifikation
+                        </button>
+                    </td>
+                </tr>
+            </table>
+            <!-- Modal -->
+            <div class="modal fade" id="notifikationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Opret en notifikation</h5>
+                        </div>
+                        <form>
+                            <div class="modal-body">
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="notificationTitle">Titel</label>
+                                            <input type="text" class="form-control" id="notificationTitle" placeholder="Indtast titel" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="notificationBody">Brødtekst</label>
+                                            <input type="text" class="form-control" id="notificationBody" placeholder="Indtast brødtekst" required>
+                                        </div>
+                                    </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Afbryd</button>
+                                <button id="savebtn" class="btn btn-primary" type="submit" onclick="pushNotification()">Send til alle brugere</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+    </center>
+
+    <script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.maxHeight){
+      content.style.maxHeight = null;
+    } else {
+      content.style.maxHeight = content.scrollHeight + "px";
+    }
+  });
+}</script>
+
+    <script>
+function pushNotification() {
+        var title = document.getElementById("notificationTitle").value;
+        var msg = document.getElementById("notificationBody").value;
+        var uri = "https://isdisco.azurewebsites.net/api/notifications/pushall?" + "title=" + title + "&" + "msg=" + msg;
+        if (msg != null || title != null) {
+            var res = encodeURI(uri);
+            httpGet(res);
+        }
+    }
+
+    function doStuff(){
+        console.log("Hej");
+    }
+
+    function httpGet(theUrl) {
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open("GET", theUrl, false); // false for synchronous request
+        xmlHttp.send(null);
+        return xmlHttp.responseText;
+    }
+
+    function httpGetAsync(theUrl, callback) {
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function() {
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+            callback(xmlHttp.responseText);
+    }
+    xmlHttp.open("GET", theUrl, true); // true for asynchronous
+    xmlHttp.send(null);
+    }
+
+
+    </script>
+</body>
