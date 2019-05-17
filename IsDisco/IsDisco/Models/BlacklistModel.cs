@@ -3,9 +3,9 @@ namespace IsDisco.Models
 {
     public class BlacklistModel
     {
-        public Track TrackObj { get; set; }
+        public TrackModel TrackObj { get; set; }
 
-        public BlacklistModel(Track TrackObj)
+        public BlacklistModel(TrackModel TrackObj)
         {
             this.TrackObj = TrackObj;
         }

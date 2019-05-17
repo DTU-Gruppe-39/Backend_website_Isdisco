@@ -1,65 +1,14 @@
 ﻿@using IsDisco.Controllers;
-@using Newtonsoft.Json.Linq;
-@using System.Net;
+
 
 @{
     ViewData["Title"] = "Musik Ønsker";
-    // List<Request> something = new List<Request>();
 
-    // Downloads the music Requests from the backend as a with Json format
-    var webclient = new WebClient();
-    String Reqresp = webclient.DownloadString("https://isdisco.azurewebsites.net/api/musicrequest");
-    var JRequests = JArray.Parse(Reqresp);
-    List<Request> requests = new List<Request>();
+    List<RequestModel> requests = new List<RequestModel>();
+    MusicRequestController musicRequestController = new MusicRequestController();
+    requests = (List<RequestModel>)musicRequestController.GetMusicRequest(false);
 
-    // Makes a List<Request> from the Json data from the backend
-    for (int i = 0; i < JRequests.Count; i++)
-    {
-        List<int> downvotes = new List<int>();
-        List<int> upvotes = new List<int>();
-        List<User> downvoteUsers = new List<User>();
-        List<User> upvoteUsers = new List<User>();
-        var userId = Convert.ToInt32(JRequests[i]["userId"].ToString());
-        var ReqId = Convert.ToInt32(JRequests[i]["id"].ToString());
-        var trackId = JRequests[i]["track"]["id"].ToString();
-        var downNum = JRequests[i]["downvotes"].Count();
-        for (int j = 0; j < downNum; j++)
-        {
-            downvotes.Add(Convert.ToInt32(JRequests[i]["downvotes"][j].ToString()));
-        }
-        var upNum = JRequests[i]["upvotes"].Count();
-        for (int j = 0; j < upNum; j++)
-        {
-            upvotes.Add(Convert.ToInt32(JRequests[i]["upvotes"][j].ToString()));
-        }
-        var downUserNum = JRequests[i]["downvoteUsers"].Count();
-        for (int j = 0; j < downUserNum; j++)
-        {
-            var downUserId = Convert.ToInt32(JRequests[i]["downvoteUsers"][j]["id"].ToString());
-            var downUserName = JRequests[i]["downvoteUsers"][j]["fullname"].ToString();
-            User downUsr = new User(downUserName, downUserId);
-            downvoteUsers.Add(downUsr);
-        }
-        var upUserNum = JRequests[i]["upvoteUsers"].Count();
-        for (int j = 0; j < upUserNum; j++)
-        {
-            var upUserId = Convert.ToInt32(JRequests[i]["upvoteUsers"][j]["id"].ToString());
-            var upUserName = JRequests[i]["upvoteUsers"][j]["fullname"].ToString();
-            User upUsr = new User(upUserName, upUserId);
-            upvoteUsers.Add(upUsr);
-        }
-        var thesongName = JRequests[i]["track"]["songName"].ToString();
-        var artistName = JRequests[i]["track"]["artistName"].ToString();
-        var webplayerLink = JRequests[i]["track"]["webplayerLink"].ToString();
-        var date = Convert.ToDateTime(JRequests[i]["timestamp"].ToString());
-        Track track = new Track(thesongName, artistName, trackId, webplayerLink);
-        Request Reqs = new Request(ReqId, track, userId, date, downvotes, upvotes, upvoteUsers, downvoteUsers);
-        requests.Add(Reqs);
-    }
-    // Sorts the list so the one with most upvotes - downvotes is at the top
-    requests.Sort((x, y) => (x.UpVotes.Count - x.DownVotes.Count).CompareTo((y.UpVotes.Count - y.DownVotes.Count)));
-    requests.Reverse();
-    //requests.Sort((x, y) => -(x.UpVotes.Count - x.DownVotes.Count).CompareTo((y.UpVotes.Count - y.DownVotes.Count)));
+
  }
 
 <style>
@@ -164,7 +113,7 @@ function blacklist(x,reqID,trackTitle,trackArtist,trackSpot){
                         <td> @(Req.UpVotes.Count - Req.DownVotes.Count )</td>
                         <td>
                             <a href=@Req.Track.Spotify_webplayer_link target="_blank"><img src="https://ninalerche.dk/wp-content/uploads/2018/08/spotify-2-logo-png-transparent.png" width="24" height="24" title="Åben i spotify"></a>
-                            <a href="#" accept-charset="utf-8" title="blacklist song"  onclick='blacklist(this, "@Req.Track.Track_id","@Req.Track.Title","@Req.Track.Artist", "@Req.Track.Spotify_webplayer_link")'>
+                            <a href="#" accept-charset="utf-8" title="Blacklist sang"  onclick='blacklist(this, "@Req.Track.Track_id","@Req.Track.Title","@Req.Track.Artist", "@Req.Track.Spotify_webplayer_link")'>
                                 <img src="https://image.flaticon.com/icons/svg/61/61057.svg" width="24">
 
                             </a>

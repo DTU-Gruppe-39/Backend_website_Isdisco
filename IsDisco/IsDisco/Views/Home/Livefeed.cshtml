@@ -1,79 +1,14 @@
 ﻿@using IsDisco.Controllers;
-@using Newtonsoft.Json.Linq;
-@using System.Net;
 
 @{
     ViewData["Title"] = "Livefeed";
 
-  //  List<User> usrlist = new List<User>();
+    List<RequestModel> requests = new List<RequestModel>();
+    MusicRequestController musicRequestController = new MusicRequestController();
+    requests = (List<RequestModel>)musicRequestController.GetMusicRequest(true);
 
-
-    var webclient = new WebClient();
-    String Reqresp = webclient.DownloadString("https://isdisco.azurewebsites.net/api/musicrequest/live");
-    var JRequests = JArray.Parse(Reqresp);
-    List<Request> requests = new List<Request>();
-
-    List<int> downvotes = new List<int>();
-    List<int> upvotes = new List<int>();
-    List<User> downvoteUsers = new List<User>();
-    List<User> upvoteUsers = new List<User>();
-
-
-    // Makes a List<Request> from the Json data from the backend
-    for (int i = 0; i < JRequests.Count; i++)
-    {
-        var userId = Convert.ToInt32(JRequests[i]["userId"].ToString());
-        var ReqId = Convert.ToInt32(JRequests[i]["id"].ToString());
-        var trackId = JRequests[i]["track"]["id"].ToString();
-        var downNum = JRequests[i]["downvotes"].Count();
-        for (int j = 0; j < downNum; j++)
-        {
-            downvotes.Add(Convert.ToInt32(JRequests[i]["downvotes"][j].ToString()));
-        }
-        var upNum = JRequests[i]["upvotes"].Count();
-        for (int j = 0; j < upNum; j++)
-        {
-            upvotes.Add(Convert.ToInt32(JRequests[i]["upvotes"][j].ToString()));
-        }
-        var downUserNum = JRequests[i]["downvoteUsers"].Count();
-        for (int j = 0; j < downUserNum; j++)
-        {
-            var downUserId = Convert.ToInt32(JRequests[i]["downvoteUsers"][j]["id"].ToString());
-            var downUserName = JRequests[i]["downvoteUsers"][j]["fullname"].ToString();
-            User downUsr = new User(downUserName, downUserId);
-            downvoteUsers.Add(downUsr);
-        }
-        var upUserNum = JRequests[i]["upvoteUsers"].Count();
-        for (int j = 0; j < upUserNum; j++)
-        {
-            var upUserId = Convert.ToInt32(JRequests[i]["upvoteUsers"][j]["id"].ToString());
-            var upUserName = JRequests[i]["upvoteUsers"][j]["fullname"].ToString();
-            User upUsr = new User(upUserName, upUserId);
-            upvoteUsers.Add(upUsr);
-        }
-        var thesongName = JRequests[i]["track"]["songName"].ToString();
-        var artistName = JRequests[i]["track"]["artistName"].ToString();
-        var webplayerLink = JRequests[i]["track"]["webplayerLink"].ToString();
-        var date = Convert.ToDateTime(JRequests[i]["timestamp"].ToString());
-        Track track = new Track(thesongName, artistName, trackId, webplayerLink);
-        Request Reqs = new Request(ReqId, track, userId, date, downvotes, upvotes, upvoteUsers, downvoteUsers);
-        requests.Add(Reqs);
-    }
-    //Sorts the list so that the newest item is at the top
-    // requests.Sort((x, y) => -x.Timestamp.CompareTo(y.Timestamp));
-    requests.Sort((x, y) => x.Timestamp.CompareTo(y.Timestamp));
-    requests.Reverse();
     Html.Hidden("MyId", 0);
     }
-
-
-
-
-
-
-
-
-
 
 <head>
     <!-- <META HTTP-EQUIV="refresh" CONTENT="15; URL=https://localhost:44375/Home/Livefeed">-->
@@ -187,7 +122,7 @@ function blacklist(x,reqID,trackTitle,trackArtist,trackSpot){
                         <th>Hvornår</th>
                         <th>Muligheder</th>
                     </tr>
-                    @foreach (Request request in requests)
+                    @foreach (RequestModel request in requests)
                     {
                         <tr>
                             <td>@request.Track.Title</td>

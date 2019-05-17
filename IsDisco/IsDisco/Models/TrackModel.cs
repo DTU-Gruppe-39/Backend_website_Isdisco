@@ -1,7 +1,7 @@
 ﻿using System;
 namespace IsDisco.Models
 {
-    public class Track
+    public class TrackModel
     {
 
         public string Title { get; set; }
@@ -14,7 +14,7 @@ namespace IsDisco.Models
         //public Boolean Cooldown { get; set; }
         //public Boolean Blacklist { get; set; }
 
-        public Track(string title, string artist, string track_id, string Spotify_webplayer_link)
+        public TrackModel(string title, string artist, string track_id, string Spotify_webplayer_link)
         {
             this.Title = title;
             this.Artist = artist;
@@ -25,7 +25,7 @@ namespace IsDisco.Models
             //this.Blacklist = blacklist;
         }
 
-        public Boolean Compare(Track track)
+        public Boolean Compare(TrackModel track)
         {
             if (string.Compare(track.Track_id, Track_id) == 0 )
             {

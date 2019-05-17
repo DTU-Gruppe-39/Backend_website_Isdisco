@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace IsDisco.Models
 {
-    public class User
+    public class UserModel
     {
        public string Name
         {
@@ -21,7 +21,7 @@ namespace IsDisco.Models
             set;
         }
 
-        public User(string Name, int ID)
+        public UserModel(string Name, int ID)
         {
             this.Name = Name;
             this.ID = ID;

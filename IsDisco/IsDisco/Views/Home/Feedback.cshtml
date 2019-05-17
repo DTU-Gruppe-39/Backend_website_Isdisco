@@ -1,31 +1,10 @@
 ﻿@using IsDisco.Controllers;
-@using Newtonsoft.Json.Linq;
-@using System.Net;
 
 @{
     ViewData["Title"] = "Feedback";
     List<FeedbackModel> Feedbacks = new List<FeedbackModel>();
-
-    var webclient = new WebClient();
-    String Reqresp = webclient.DownloadString("https://isdisco.azurewebsites.net/api/feedback/all");
-    var JFeedback = JArray.Parse(Reqresp);
-
-
-    for (int i = 0; i < JFeedback.Count; i++)
-    {
-        var userId = Convert.ToInt32(JFeedback[i]["user"]["id"].ToString());
-        var userName = JFeedback[i]["user"]["fullname"].ToString();
-        var userVIP = JFeedback[i]["user"]["vip"].ToString();
-        var tag = JFeedback[i]["tag"].ToString();
-        var message = JFeedback[i]["message"].ToString();
-        var id = Convert.ToInt32(JFeedback[i]["id"].ToString());
-
-        User user = new User(userName, userId);
-        FeedbackModel Feeds = new FeedbackModel(user, tag, message, id);
-        Feedbacks.Add(Feeds);
-    }
-    //String Usrresp = httpRequest.Get("https://isdisco.azurewebsites.net/api/user");
-    //  String Usrresp =webclient.DownloadString("https://isdisco.azurewebsites.net/api/user");
+    FeedbackController feedbackController = new FeedbackController();
+    Feedbacks = (List<FeedbackModel>) feedbackController.GetFeedback();
 
 }
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">

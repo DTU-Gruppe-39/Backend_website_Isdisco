@@ -4,18 +4,18 @@ using System.Collections.Generic;
 
 namespace IsDisco.Models
 {
-    public class Request
+    public class RequestModel
     {
         public int ReqId { get; set; }
-        public Track Track { get; set; }
+        public TrackModel Track { get; set; }
         public int UserId { get; set; }
         public DateTime Timestamp { get; set; }
         public List<int> UpVotes { get; set; }
-        public List<User> UpvoteUsers { get; set; }
+        public List<UserModel> UpvoteUsers { get; set; }
         public List<int> DownVotes { get; set; }
-        public List<User> DownvoteUsers { get; set; }
+        public List<UserModel> DownvoteUsers { get; set; }
 
-        public Request(int reqId, Track track, int userId, DateTime timestamp, List<int> downvotes, List<int> upvotes, List<User> upvoteUsers, List<User> downvoteUsers )
+        public RequestModel(int reqId, TrackModel track, int userId, DateTime timestamp, List<int> downvotes, List<int> upvotes, List<UserModel> upvoteUsers, List<UserModel> downvoteUsers )
         {
             this.ReqId = reqId;
             this.Track = track;
@@ -27,7 +27,7 @@ namespace IsDisco.Models
             this.DownvoteUsers = downvoteUsers;
         }
 
-        public Boolean CompareReq(Request Req)
+        public Boolean CompareReq(RequestModel Req)
         {
             if (Track.Compare(Req.Track))
             {
