@@ -139,7 +139,7 @@
 </style>
 
 
-<script>function onOff(x){
+<script>/*function onOff(x){
   if(x == 1)
     if(document.getElementById("check").checked == false){
         document.getElementById("check").checked = true;
@@ -173,7 +173,7 @@ function onOffCheck(){
     } else {
         document.getElementById("active").innerHTML = "Til"
     }
-}
+}*/
 
 function reset(){
   if(confirm("Vil du slette alle sang anmodninger?")){
@@ -233,7 +233,7 @@ function stopEvent(){
 <head runat="server">
     <script type="text/javascript">
 window.onload = function() {
-                onOffCheck();
+                /*onOffCheck();*/
            }
            Request["time"]</script>
 </head>
@@ -264,96 +264,96 @@ window.onload = function() {
                         </td>
                     </tr>
                 </table>
-<!-- <br>
-                <table>
-                    <tr>
-                        <th style="padding-left: 2%">Spotify playlist link</th>
-                    </tr>
-                    <tr>
-                        <td style="display:inline;">
-                       <input type="text"  placeholder="playlist link" value="" style="width:80%; height:35px;">
-                       <button class="btn btn-success" style="width:15%; height:auto; float:right;" onclick="" >Søg</button>
-                       </td>
-                    </tr>
-                </table> -->
+                <!-- <br>
+        <table>
+            <tr>
+                <th style="padding-left: 2%">Spotify playlist link</th>
+            </tr>
+            <tr>
+                <td style="display:inline;">
+               <input type="text"  placeholder="playlist link" value="" style="width:80%; height:35px;">
+               <button class="btn btn-success" style="width:15%; height:auto; float:right;" onclick="" >Søg</button>
+               </td>
+            </tr>
+        </table> -->
 
                 <br><br>
-                <table>
-                    <tr>
-                        <th style="padding-left: 2%"> Cooldown (Endnu ikke implementeret)</th>
-                    </tr>
-                    <tr button class="collapsible" onclick="onOff(1)">
-                        <td style="padding-left: 3%">
-                            <div class="line">
-                                Sang Cooldown
-                                <label class="switch">
-                                    <input type="checkbox" id="check">
-                                    <span class="slider round"></span>
-                            </div>
-                            <div class="subText" id="active">
-                            </div>
-                            </label>
-                        </td>
-                      </tr>
+                <!--<table>
+            <tr>
+                <th style="padding-left: 2%"> Cooldown (Endnu ikke implementeret)</th>
+            </tr>
+            <tr button class="collapsible" onclick="onOff(1)">
+                <td style="padding-left: 3%">
+                    <div class="line">
+                        Sang Cooldown
+                        <label class="switch">
+                            <input type="checkbox" id="check">
+                            <span class="slider round"></span>
+                    </div>
+                    <div class="subText" id="active">
+                    </div>
+                    </label>
+                </td>
+              </tr>
 
-                    <tr button class="collapsible">
-                        <td style="padding-left: 2%">
-                            <button class="collapsible" id=author1 runat="server">
-                                Sang Cooldown
-                                <div class="subText">@time minutter</div>
-                            </button>
-                            <div class="content">
+            <tr button class="collapsible">
+                <td style="padding-left: 2%">
+                    <button class="collapsible" id=author1 runat="server">
+                        Sang Cooldown
+                        <div class="subText">@time minutter</div>
+                    </button>
+                    <div class="content">
 
-                                <br>
-                                <div class="subText">Tidsinterval i minutter</div>
-                                <div class="line">
+                        <br>
+                        <div class="subText">Tidsinterval i minutter</div>
+                        <div class="line">
 
-                                    <form method="post" action="Settings">
-                                        <input type="number" name="time" min="0" step="1"
-                                               id="time">
-                                        <input type="submit" value="Gem">
-                                    </form>
+                            <form method="post" action="Settings">
+                                <input type="number" name="time" min="0" step="1"
+                                       id="time">
+                                <input type="submit" value="Gem">
+                            </form>
 
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
+                        </div>
+                    </div>
+                </td>
+            </tr>
 
-                    <tr button class="collapsible" onclick="onOff(2)">
-                        <td style="padding-left: 3%">
-                            <div class="line">
-                                Kunstner Cooldown
-                                <label class="switch">
-                                    <input type="checkbox" id="check2">
-                                    <span class="slider round"></span>
-                            </div>
-                            <div class="subText" id="active2">
-                            </div>
-                            </label>
-                        </td>
-                    </tr>
+            <tr button class="collapsible" onclick="onOff(2)">
+                <td style="padding-left: 3%">
+                    <div class="line">
+                        Kunstner Cooldown
+                        <label class="switch">
+                            <input type="checkbox" id="check2">
+                            <span class="slider round"></span>
+                    </div>
+                    <div class="subText" id="active2">
+                    </div>
+                    </label>
+                </td>
+            </tr>
 
-                    <tr>
-                        <td style="padding-left: 2%">
-                            <button class="collapsible" id=author1>
-                                Kunstner Cooldown
-                                <div class="subText">@time minutter</div>
-                            </button>
-                            <div class="content">
+            <tr>
+                <td style="padding-left: 2%">
+                    <button class="collapsible" id=author1>
+                        Kunstner Cooldown
+                        <div class="subText">@time minutter</div>
+                    </button>
+                    <div class="content">
 
-                                <br>
-                                <div class="subText">Tidsinterval i minutter</div>
-                                <div class="line">
-                                    <form method="post" action="Settings" runat=server>
-                                        <input type="number" runat="server" name="time1" min="0"
-                                               step="1" id="time">
-                                        <input type="submit" runat="server" value="Gem">
-                                    </form>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
+                        <br>
+                        <div class="subText">Tidsinterval i minutter</div>
+                        <div class="line">
+                            <form method="post" action="Settings" runat=server>
+                                <input type="number" runat="server" name="time1" min="0"
+                                       step="1" id="time">
+                                <input type="submit" runat="server" value="Gem">
+                            </form>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>-->
                 <br>
             </div>
 
@@ -363,14 +363,14 @@ window.onload = function() {
                 </tr>
                 <tr>
                     <td>
-                            <button class="btn btn-primary" onclick="reset()">
-                                Ryd alle sange
-                            </button>
-                        </td>
-                        
+                        <button class="btn btn-primary" onclick="reset()">
+                            Ryd alle sange
+                        </button>
+                    </td>
+
             </table>
             <br />
-            <table>
+            <!--<table>
                 <tr>
                     <th style="padding-left: 2%">Notifikationer</th>
                 </tr>
@@ -381,9 +381,9 @@ window.onload = function() {
                         </button>
                     </td>
                 </tr>
-            </table>
+            </table>-->
             <!-- Modal -->
-            <div class="modal fade" id="notifikationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <!--<div class="modal fade" id="notifikationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -391,16 +391,16 @@ window.onload = function() {
                         </div>
                         <form>
                             <div class="modal-body">
-                                    <div class="form-row">
-                                        <div class="form-group">
-                                            <label for="notificationTitle">Titel</label>
-                                            <input type="text" class="form-control" id="notificationTitle" placeholder="Indtast titel" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="notificationBody">Brødtekst</label>
-                                            <input type="text" class="form-control" id="notificationBody" placeholder="Indtast brødtekst" required>
-                                        </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="notificationTitle">Titel</label>
+                                        <input type="text" class="form-control" id="notificationTitle" placeholder="Indtast titel" required>
                                     </div>
+                                    <div class="form-group">
+                                        <label for="notificationBody">Brødtekst</label>
+                                        <input type="text" class="form-control" id="notificationBody" placeholder="Indtast brødtekst" required>
+                                    </div>
+                                </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Afbryd</button>
@@ -409,27 +409,30 @@ window.onload = function() {
                         </form>
                     </div>
                 </div>
-            </div>
-    </center>
+            </div>-->
+</center>
 
     <script>
-var coll = document.getElementsByClassName("collapsible");
-var i;
+    /*
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
 
-for (i = 0; i < coll.length; i++) {
-  coll[i].addEventListener("click", function() {
-    this.classList.toggle("active");
-    var content = this.nextElementSibling;
-    if (content.style.maxHeight){
-      content.style.maxHeight = null;
-    } else {
-      content.style.maxHeight = content.scrollHeight + "px";
+    for (i = 0; i < coll.length; i++) {
+      coll[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        if (content.style.maxHeight){
+          content.style.maxHeight = null;
+        } else {
+          content.style.maxHeight = content.scrollHeight + "px";
+        }
+      });
     }
-  });
-}</script>
+    */
+    </script>
 
     <script>
-function pushNotification() {
+/*function pushNotification() {
         var title = document.getElementById("notificationTitle").value;
         var msg = document.getElementById("notificationBody").value;
         var uri = "https://isdisco.azurewebsites.net/api/notifications/pushall?" + "title=" + title + "&" + "msg=" + msg;
@@ -437,11 +440,8 @@ function pushNotification() {
             var res = encodeURI(uri);
             httpGet(res);
         }
-    }
+    }*/
 
-    function doStuff(){
-        console.log("Hej");
-    }
 
     function httpGet(theUrl) {
         var xmlHttp = new XMLHttpRequest();

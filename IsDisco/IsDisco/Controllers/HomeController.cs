@@ -15,22 +15,22 @@ namespace IsDisco.Controllers
             return View();
         }
 
-        public IActionResult Blacklist()
+        /*public IActionResult Blacklist()
         {
             ViewData["Message"] = "Your application description page.";
 
             return View();
-        }
+        }*/
 
         public IActionResult Livefeed()
         {
             return View();
         }
 
-        public IActionResult Privacy()
+        /*public IActionResult Privacy()
         {
             return View();
-        }
+        }*/
 
         public IActionResult Feedback()
         {
@@ -42,10 +42,10 @@ namespace IsDisco.Controllers
             return View();
         }
 
-        public IActionResult Admin()
+        /*public IActionResult Admin()
         {
             return View();
-        }
+        }*/
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
